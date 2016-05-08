@@ -5,6 +5,6 @@
 | 作用        | 相关方法           | 备注  
 | ------------- |:-------------:| ----- 
 | View坐标      | getLeft(),getTop(),getRight(),getBottom() | View左上角顶点相对于父布局的左侧和顶部距离，右下角顶点相对于父布局的左侧和顶部距离 |
-| MotionEvent坐标      | getX(),getY(),getRawX(),getRawY() |   getX(),getY()相对于原点的位置坐标，getRawX(),getRawY()相对于屏幕的位置坐标 |
+| MotionEvent坐标      | getX(),getY(),getRawX(),getRawY() |   getX(),getY()相对于当前view的位置坐标，getRawX(),getRawY()相对于屏幕的位置坐标 |
 | 弧度、角度      | toRadians(double angdeg),toDegrees(double angrad) |   toRadians角度转换为近似相等的弧度，toDegrees弧度转换为近似相等的角度| 
 | 颜色      | Color.argb(透明度，红，绿，蓝)) |   颜色从透明到不透明，颜色从浅到深，都用从0x00到0xff表示|
