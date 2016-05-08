@@ -2,7 +2,8 @@
 **效果图如下：**</br>
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="GitHub" title="GitHub,Social Coding"/><br>
 ## 一、涉及知识</br>
-作用 | 相关方法 | 备注</br>
---- | --- | ---</br>
-坐标系 | getTop | View自身坐标 </br>
-
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
