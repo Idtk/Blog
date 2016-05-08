@@ -3,6 +3,6 @@
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="GitHub" title="GitHub,Social Coding"/><br>
 ## 一、涉及知识</br>
 作用 | 相关方法 | 备注</br>
--—— | -—— | -—— </br>
+--- | --- | ---</br>
 坐标系 | getTop | View自身坐标 </br>
 
