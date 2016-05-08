@@ -4,4 +4,4 @@
 ## 一、涉及知识</br>
 | 作用        | 相关方法           | 备注  |
 | ------------- |:-------------:| -----:|
-| View坐标      | getLeft(),getTop(),getRight(),getBottom() | View相对于父布局的坐标系 |
+| View坐标      | getLeft(),getTop(),getRight(),getBottom() | View相对于父布局的坐标 |
