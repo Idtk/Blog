@@ -1,2 +1,2 @@
 # Blog-BackUp  
-http://www.idtkm.com 博客备份
+ [博客](http://www.idtkm.com)备份
