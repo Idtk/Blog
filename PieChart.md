@@ -73,7 +73,11 @@ attrs:自定义默认属性
    </declare-styleable>
 </resources>
 ```
+```Java
+PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
+```
 defStyleAttr:自定义默认风格
 一般放置于res/values/attrs.xml中的attribute中，
+<br>
 defStyleRes:自定义默认风格
 一般放置于res/values/styles.xml中的resource中，
