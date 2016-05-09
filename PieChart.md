@@ -11,6 +11,7 @@
 |         | onSizeChanged  |   确定View的大小|
 | 绘制     | onDraw  |   实际绘制View的内容|
 | 事件处理     | onTouchEvent  |   处理屏幕触摸事件|
+| 重绘     | invalidate  |   调用ondraw方法，重绘view中变化的部分|
 <br>
 **坐标、弧度、颜色**<br>
 
@@ -42,3 +43,37 @@
 | 文字对齐方式      | setTextAlign |   左对齐(LEFT),居中对齐(CENTER),右对齐(RIGHT) |
 | 宽度      | setStrokeWidth |   设置画笔宽度 |
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
+<br>
+（**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
+## 一、绘制过程<br>
+### 1、构造函数
+&nbsp;&nbsp;构造函数用于读取一些参数、属性对View进行初始化操作<br>
+&nbsp;&nbsp;View的构造函数有四种重载方法，分别如下:<br>
+```Java
+public PieChart(Context context) {}
+public PieChart(Context context, AttributeSet attrs) {}
+public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {}
+public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
+```
+context:上下文
+一般新建是调用
+```Java
+PieChart mPieChart = new PieChart(this);
+```
+attrs:自定义默认属性
+一般放置于res/values/attrs.xml中的declare-styleable中，如：
+```xml
+<resources>
+   <declare-styleable name="PieChart">
+       <attr name="showText" format="boolean" />
+       <attr name="labelPosition" format="enum">
+           <enum name="left" value="0"/>
+           <enum name="right" value="1"/>
+       </attr>
+   </declare-styleable>
+</resources>
+```
+defStyleAttr:自定义默认风格
+一般放置于res/values/attrs.xml中的attribute中，
+defStyleRes:自定义默认风格
+一般放置于res/values/styles.xml中的resource中，
