@@ -17,14 +17,13 @@
 | ------------- |:-------------:| -----   |  
 | 绘制图形      | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为绘制点、直线、矩形、圆角矩形、椭圆、圆、扇形 |
 | 绘制文本      | drawText, drawPosText, drawTextOnPath |    依次为绘制文字、指定每个字符位置绘制文字、根据路径绘制文字|
-| Canvas变换      | translate, scale, rotate, skew |   依次为Canvas平移、缩放、旋转、倾斜（错切） |
+| Canvas变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
 </br>
 **Paint常用方法**</br>
 
 | 作用        | API           | 备注  |
 | ------------- |:-------------:| -----   | 
-| 颜色      | setColor,setARGB，setAlpha，setColorFilter | 
-依次为设置画笔颜色、透明度，色彩过滤器 |
+| 颜色      | setColor,setARGB，setAlpha，setColorFilter | 依次为设置画笔颜色、透明度，色彩过滤器 |
 | 类型      | setStyle |   填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE) |
 | 抗锯齿      | setAntiAlias |   画笔是否抗锯齿 |
 | 字体大小      | setTextSize |   设置字体大小 |
