@@ -76,8 +76,8 @@ attrs:自定义默认属性
 ```Java
 PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
 ```
-defStyleAttr:自定义默认风格
-一般放置于res/values/attrs.xml中的attribute中，
+defStyleAttr:自定义默认主题
+一般放置于res/values/attrs.xml中的attribute中，提供默认值为当前主题的属性
 <br>
 defStyleRes:自定义默认风格
 一般放置于res/values/styles.xml中的resource中，**只有当defStyleAttr无效时，才会使用这个值**
