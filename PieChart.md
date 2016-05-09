@@ -2,7 +2,7 @@
 **效果图如下：**<br>
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="GitHub" title="GitHub,Social Coding"/><br>
 ## 一、涉及知识<br>
-**View中的坐标、弧度、颜色**<br>
+**坐标、弧度、颜色**<br>
 
 | 作用        | API名           | 备注  |
 | ------------- |:-------------:| -----|
@@ -11,7 +11,7 @@
 | 弧度、角度      | toRadians,toDegrees |   toRadians角度转换为近似相等的弧度，toDegrees弧度转换为近似相等的角度| 
 | 颜色      | Color.argb(透明度，红，绿，蓝)) |   颜色从透明到不透明，或从浅到深，都用0x00到0xff表示|
 <br>
-**Canvas常用方法**</br>
+**Canvas涉及方法**</br>
 
 | 作用        | API           | 备注   |  
 | ------------- |:-------------:| -----   |  
@@ -19,7 +19,7 @@
 | 绘制文本      | drawText, drawPosText, drawTextOnPath |    依次为绘制文字、指定每个字符位置绘制文字、根据路径绘制文字|
 | Canvas变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
 </br>
-**Paint常用方法**</br>
+**Paint涉及方法**</br>
 
 | 作用        | API           | 备注  |
 | ------------- |:-------------:| -----   | 
