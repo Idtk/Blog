@@ -55,12 +55,12 @@ public PieChart(Context context, AttributeSet attrs) {}
 public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {}
 public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
 ```
-context:上下文
+**context:**上下文
 一般新建是调用
 ```Java
 PieChart mPieChart = new PieChart(this);
 ```
-attrs:自定义默认属性
+**attrs:**自定义默认属性
 一般放置于res/values/attrs.xml中的declare-styleable中，如：
 ```xml
 <resources>
@@ -76,7 +76,7 @@ attrs:自定义默认属性
 ```Java
 PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
 ```
-defStyleAttr:自定义默认主题
+**defStyleAttr:**自定义默认主题
 一般放置于res/values/attrs.xml中的attribute中，提供默认主题,如:
 ```xml
 <attr name="customViewStyle" format="reference" /> 
@@ -89,7 +89,7 @@ defStyleAttr:自定义默认主题
 </style>  
 ```
 <br>
-defStyleRes:自定义默认风格
+*defStyleRes:*自定义默认风格
 一般放置于res/values/styles.xml中的resource中，**只有当defStyleAttr无效时，才会使用这个值**,如：
 ```xml
 <style name="xml_style">  
