@@ -81,11 +81,11 @@ PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
 ```xml
 <attr name="customViewStyle" format="reference" /> 
 ```
-在styles.xml文件中
+引用在styles.xml文件中
 ```xml
 <style name="customviewstyle">  
-    <item name="tittle">attr3 from custom_view_style</item>  
-    <item name="textsize">attr4 from custom_view_style</item>  
+    <item name="tittle">tittle</item>  
+    <item name="textsize">textsize</item>  
 </style>  
 ```
 <br>
@@ -93,7 +93,7 @@ PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
 一般放置于res/values/styles.xml中的resource中，*只有当defStyleAttr无效时，才会使用这个值*,如：
 ```xml
 <style name="xml_style">  
-    <item name="ponitsize">attr3 from custom_view_style</item>  
-    <item name="touchflag">attr4 from custom_view_style</item>  
+    <item name="ponitsize">ponitsize</item>  
+    <item name="touchflag">touchflag</item>  
 </style>  
 ```
