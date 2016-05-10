@@ -77,7 +77,23 @@ attrs:自定义默认属性
 PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
 ```
 defStyleAttr:自定义默认主题
-一般放置于res/values/attrs.xml中的attribute中，提供默认值为当前主题的属性
+一般放置于res/values/attrs.xml中的attribute中，提供默认主题,如:
+```xml
+<attr name="customViewStyle" format="reference" /> 
+```
+在styles.xml文件中
+```xml
+<style name="customviewstyle">  
+    <item name="tittle">attr3 from custom_view_style</item>  
+    <item name="textsize">attr4 from custom_view_style</item>  
+</style>  
+```
 <br>
 defStyleRes:自定义默认风格
-一般放置于res/values/styles.xml中的resource中，**只有当defStyleAttr无效时，才会使用这个值**
+一般放置于res/values/styles.xml中的resource中，**只有当defStyleAttr无效时，才会使用这个值**,如：
+```xml
+<style name="xml_style">  
+    <item name="ponitsize">attr3 from custom_view_style</item>  
+    <item name="touchflag">attr4 from custom_view_style</item>  
+</style>  
+```
