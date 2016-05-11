@@ -311,7 +311,7 @@ public boolean onTouchEvent(MotionEvent event) {
 | ACTION_MOVE    | 手指移动  |
 | ACTION_UP      | 手指抬起  |
 <br>
-**效果如下:**<br>
+**事件效果如下:**<br>
 <img src="http://upload-images.jianshu.io/upload_images/623378-34fd10214730ea5f.gif?imageMogr2/auto-orient/strip" alt="GitHub" title="GitHub,Social Coding"/><br>
 在MotionEvent中有两组可以获得触摸位置的函数
 ```Java
