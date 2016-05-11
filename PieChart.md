@@ -173,9 +173,9 @@ BaseChart: attr3 =>attr3 from BaseChartStyle
 BaseChart: attr4 =>null
 BaseChart: attr5 =>null
 ```
-attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
-attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 attr2 from xml<br>
-attr3:仅在默认主题base_chart_style中进行了设置，所以输出为 attr3 from BaseChartStyle<br>
+attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
+attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 *attr2 from xml*<br>
+attr3:仅在默认主题base_chart_style中进行了设置，所以输出为 *attr3 from BaseChartStyle*<br>
 在布局文件中增加自定义的style
 ```xml
 <com.customview.BaseChart
@@ -193,10 +193,10 @@ BaseChart: attr3 =>attr3 from xml_style
 BaseChart: attr4 =>attr4 from xml_style
 BaseChart: attr5 =>null
 ```
-attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
-attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 attr2 from xml<br>
-attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 attr3 from xml_style<br>
-attr4:仅在自定义主题xml_style中进行了设置，所以输出为 attr4 from xml_style<br>
+attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
+attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 *attr2 from xml*<br>
+attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 *attr3 from xml_style*<br>
+attr4:仅在自定义主题xml_style中进行了设置，所以输出为 *attr4 from xml_style*<br>
 修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
 ```java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0 ,R.style.base_chart_res);
@@ -209,8 +209,8 @@ BaseChart: attr3 =>attr3 from xml_style
 BaseChart: attr4 =>attr4 from xml_style
 BaseChart: attr5 =>attr5 =>attr5 from base_chart_res
 ```
-attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
-attr2:仅在布局文件中进行了设置，所以输出为 attr2 from xml<br>
-attr3:仅在自定义主题xml_style中进行了设置，所以输出为 attr3 from xml_style<br>
-attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 attr4 from xml_style<br>
-attr5:仅在defStyleRes中进行了设置,所以输出为 attr5 from base_chart_res<br>
+attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
+attr2:仅在布局文件中进行了设置，所以输出为 *attr2 from xml*<br>
+attr3:仅在自定义主题xml_style中进行了设置，所以输出为 *attr3 from xml_style*<br>
+attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 *attr4 from xml_style*<br>
+attr5:仅在defStyleRes中进行了设置,所以输出为 *attr5 from base_chart_res*<br>
