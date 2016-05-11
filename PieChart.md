@@ -253,11 +253,12 @@ public static class MeasureSpec {
 }
 ```
 可以看出**MeasureSpec代表一个32的int值，高2位代表测量模式SpecMode，低30位代表测量值SpecSize**。拥有3种测量模式，分别为**UNSPECIFIED、EXACTLY、AT_MOST**。<br>
-| 测量类型     |  对应数值  |描述  |
-| ----------- |:-------------:|:-----|
+
+| 测量类型        | 对应数值           |描述  |
+| ------------- |:-------------:|-----|
 | UNSPECIFIED | 0  |   父容器不对 view 有任何限制，要多大给多大 |
-| EXACTLY     | 1  |   父容器已经检测出 view 所需要的大小,类似于|
-| AT_MOST     | 2  |   父容器指定了一个大小， view 的大小不能大于这个值|
+| EXACTLY     | 1  |   父容器已经检测出 view 所需要的大小,类似于 |
+| AT_MOST     | 2  |   父容器指定了一个大小， view 的大小不能大于这个值 |
 
 ======
 ### 3、onLayout
