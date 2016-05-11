@@ -6,7 +6,7 @@
 
 | 类别        | API           |描述  |
 | ------------- |:-------------:|-----|
-| 布局     | onMeasure  |  确定View与Child View的大小 |
+| 布局     | onMeasure  |  测量View与Child View的大小 |
 |         | onLayout  |   确定Child View的位置|
 |         | onSizeChanged  |   确定View的大小|
 | 绘制     | onDraw  |   实际绘制View的内容|
@@ -207,3 +207,5 @@ attr2:仅在布局文件中进行了设置，所以输出为 *attr2 from xml*<br
 attr3:仅在自定义主题xml_style中进行了设置，所以输出为 *attr3 from xml_style*<br>
 attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 *attr4 from xml_style*<br>
 attr5:仅在defStyleRes中进行了设置,所以输出为 *attr5 from base_chart_res*<br>
+### 2、onMeasure
+View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小
