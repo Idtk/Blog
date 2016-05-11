@@ -59,37 +59,150 @@ public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defSt
 ```Java
 PieChart mPieChart = new PieChart(this);
 ```
-**attrs:**自定义默认属性，一般放置于res/values/attrs.xml中的declare-styleable中，如：
+**attrs:**默认属性，告诉系统需要获取那些属性的值，如：
+在attrs.xml中添加
 ```xml
-<resources>
-   <declare-styleable name="PieChart">
-       <attr name="showText" format="boolean" />
-       <attr name="labelPosition" format="enum">
-           <enum name="left" value="0"/>
-           <enum name="right" value="1"/>
-       </attr>
-   </declare-styleable>
-</resources>
+<declare-styleable name="base_chart">
+	<attr name="attr1" format="string" />
+    <attr name="attr2" format="string"/>
+    <attr name="attr3" format="string"/>
+    <attr name="attr4" format="string"/>
+    <attr name="attr5" format="string"/>
+</declare-styleable>
 ```
-```Java
-PieChart mPieChart = new PieChart(this,R.attrs.PieChart);
-```
-**defStyleAttr:**自定义默认主题，一般放置于res/values/attrs.xml中的attribute中，提供默认主题,如:
+**defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:
+在attrs.xml中添加
 ```xml
-<attr name="customViewStyle" format="reference" /> 
+<attr name="base_chart_style" format="reference" />
 ```
-引用在styles.xml文件中
+引用的是styles.xml文件中
 ```xml
-<style name="customviewstyle">  
-    <item name="tittle">tittle</item>  
-    <item name="textsize">textsize</item>  
-</style>  
+<style name="base_chart_style">
+	<item name="attr2">@string/attr2</item>
+    <item name="attr3">@string/attr3</item>
+</style>
+```
+在当前默认主题中添加这个style
+```xml
+<style name="AppTheme"parent="Theme.AppCompat.Light.DarkActionBar">
+	...
+	<item name="base_chart_style">@stylebase_chart_style</item>
+	...
+</style>
 ```
 <br>
-**defStyleRes:**自定义默认风格，一般放置于res/values/styles.xml中的resource中，*只有当defStyleAttr无效时，才会使用这个值*,如：
+**defStyleRes:**默认风格，*只有当defStyleAttr无效时，才会使用这个值*,如：
+在style.xml中添加
 ```xml
-<style name="xml_style">  
-    <item name="ponitsize">ponitsize</item>  
-    <item name="touchflag">touchflag</item>  
-</style>  
+<style name="base_chart_res">
+	<item name="attr4">attr4 from base_chart_res</item>
+    <item name="attr5">attr5 from base_chart_res</item>
+</style>
 ```
+<br>
+新建BaseChart类机成自view
+```java
+public class BaseChart extends View {
+
+    private String TAG = "BaseChart";
+    public BaseChart(Context context) {
+        this(context,null);
+    }
+
+    public BaseChart(Context context, AttributeSet attrs) {
+        this(context, attrs,R.attr.base_chart_style);
+    }
+
+    public BaseChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        this(context, attrs, defStyleAttr,R.style.base_chart_res);
+    }
+
+    public BaseChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0,0);
+        Log.d(TAG,"attr1 =>" + array.getString(R.styleable.base_chart_attr1));
+        Log.d(TAG,"attr2 =>" + array.getString(R.styleable.base_chart_attr2));
+        Log.d(TAG,"attr3 =>" + array.getString(R.styleable.base_chart_attr3));
+        Log.d(TAG,"attr4 =>" + array.getString(R.styleable.base_chart_attr4));
+        Log.d(TAG,"attr5 =>" + array.getString(R.styleable.base_chart_attr5));
+    }
+```
+obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)方法参数<br>
+AttributeSet set这个参数直接将构造方法中的参数传入即可<br>
+Int[] attrs这个参数实际上是获取的我们在attr文件中声明的declare-styleable的name属性<br>
+defStyleAttr，这个是我们在attr中定义的一个属性<attr name=”base_chart_style” format=”reference”></attr><br>
+defStyleRes，这个参数是我们样式文件中定义的一个样式引用<br>
+设置布局文件:
+```xml
+<com.customview.BaseChart
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:attr1="attr1 from xml"
+    app:attr2="attr2 from xml"/>
+```
+defStyleAttr与defStyleRes参数先设置为0,运行后显示如下:
+```
+BaseChart: attr1 =>attr1 from xml
+BaseChart: attr2 =>attr2 from xml
+BaseChart: attr3 =>null
+BaseChart: attr4 =>null
+BaseChart: attr5 =>null
+```
+attr1与attr2输出均来自布局文件的设置<br>
+修改BaseView.java设置，引入defStyleAttr:
+```java
+TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, defStyleAttr,0);
+```
+相当于在布局文件中设置:
+```xml
+app:theme="@style/base_chart_style"
+```
+运行后显示如下:
+```
+BaseChart: attr1 =>attr1 from xml
+BaseChart: attr2 =>attr2 from xml
+BaseChart: attr3 =>attr3 from BaseChartStyle
+BaseChart: attr4 =>null
+BaseChart: attr5 =>null
+```
+attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
+attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 attr2 from xml<br>
+attr3:仅在默认主题base_chart_style中进行了设置，所以输出为 attr3 from BaseChartStyle<br>
+在布局文件中增加自定义的style
+```xml
+<com.customview.BaseChart
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:attr1="attr1 from xml"
+    app:attr2="attr2 from xml"
+    style="@style/xml_style"/>
+```
+运行后结果如下:
+```
+BaseChart: attr1 =>attr1 from xml
+BaseChart: attr2 =>attr2 from xml
+BaseChart: attr3 =>attr3 from xml_style
+BaseChart: attr4 =>attr4 from xml_style
+BaseChart: attr5 =>null
+```
+attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
+attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 attr2 from xml<br>
+attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 attr3 from xml_style<br>
+attr4:仅在自定义主题xml_style中进行了设置，所以输出为 attr4 from xml_style<br>
+修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
+```java
+TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0 ,R.style.base_chart_res);
+```
+运行后输入结果如下:
+```
+BaseChart: attr1 =>attr1 from xml
+BaseChart: attr2 =>attr2 from xml
+BaseChart: attr3 =>attr3 from xml_style
+BaseChart: attr4 =>attr4 from xml_style
+BaseChart: attr5 =>attr5 =>attr5 from base_chart_res
+```
+attr1:仅在布局文件中设置，所以输出为 attr1 from xml<br>
+attr2:仅在布局文件中进行了设置，所以输出为 attr2 from xml<br>
+attr3:仅在自定义主题xml_style中进行了设置，所以输出为 attr3 from xml_style<br>
+attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 attr4 from xml_style<br>
+attr5:仅在defStyleRes中进行了设置,所以输出为 attr5 from base_chart_res<br>
