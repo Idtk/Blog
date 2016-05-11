@@ -127,7 +127,7 @@ public class BaseChart extends View {
         Log.d(TAG,"attr5 =>" + array.getString(R.styleable.base_chart_attr5));
     }
 ```
-obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)新增加的3个属性说明如下:<br>
+obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)新增加的attrs属性说明如下:<br>
 **attrs:**默认属性，告诉系统需要获取那些属性的值，如：<br>
 在attrs.xml中添加
 ```xml
