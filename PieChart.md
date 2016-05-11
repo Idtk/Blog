@@ -50,24 +50,25 @@
 &nbsp;&nbsp;构造函数用于读取一些参数、属性对View进行初始化操作<br>
 &nbsp;&nbsp;View的构造函数有四种重载方法，分别如下:<br>
 ```Java
-public PieChart(Context context) {}
-public PieChart(Context context, AttributeSet attrs) {}
-public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {}
-public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
+public BaseChart(Context context) {}
+public BaseChart(Context context, AttributeSet attrs) {}
+public BaseChart(Context context, AttributeSet attrs, int defStyleAttr) {}
+public BaseChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
 ```
 **context:**上下文，新建时传入,如:
 ```java
-PieChart pieChart = new PieChart(this);
+BaseChart baseChart = new BaseChart(this);
 ```
 **AttributeSet:**是节点的属性集合,如:
-```java
-<com.customview.PieChart
+```xml
+<com.customview.BaseChart
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
 ```
 即com.customview.PieChart节点中的属性集合<br>
+****
 **defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:<br>
 在attrs.xml中添加
 ```xml
@@ -98,7 +99,7 @@ PieChart pieChart = new PieChart(this);
 </style>
 ```
 <br>
-***一个实例***<br>
+###一个实例——BaseChart<br>
 新建BaseChart类机成自view
 ```java
 public class BaseChart extends View {
@@ -138,7 +139,7 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
     <attr name="attr5" format="string"/>
 </declare-styleable>
 ```
-设置布局文件:
+设置布局文件如上:
 ```xml
 <com.customview.BaseChart
     android:layout_width="match_parent"
@@ -146,6 +147,7 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
 ```
+使用之前提到的xml文件中的属性设置
 defStyleAttr与defStyleRes参数先设置为0,运行后显示如下:
 ```
 BaseChart: attr1 =>attr1 from xml
