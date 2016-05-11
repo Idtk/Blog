@@ -67,8 +67,8 @@ PieChart pieChart = new PieChart(this);
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
 ```
-AttributeSet即com.customview.PieChart节点中的属性集合
-***一个实例***
+AttributeSet即com.customview.PieChart节点中的属性集合<br>
+***一个实例***<br>
 新建BaseChart类机成自view
 ```java
 public class BaseChart extends View {
