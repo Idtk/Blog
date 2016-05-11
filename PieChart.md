@@ -57,19 +57,17 @@ public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defSt
 ```
 **context:**上下文，新建时传入,如:
 ```java
-BaseChart baseChart = new BaseChart(this);
+PieChart pieChart = new PieChart(this);
 ```
 **AttributeSet:**是节点的属性集合,如:
 ```java
-<com.customview.BaseChart
+<com.customview.PieChart
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
 ```
-```Java
-PieChart mPieChart = new PieChart(this);
-```
+AttributeSet即com.customview.PieChart节点中的属性集合
 ***一个实例***
 新建BaseChart类机成自view
 ```java
