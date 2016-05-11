@@ -294,4 +294,30 @@ protected void onDraw(Canvas canvas) {
 
 ======
 ### 6、其他方法以及监听回调
-如onTouchEvent、invalidate、setOnTouchListener等方法。
+如onTouchEvent、invalidate、setOnTouchListener等方法。<br>
+onTouchEvent用于处理传递到的View手势事件。
+```Java
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+	return super.onTouchEvent(event);
+}
+```
+当返回**true**时，说明该View消耗了触摸事件，后续的触摸事件也由它来进行处理。返回**false**时，说明该View对触摸事件不感兴趣，事件继续传递下去。<br>
+触屏事件类型被封装在MotionEvent中，MotionEvent提供了很多类型的事件，主要关心如下几种类型:<br>
+
+| 事件类型        | 描述  |
+| ------------- |-----|
+| ACTION_DOWN    | 手指按下  |
+| ACTION_MOVE    | 手指移动  |
+| ACTION_UP      | 手指抬起  |
+<br>
+**效果如下:**<br>
+<img src="http://upload-images.jianshu.io/upload_images/623378-34fd10214730ea5f.gif?imageMogr2/auto-orient/strip" alt="GitHub" title="GitHub,Social Coding"/><br>
+在MotionEvent中有两组可以获得触摸位置的函数
+```Java
+event.getX();
+event.getY();
+event.getRawX();
+event.getRawY();
+```
+具体的含义会在接下来的坐标系部分进行讲解。
