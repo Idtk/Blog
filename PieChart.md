@@ -207,5 +207,90 @@ attr2:仅在布局文件中进行了设置，所以输出为 *attr2 from xml*<br
 attr3:仅在自定义主题xml_style中进行了设置，所以输出为 *attr3 from xml_style*<br>
 attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 *attr4 from xml_style*<br>
 attr5:仅在defStyleRes中进行了设置,所以输出为 *attr5 from base_chart_res*<br>
+
 ### 2、onMeasure
-View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小
+View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小。<br>
+可以从onMeasure中取出宽高及其他属性:
+```Java
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    //Width
+    int widthMode = MeasureSpec.getMode(widthMeasureSpec);//宽度值
+    int widthSize = MeasureSpec.getSize(widthMeasureSpec);//宽度测量模式
+    //Height
+    int heightMode = MeasureSpec.getMode(heightMeasureSpec);//高度值
+    int heightSize = MeasureSpec.getSize(heightMeasureSpec);//高度测量模式
+}
+```
+由此可见**widthMeasureSpec, heightMeasureSpec**并不仅仅是宽高的值，还对应了宽高的测量模式。<br>
+MeasureSpec是View内部的一个静态类，下面给出它的部分源码:
+```Java
+public static class MeasureSpec {
+	private static final int MODE_SHIFT = 30;
+    private static final int MODE_MASK  = 0x3 << MODE_SHIFT;
+    public static final int UNSPECIFIED = 0 << MODE_SHIFT;
+    public static final int EXACTLY     = 1 << MODE_SHIFT;
+    public static final int AT_MOST     = 2 << MODE_SHIFT;
+    public static int makeMeasureSpec(int size, int mode) {
+		if (sUseBrokenMakeMeasureSpec) {
+			return size + mode;
+        } else {
+            return (size & ~MODE_MASK) | (mode & MODE_MASK);
+				}
+        }
+	}
+
+	public static int getMode(int measureSpec) {
+    	return (measureSpec & MODE_MASK);
+    }
+
+    public static int getSize(int measureSpec) {
+        return (measureSpec & ~MODE_MASK);
+    }
+	
+	...
+}
+```
+可以看出**MeasureSpec代表一个32的int值，高2位代表测量模式SpecMode，低30位代表测量值SpecSize**。拥有3种测量模式，分别为**UNSPECIFIED、EXACTLY、AT_MOST**。<br>
+| 测量类型     |  对应数值  |描述  |
+| ----------- |:-------------:|:-----|
+| UNSPECIFIED | 0  |   父容器不对 view 有任何限制，要多大给多大 |
+| EXACTLY     | 1  |   父容器已经检测出 view 所需要的大小,类似于|
+| AT_MOST     | 2  |   父容器指定了一个大小， view 的大小不能大于这个值|
+
+======
+### 3、onLayout
+用于确定View以及其子View的布局位置，在ViewGroup中，当位置被确定后，它在onLayout中会遍历所有的child并调用其layout，然后layout内部会再调用child的onLayout确定child View的布局位置。<br>
+```Java
+@Override
+protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+	super.onLayout(changed, left, top, right, bottom);
+}
+```
+**l, t, r, b**四个参数分别对应于函数**getLeft,getTop,getRight,getBottom**，这些函数的会在坐标系中进行说明。<br>
+
+======
+### 4、onSizeChanged
+如其名，在View大小改变时调用此函数，用于确定View的大小。至于View大小为什么会改变，因为View的大小不仅由本身确定，同时还受父View的影响。
+```Java
+@Override
+protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	super.onSizeChanged(w, h, oldw, oldh);
+}
+```
+这里的**w、h**就是确定后的宽高值，如果查看View中的onLayoutChange也会看到类似的情况，拥有l, t, r, b, oldL, oldT, oldR, oldB，新旧两组参数。
+
+======
+### 5、onDraw
+onDraw是View的绘制部分，给了我们一张空白的画布，使用Canvas进行绘制。也是后面几篇文章所要分享的内容。
+```Java
+@Override
+protected void onDraw(Canvas canvas) {
+	super.onDraw(canvas);
+}
+```
+
+======
+### 6、其他方法以及监听回调
+如onTouchEvent、invalidate、setOnTouchListener等方法。
