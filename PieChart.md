@@ -68,7 +68,7 @@ BaseChart baseChart = new BaseChart(this);
     app:attr2="attr2 from xml"/>
 ```
 即com.customview.PieChart节点中的属性集合<br>
-****
+<br>
 **defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:<br>
 在attrs.xml中添加
 ```xml
@@ -139,16 +139,8 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
     <attr name="attr5" format="string"/>
 </declare-styleable>
 ```
-设置布局文件如上:
-```xml
-<com.customview.BaseChart
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:attr1="attr1 from xml"
-    app:attr2="attr2 from xml"/>
-```
-使用之前提到的xml文件中的属性设置
-defStyleAttr与defStyleRes参数先设置为0,运行后显示如下:
+使用上面提到的变量属性和布局文件<br>
+### a、defStyleAttr与defStyleRes参数先设置为0,运行后显示如下:
 ```
 BaseChart: attr1 =>attr1 from xml
 BaseChart: attr2 =>attr2 from xml
@@ -157,7 +149,7 @@ BaseChart: attr4 =>null
 BaseChart: attr5 =>null
 ```
 attr1与attr2输出均来自布局文件的设置<br>
-修改BaseView.java设置，引入defStyleAttr:
+### b、修改BaseView.java设置，引入defStyleAttr:
 ```java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, defStyleAttr,0);
 ```
@@ -176,7 +168,7 @@ BaseChart: attr5 =>null
 attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
 attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 *attr2 from xml*<br>
 attr3:仅在默认主题base_chart_style中进行了设置，所以输出为 *attr3 from BaseChartStyle*<br>
-在布局文件中增加自定义的style
+### c、在布局文件中增加自定义的style
 ```xml
 <com.customview.BaseChart
 	android:layout_width="match_parent"
@@ -197,7 +189,7 @@ attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
 attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 *attr2 from xml*<br>
 attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 *attr3 from xml_style*<br>
 attr4:仅在自定义主题xml_style中进行了设置，所以输出为 *attr4 from xml_style*<br>
-修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
+### d、修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
 ```java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0 ,R.style.base_chart_res);
 ```
