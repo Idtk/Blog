@@ -56,7 +56,9 @@ public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {}
 public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
 ```
 **context:**上下文，新建时传入,如:
+```java
 BaseChart baseChart = new BaseChart(this);
+```
 **AttributeSet**是节点的属性集合,如:
 ```java
 <com.customview.BaseChart
