@@ -55,51 +55,19 @@ public PieChart(Context context, AttributeSet attrs) {}
 public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {}
 public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
 ```
-**context:**上下文，新建时传入
+**context:**上下文，新建时传入,如:
+BaseChart baseChart = new BaseChart(this);
+**AttributeSet**是节点的属性集合,如:
+```java
+<com.customview.BaseChart
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:attr1="attr1 from xml"
+    app:attr2="attr2 from xml"/>
+```
 ```Java
 PieChart mPieChart = new PieChart(this);
 ```
-**attrs:**默认属性，告诉系统需要获取那些属性的值，如：
-在attrs.xml中添加
-```xml
-<declare-styleable name="base_chart">
-	<attr name="attr1" format="string" />
-    <attr name="attr2" format="string"/>
-    <attr name="attr3" format="string"/>
-    <attr name="attr4" format="string"/>
-    <attr name="attr5" format="string"/>
-</declare-styleable>
-```
-**defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:
-在attrs.xml中添加
-```xml
-<attr name="base_chart_style" format="reference" />
-```
-引用的是styles.xml文件中
-```xml
-<style name="base_chart_style">
-	<item name="attr2">@string/attr2</item>
-    <item name="attr3">@string/attr3</item>
-</style>
-```
-在当前默认主题中添加这个style
-```xml
-<style name="AppTheme"parent="Theme.AppCompat.Light.DarkActionBar">
-	...
-	<item name="base_chart_style">@stylebase_chart_style</item>
-	...
-</style>
-```
-<br>
-**defStyleRes:**默认风格，*只有当defStyleAttr无效时，才会使用这个值*,如：
-在style.xml中添加
-```xml
-<style name="base_chart_res">
-	<item name="attr4">attr4 from base_chart_res</item>
-    <item name="attr5">attr5 from base_chart_res</item>
-</style>
-```
-<br>
 新建BaseChart类机成自view
 ```java
 public class BaseChart extends View {
@@ -128,14 +96,52 @@ public class BaseChart extends View {
     }
 ```
 obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)方法参数<br>
-AttributeSet set这个参数直接将构造方法中的参数传入即可<br>
-Int[] attrs这个参数实际上是获取的我们在attr文件中声明的declare-styleable的name属性<br>
-defStyleAttr，这个是我们在attr中定义的一个属性<attr name=”base_chart_style” format=”reference”></attr><br>
-defStyleRes，这个参数是我们样式文件中定义的一个样式引用<br>
+新增加的3个属性说明如下:<br>
+**attrs:**默认属性，告诉系统需要获取那些属性的值，如：<br>
+在attrs.xml中添加
+```xml
+<declare-styleable name="base_chart">
+    <attr name="attr1" format="string" />
+    <attr name="attr2" format="string"/>
+    <attr name="attr3" format="string"/>
+    <attr name="attr4" format="string"/>
+    <attr name="attr5" format="string"/>
+</declare-styleable>
+```
+**defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:<br>
+在attrs.xml中添加
+```xml
+<attr name="base_chart_style" format="reference" />
+```
+引用的是styles.xml文件中
+```xml
+<style name="base_chart_style">
+	<item name="attr2">@string/attr2</item>
+    <item name="attr3">@string/attr3</item>
+</style>
+```
+在当前默认主题中添加这个style
+```xml
+<style name="AppTheme"parent="Theme.AppCompat.Light.DarkActionBar">
+	...
+	<item name="base_chart_style">@stylebase_chart_style</item>
+	...
+</style>
+```
+<br>
+**defStyleRes:**默认风格，*只有当defStyleAttr无效时，才会使用这个值*,如：<br>
+在style.xml中添加
+```xml
+<style name="base_chart_res">
+	<item name="attr4">attr4 from base_chart_res</item>
+    <item name="attr5">attr5 from base_chart_res</item>
+</style>
+```
+<br>
 设置布局文件:
 ```xml
 <com.customview.BaseChart
-	android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
