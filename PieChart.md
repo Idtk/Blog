@@ -67,7 +67,37 @@ PieChart pieChart = new PieChart(this);
     app:attr1="attr1 from xml"
     app:attr2="attr2 from xml"/>
 ```
-AttributeSet即com.customview.PieChart节点中的属性集合<br>
+即com.customview.PieChart节点中的属性集合<br>
+**defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:<br>
+在attrs.xml中添加
+```xml
+<attr name="base_chart_style" format="reference" />
+```
+引用的是styles.xml文件中
+```xml
+<style name="base_chart_style">
+	<item name="attr2">@string/attr2</item>
+    <item name="attr3">@string/attr3</item>
+</style>
+```
+在当前默认主题中添加这个style
+```xml
+<style name="AppTheme"parent="Theme.AppCompat.Light.DarkActionBar">
+	...
+	<item name="base_chart_style">@stylebase_chart_style</item>
+	...
+</style>
+```
+<br>
+**defStyleRes:**默认风格，*只有当defStyleAttr无效时，才会使用这个值*,如：<br>
+在style.xml中添加
+```xml
+<style name="base_chart_res">
+	<item name="attr4">attr4 from base_chart_res</item>
+    <item name="attr5">attr5 from base_chart_res</item>
+</style>
+```
+<br>
 ***一个实例***<br>
 新建BaseChart类机成自view
 ```java
@@ -108,36 +138,6 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
     <attr name="attr5" format="string"/>
 </declare-styleable>
 ```
-**defStyleAttr:**默认风格，是指它在当前Application或Activity所用的Theme中的默认Style,如:<br>
-在attrs.xml中添加
-```xml
-<attr name="base_chart_style" format="reference" />
-```
-引用的是styles.xml文件中
-```xml
-<style name="base_chart_style">
-	<item name="attr2">@string/attr2</item>
-    <item name="attr3">@string/attr3</item>
-</style>
-```
-在当前默认主题中添加这个style
-```xml
-<style name="AppTheme"parent="Theme.AppCompat.Light.DarkActionBar">
-	...
-	<item name="base_chart_style">@stylebase_chart_style</item>
-	...
-</style>
-```
-<br>
-**defStyleRes:**默认风格，*只有当defStyleAttr无效时，才会使用这个值*,如：<br>
-在style.xml中添加
-```xml
-<style name="base_chart_res">
-	<item name="attr4">attr4 from base_chart_res</item>
-    <item name="attr5">attr5 from base_chart_res</item>
-</style>
-```
-<br>
 设置布局文件:
 ```xml
 <com.customview.BaseChart
