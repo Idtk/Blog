@@ -128,7 +128,7 @@ public class BaseChart extends View {
     }
 ```
 obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)新增加的attrs属性说明如下:<br>
-**attrs:**默认属性，告诉系统需要获取那些属性的值，如：<br>
+**attrs:**默认属性，告诉系统需要获取那些属性的值，有多种Value类型，这里使用string类型，如：<br>
 在attrs.xml中添加
 ```xml
 <declare-styleable name="base_chart">
