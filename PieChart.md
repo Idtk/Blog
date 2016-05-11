@@ -56,7 +56,7 @@ public BaseChart(Context context, AttributeSet attrs, int defStyleAttr) {}
 public BaseChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {}
 ```
 **context:**上下文，新建时传入,如:
-```java
+```Java
 BaseChart baseChart = new BaseChart(this);
 ```
 **AttributeSet:**是节点的属性集合,如:
@@ -101,7 +101,7 @@ BaseChart baseChart = new BaseChart(this);
 <br>
 ### 一个实例——BaseChart<br>
 新建BaseChart类机成自view
-```java
+```Java
 public class BaseChart extends View {
 
     private String TAG = "BaseChart";
@@ -140,7 +140,8 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
 </declare-styleable>
 ```
 使用上面提到的变量属性和布局文件<br>
-#### a、defStyleAttr与defStyleRes参数先设置为0,运行后显示如下:
+#### a、defStyleAttr与defStyleRes参数先设置为0<br>
+运行后显示如下:
 ```
 BaseChart: attr1 =>attr1 from xml
 BaseChart: attr2 =>attr2 from xml
@@ -150,7 +151,7 @@ BaseChart: attr5 =>null
 ```
 attr1与attr2输出均来自布局文件的设置<br>
 #### b、修改BaseView.java设置，引入defStyleAttr:
-```java
+```Java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, defStyleAttr,0);
 ```
 相当于在布局文件中设置:
@@ -190,7 +191,7 @@ attr2:在布局文件与默认主题的base_chart_style都进行了设置，布�
 attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 *attr3 from xml_style*<br>
 attr4:仅在自定义主题xml_style中进行了设置，所以输出为 *attr4 from xml_style*<br>
 #### d、修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
-```java
+```Java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0 ,R.style.base_chart_res);
 ```
 运行后输入结果如下:
