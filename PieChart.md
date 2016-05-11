@@ -59,7 +59,7 @@ public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defSt
 ```java
 BaseChart baseChart = new BaseChart(this);
 ```
-**AttributeSet**是节点的属性集合,如:
+**AttributeSet:**是节点的属性集合,如:
 ```java
 <com.customview.BaseChart
     android:layout_width="match_parent"
@@ -70,6 +70,7 @@ BaseChart baseChart = new BaseChart(this);
 ```Java
 PieChart mPieChart = new PieChart(this);
 ```
+***一个实例***
 新建BaseChart类机成自view
 ```java
 public class BaseChart extends View {
@@ -97,8 +98,7 @@ public class BaseChart extends View {
         Log.d(TAG,"attr5 =>" + array.getString(R.styleable.base_chart_attr5));
     }
 ```
-obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)方法参数<br>
-新增加的3个属性说明如下:<br>
+obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)新增加的3个属性说明如下:<br>
 **attrs:**默认属性，告诉系统需要获取那些属性的值，如：<br>
 在attrs.xml中添加
 ```xml
