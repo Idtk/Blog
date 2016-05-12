@@ -45,7 +45,7 @@
 &nbsp;&nbsp;View坐标系以父视图的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
 <img src="http://img.blog.csdn.net/20140808090814078?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="View坐标系" title="View坐标系"width="300"/>
 
-View内部拥有四个函数,用于确定View的位置
+View内部拥有四个函数,用于获取View的位置
 ```Java
 getTop();     //View的顶边到其Parent View的顶边的距离，即View的顶边与View坐标系的X轴之间的距离
 getLeft();    //View的左边到其Parent View的左边的距离，即View的左边与View坐标系的Y轴之间的距离
