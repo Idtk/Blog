@@ -1,4 +1,4 @@
-#自定义环形图——基础知识<br>
+#自定义环形图——Android坐标系与View绘制流程<br>
 **效果图如下：**<br>
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="环形图" title="环形图"/><br>
 ## 一、涉及知识<br>
@@ -36,7 +36,7 @@
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
 （**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
-## 一、坐标系
+## 二、坐标系
 ### 1、屏幕坐标系
 &nbsp;&nbsp;屏幕坐标系以手机屏幕的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
 <img src="http://img.blog.csdn.net/20140808090119158?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="屏幕坐标系" title="屏幕坐标系"width="300"/>
@@ -54,7 +54,7 @@ getRight();   //View的右边到其Parent View的左边的距离，即View的右
 ```
 图------------------------
 
-## 二、绘制过程<br>
+## 三、绘制过程<br>
 ### 1、构造函数
 &nbsp;&nbsp;构造函数用于读取一些参数、属性对View进行初始化操作<br>
 &nbsp;&nbsp;View的构造函数有四种重载方法，分别如下:<br>
