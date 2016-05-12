@@ -19,7 +19,8 @@
 | ------------- |:-------------:| -----   |  
 | 绘制图形      | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为绘制点、直线、矩形、圆角矩形、椭圆、圆、扇形 |
 | 绘制文本      | drawText, drawPosText, drawTextOnPath |    依次为绘制文字、指定每个字符位置绘制文字、根据路径绘制文字|
-| Canvas变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
+| 画布变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
+| 画布裁剪      | clipPath, clipRect, clipRegion |   依次为按路径、按矩形、按区域对画布进行裁剪 |
 </br>
 **Paint涉及方法**</br>
 
@@ -35,6 +36,10 @@
 | 宽度      | setStrokeWidth |   设置画笔宽度 |
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
+
+**Animator涉及方法**<br>
+**Path涉及方法**<br>
+
 （**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
 ## 二、坐标系
 ### 1、屏幕坐标系
@@ -338,4 +343,6 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 这两组值的含义如下:
 图------------------------<br>
 
-onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。
+onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
+
+*(Ps: 咦，写了这么多，怎么还没有环形图的内容啊。具体的环形图代码内容将会在第一章的涉及知识说明完之后，进行实战)*
