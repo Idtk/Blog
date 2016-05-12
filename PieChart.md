@@ -208,4 +208,4 @@ attr3:仅在自定义主题xml_style中进行了设置，所以输出为 *attr3 
 attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 *attr4 from xml_style*<br>
 attr5:仅在defStyleRes中进行了设置,所以输出为 *attr5 from base_chart_res*<br>
 ### 2、onMeasure
-View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小
+View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小。
