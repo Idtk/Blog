@@ -348,4 +348,7 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 
 **onWindowFocusChanged**运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
 ## 四、小结
-&nbsp;&nbsp;简单分析了自定义View的入门准备知识，包括屏幕坐标系、View坐标、View的绘制过程中的主要函数、以及屏幕触摸事件。后面的内容将会围绕onDraw函数展开，在完成涉及知识点的分析之后，将会实战去编写PieView的代码，然后本文就结束了嘛？并没有，之后还会涉及一些动画类的使用、Path的使用、贝塞尔函数，来完成折线图、曲线图、柱状图，从而实现自己的图表工具包。
+&nbsp;&nbsp;简单分析了自定义View的入门准备知识，包括屏幕坐标系、View坐标、View的绘制过程中的主要函数、以及屏幕触摸事件。后面的内容将会围绕onDraw函数展开，在完成涉及知识点的分析之后，将会实战去编写PieView的代码。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。
+**邮箱:Idtkma@gmail.com**
+**GitHub:https://github.com/Idtk**
+**博客:www.idtkm.com**
