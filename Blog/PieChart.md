@@ -54,6 +54,7 @@ getLeft();    //View的左边到其Parent View的左边的距离，即View的左
 getBottom();  //View的底边到其Parent View的顶边的距离，即View的底边与View坐标系的X轴之间的距离
 getRight();   //View的右边到其Parent View的左边的距离，即View的右边与View坐标系的Y轴之间的距离
 ```
+图示如下:<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getTop.png" alt="View坐标系" title="View坐标系"width="300"/>
 
 ## 三、绘制过程<br>
@@ -337,7 +338,7 @@ event.getY();	   //触摸点相对于View坐标系的Y坐标
 event.getRawX();   //触摸点相对于屏幕坐标系的X坐标
 event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 ```
-这两组值的含义如下:<br>
+图示如下:<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getRawX.png" alt="View坐标系" title="View坐标系"width="300"/><br>
 
 onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
