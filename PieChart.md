@@ -1,6 +1,6 @@
 #自定义环形图——基础知识<br>
 **效果图如下：**<br>
-<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="GitHub" title="GitHub,Social Coding"/><br>
+<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="环形图" title="环形图"/><br>
 ## 一、涉及知识<br>
 **绘制过程**<br>
 
@@ -12,15 +12,6 @@
 | 绘制     | onDraw  |   实际绘制View的内容|
 | 事件处理     | onTouchEvent  |   处理屏幕触摸事件|
 | 重绘     | invalidate  |   调用ondraw方法，重绘view中变化的部分|
-<br>
-**坐标、弧度、颜色**<br>
-
-| 类别        | API           | 描述  |
-| ------------- |:-------------:| -----|
-| View坐标      | getLeft,getTop,getRight,getBottom   | 依次为，View左上角顶点相对于父布局的左侧和顶部距离，右下角顶点相对于父布局的左侧和顶部距离 |
-| MotionEvent坐标      | getX,getY,getRawX,getRawY |   getX,getY相对于当前view的位置坐标，getRawX,getRawY相对于屏幕的位置坐标 |
-| 弧度、角度      | toRadians,toDegrees |   toRadians角度转换为近似相等的弧度，toDegrees弧度转换为近似相等的角度| 
-| 颜色      | Color.argb(透明度，红，绿，蓝)) |   颜色从透明到不透明，或从浅到深，都用0x00到0xff表示|
 <br>
 **Canvas涉及方法**</br>
 
@@ -45,7 +36,25 @@
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
 （**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
-## 一、绘制过程<br>
+## 一、坐标系
+### 1、屏幕坐标系
+&nbsp;&nbsp;屏幕坐标系以手机屏幕的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
+<img src="http://img.blog.csdn.net/20140808090119158?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="屏幕坐标系" title="屏幕坐标系"width="300"/>
+<br>
+### 2、View坐标系
+&nbsp;&nbsp;View坐标系以父视图的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
+<img src="http://img.blog.csdn.net/20140808090814078?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="View坐标系" title="View坐标系"width="300"/>
+
+View内部拥有四个函数,用于确定View的位置
+```Java
+getTop();     //View的顶边到其Parent View的顶边的距离，即View的顶边与View坐标系的X轴之间的距离
+getLeft();    //View的左边到其Parent View的左边的距离，即View的左边与View坐标系的Y轴之间的距离
+getBottom();  //View的底边到其Parent View的顶边的距离，即View的底边与View坐标系的X轴之间的距离
+getRight();   //View的右边到其Parent View的左边的距离，即View的右边与View坐标系的Y轴之间的距离
+```
+图------------------------
+
+## 二、绘制过程<br>
 ### 1、构造函数
 &nbsp;&nbsp;构造函数用于读取一些参数、属性对View进行初始化操作<br>
 &nbsp;&nbsp;View的构造函数有四种重载方法，分别如下:<br>
@@ -263,13 +272,19 @@ public static class MeasureSpec {
 ======
 ### 3、onLayout
 用于确定View以及其子View的布局位置，在ViewGroup中，当位置被确定后，它在onLayout中会遍历所有的child并调用其layout，然后layout内部会再调用child的onLayout确定child View的布局位置。<br>
+layout方法如下:
 ```Java
-@Override
-protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-	super.onLayout(changed, left, top, right, bottom);
+public void layout(int l, int t, int r, int b) {
+	...
+    int oldL = mLeft;
+    int oldT = mTop;
+    int oldB = mBottom;
+    int oldR = mRight;
+	...
+	
 }
 ```
-**l, t, r, b**四个参数分别对应于函数**getLeft,getTop,getRight,getBottom**，这些函数的会在坐标系中进行说明。<br>
+**mLeft, mTop, mBottom, mRight**四个参数分别通过**getLeft(),getTop(),getRight(),getBottom()**四个函数获得。这一组old值会在位置改变时，调用onLayoutChange时使用到。<br>
 
 ======
 ### 4、onSizeChanged
@@ -312,12 +327,14 @@ public boolean onTouchEvent(MotionEvent event) {
 | ACTION_UP      | 手指抬起  |
 <br>
 **事件效果如下:**<br>
-<img src="http://upload-images.jianshu.io/upload_images/623378-34fd10214730ea5f.gif?imageMogr2/auto-orient/strip" alt="GitHub" title="GitHub,Social Coding"/><br>
+<img src="http://upload-images.jianshu.io/upload_images/623378-34fd10214730ea5f.gif?imageMogr2/auto-orient/strip" alt="屏幕触摸事件" title="屏幕触摸事件" width="300"/><br>
 在MotionEvent中有两组可以获得触摸位置的函数
 ```Java
-event.getX();
-event.getY();
-event.getRawX();
-event.getRawY();
+event.getX();      //触摸点相对于View坐标系的X坐标
+event.getY();	   //触摸点相对于View坐标系的Y坐标
+event.getRawX();   //触摸点相对于屏幕坐标系的X坐标
+event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 ```
-这两组值的含义和区别会在接下来的坐标系部分进行说明。
+这两组值的含义如下:
+图------------------------
+
