@@ -41,11 +41,11 @@
 ## 二、坐标系
 ### 1、屏幕坐标系
 &nbsp;&nbsp;屏幕坐标系以手机屏幕的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
-<img src="http://img.blog.csdn.net/20140808090119158?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="屏幕坐标系" title="屏幕坐标系"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%B1%8F%E5%B9%95.png" alt="屏幕坐标系" title="屏幕坐标系"width="300"/>
 <br>
 ### 2、View坐标系
 &nbsp;&nbsp;View坐标系以父视图的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
-<img src="http://img.blog.csdn.net/20140808090814078?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVhbl9jaG9uZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="View坐标系" title="View坐标系"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E8%A7%86%E5%9B%BE.png" alt="View坐标系" title="View坐标系"width="300"/>
 
 View内部拥有四个函数,用于获取View的位置
 ```Java
@@ -54,7 +54,7 @@ getLeft();    //View的左边到其Parent View的左边的距离，即View的左
 getBottom();  //View的底边到其Parent View的顶边的距离，即View的底边与View坐标系的X轴之间的距离
 getRight();   //View的右边到其Parent View的左边的距离，即View的右边与View坐标系的Y轴之间的距离
 ```
-图------------------------
+<img src="https://github.com/Idtk/Blog/blob/master/Image/getTop.png" alt="View坐标系" title="View坐标系"width="300"/>
 
 ## 三、绘制过程<br>
 ### 1、构造函数
@@ -338,6 +338,6 @@ event.getRawX();   //触摸点相对于屏幕坐标系的X坐标
 event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 ```
 这两组值的含义如下:
-图------------------------<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/getRawX.png" alt="View坐标系" title="View坐标系"width="300"/><br>
 
 onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
