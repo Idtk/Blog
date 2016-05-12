@@ -153,7 +153,7 @@ obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defS
 </declare-styleable>
 ```
 使用上面提到的变量属性和布局文件<br>
-======
+
 #### a、defStyleAttr与defStyleRes参数先设置为0<br>
 运行后显示如下:
 ```
@@ -164,7 +164,9 @@ BaseChart: attr4 =>null
 BaseChart: attr5 =>null
 ```
 attr1与attr2输出均来自布局文件的设置<br>
+
 ======
+
 #### b、修改BaseView.java设置，引入defStyleAttr:
 ```Java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, defStyleAttr,0);
@@ -185,6 +187,7 @@ attr1:仅在布局文件中设置，所以输出为 *attr1 from xml*<br>
 attr2:在布局文件与默认主题的base_chart_style都进行了设置，布局文件中的设置优先级更高，所以输出为 *attr2 from xml*<br>
 attr3:仅在默认主题base_chart_style中进行了设置，所以输出为 *attr3 from BaseChartStyle*<br>
 ======
+
 #### c、在布局文件中增加自定义的style
 ```xml
 <com.customview.BaseChart
@@ -207,6 +210,7 @@ attr2:在布局文件与默认主题的base_chart_style都进行了设置，布�
 attr3:在默认主题base_chart_style与自定义主题的xml_style都进行了设置，自定义主题优先级更高，所以输出为 *attr3 from xml_style*<br>
 attr4:仅在自定义主题xml_style中进行了设置，所以输出为 *attr4 from xml_style*<br>
 ======
+
 #### d、修改BaseView.java设置，引入defStyleRes，修改defStyleAttr为0，否则引入的R.style.base_chart_res不会生效:
 ```Java
 TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, 0 ,R.style.base_chart_res);
@@ -225,6 +229,7 @@ attr3:仅在自定义主题xml_style中进行了设置，所以输出为 *attr3 
 attr4:在自定义主题xml_style和defStyleRes中都进行了设置，自定义主题优先级更高，所以输出为 *attr4 from xml_style*<br>
 attr5:仅在defStyleRes中进行了设置,所以输出为 *attr5 from base_chart_res*<br>
 ======
+
 ### 2、onMeasure
 View会在此函数中完成自己的Measure以及递归的遍历完成Child View的Measure，某些情况下需要多次Measure才能确定View的大小。<br>
 可以从onMeasure中取出宽高及其他属性:
