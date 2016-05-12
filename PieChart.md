@@ -336,5 +336,6 @@ event.getRawX();   //触摸点相对于屏幕坐标系的X坐标
 event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 ```
 这两组值的含义如下:
-图------------------------
+图------------------------<br>
 
+onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。
