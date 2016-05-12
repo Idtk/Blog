@@ -37,9 +37,6 @@
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
 
-**Animator涉及方法**<br>
-**Path涉及方法**<br>
-
 （**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
 ## 二、坐标系
 ### 1、屏幕坐标系
@@ -345,4 +342,4 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 
 onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
 
-*(Ps: 咦，写了这么多，怎么还没有环形图的内容啊。具体的环形图代码内容将会在第一章的涉及知识说明完之后，进行实战)*
+# **(Ps: 咦，写了这么多，怎么还没有环形图的内容啊。具体的环形图代码内容将会在第一章的涉及知识说明完之后，进行实战)**
