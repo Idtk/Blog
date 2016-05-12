@@ -313,7 +313,7 @@ protected void onDraw(Canvas canvas) {
 ======
 ### 6、其他方法以及监听回调
 如onTouchEvent、invalidate、setOnTouchListener等方法。<br>
-onTouchEvent用于处理传递到的View手势事件。
+**onTouchEvent**用于处理传递到的View手势事件。
 ```Java
 @Override
 public boolean onTouchEvent(MotionEvent event) {
@@ -341,4 +341,4 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 图示如下:<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getRawX.png" alt="View坐标系" title="View坐标系"width="300"/><br>
 
-onWindowFocusChanged运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
+**onWindowFocusChanged**运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
