@@ -342,3 +342,4 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getRawX.png" alt="View坐标系" title="View坐标系"width="300"/><br>
 
 **onWindowFocusChanged**运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
+## 四、小结
