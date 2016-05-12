@@ -11,7 +11,7 @@
 |         | onSizeChanged  |   确定View的大小|
 | 绘制     | onDraw  |   实际绘制View的内容|
 | 事件处理     | onTouchEvent  |   处理屏幕触摸事件|
-| 重绘     | invalidate  |   调用ondraw方法，重绘view中变化的部分|
+| 重绘     | invalidate  |   调用onDraw方法，重绘View中变化的部分|
 <br>
 **Canvas涉及方法**</br>
 
