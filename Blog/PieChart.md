@@ -282,7 +282,7 @@ public static class MeasureSpec {
 | 测量类型        | 对应数值           |描述  |
 | ------------- |:-------------:|-----|
 | UNSPECIFIED | 0  |   父容器不对 view 有任何限制，要多大给多大 |
-| EXACTLY     | 1  |   父容器已经检测出 view 所需要的大小,类似于固定大小xxdp |
+| EXACTLY     | 1  |   父容器已经检测出 view 所需要的大小,比如固定大小xxdp |
 | AT_MOST     | 2  |   父容器指定了一个大小， view 的大小不能大于这个值 |
 
 ======
