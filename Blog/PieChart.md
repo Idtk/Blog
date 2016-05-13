@@ -24,7 +24,7 @@
 </br>
 **Paint涉及方法**</br>
 
-| 类别        | API           | 备注  |
+| 类别        | API           | 描述  |
 | ------------- |:-------------:| -----   | 
 | 颜色      | setColor,setARGB，setAlpha，setColorFilter | 依次为设置画笔颜色、透明度，色彩过滤器 |
 | 类型      | setStyle |   填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE) |
