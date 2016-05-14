@@ -1,6 +1,5 @@
-#自定义PieChart——Android坐标系与View绘制流程<br>
-**效果图如下：**<br>
-<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="环形图" title="环形图"/><br>
+#自定义View——Android坐标系与View绘制流程<br>
+
 ## 一、涉及知识<br>
 **绘制过程**<br>
 
@@ -360,3 +359,6 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
+
+**PieChart效果图如下：**<br>
+<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="环形图" title="环形图"/><br>
