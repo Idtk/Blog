@@ -160,6 +160,8 @@ canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 图
 
 #### 豆瓣的加载时候的笑脸表情
+<br>
+图
 ```Java
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
@@ -172,7 +174,8 @@ canvas.drawPoints(new float[]{
         ,-point,-point
 },mPaint);
 ```
-
+<br>
+图
 ```Java
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
