@@ -1,4 +1,4 @@
-#自定义View——Canvas与Paint<br>
+#自定义View——Canvas与ValueAnimator<br>
 
 ## 一、涉及知识<br>
 **绘制过程**<br>
@@ -167,7 +167,7 @@ canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E9%94%99%E5%88%87.png" alt="错切" title="错切"width="300"/>
 
-#### 豆瓣的加载时候的笑脸表情
+## 三、模仿豆瓣的加载动画
 
 绘制2个点和一个半圆弧
 
@@ -198,4 +198,71 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BC%A7.png" alt="圆弧" title="圆弧"width="300"/>
 
-**动画的变换过程是从一个点延长至一个270°的圆弧，旋转一圈，变换成笑脸表情，旋转135°结束**
+加载的过程是从一个点延长至一个270°的圆弧，旋转一圈又135°，变换成笑脸表情，旋转至水平结束
+
+#### 这里使用ValueAnimator类，来进行演示(实际上应该是根据touch以及网络情况来进行加载的变化)
+
+
+简单说下ValueAnimator类：
+| API        | 简介           |
+| ------------- | ------------- |
+|ofFloat(value, value)|用于设置变化的取值范围|
+|setDuration(duration)|设置动画的时间|
+|setInterpolator(timeInterpolator)|设置动画类型|
+|addUpdateListener()|增加动画取值更新监听|
+
+分解步骤，计算一下总共需要的角度:<br>
+1、起始角度-180°，一个点延长至270°圆弧，变化270°<br>
+2、旋转一圈又135°，经过495°<br>
+3、变成笑脸旋转至水平，需经过90°<br>
+
+动画部分: 
+```Java
+private ValueAnimator animator;
+private float animatedValue;
+private long animatorDuration = 5000;
+private TimeInterpolator timeInterpolator = new DecelerateInterpolator();
+
+private void initAnimator(long duration){
+    if (animator !=null &&animator.isRunning()){
+        animator.cancel();
+        animator.start();
+    }else {
+        animator=ValueAnimator.ofFloat(0,855).setDuration(duration);
+        animator.setInterpolator(timeInterpolator);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                animatedValue = (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        animator.start();
+    }
+}
+```
+
+```Java
+private void doubanAnimator(Canvas canvas){
+    mPaint.setStyle(Paint.Style.STROKE);
+    mPaint.setColor(Color.GREEN);
+    mPaint.setStrokeWidth(10);
+    float point = Math.min(mWidth,mHeight)*0.2f/2;
+    float r = point*(float) Math.sqrt(2);
+    RectF rectF = new RectF(-r,-r,r,r);
+    if (animatedValue<270){
+        canvas.drawArc(rectF,-180,animatedValue,false,mPaint);
+    }else if (animatedValue<=720){;
+        canvas.rotate(animatedValue-270);
+        canvas.drawArc(rectF,-180,270,false,mPaint);;
+    } else{
+        canvas.rotate((animatedValue-720));
+        canvas.drawArc(rectF,-90,270-(animatedValue-720),false,mPaint);
+        mPaint.setColor(Color.GREEN);
+        canvas.drawPoints(new float[]{
+                -point,point
+                ,-point,-point
+        },mPaint);
+    }
+}
+```
