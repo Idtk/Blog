@@ -75,16 +75,16 @@ protected void onDraw(Canvas canvas) {
 	canvas.translate(mWidth/2,mHeight/2);// 将画布坐标原点移动到中心位置
 }
 ```
-绘制坐标原点，使用**drawPoint**
+绘制坐标原点
 ```Java
 //绘制坐标原点
 mPaint.setColor(Color.BLACK);//设置画笔颜色
 mPaint.setStrokeWidth(10);//为了看得清楚,设置了较大的画笔宽度
 canvas.drawPoint(0,0,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%8E%9F%E7%82%B9.png" alt="原点" title="原点"width="300"/>
 
-绘制坐标系的4个端点，一次绘制多个点，这次使用**drawPoints**
+绘制坐标系的4个端点，一次绘制多个点
 ```Java
 //绘制坐标轴4个断点
 canvas.drawPoints(new float[]{
@@ -93,9 +93,9 @@ canvas.drawPoints(new float[]{
     ,-mWidth/2*0.8f,0
     ,0,-mHeight/2*0.8f},mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%82%B9.png" alt="坐标点" title="坐标点"width="300"/>
 
-绘制坐标轴，使用**drawLine**
+绘制坐标轴
 ```Java
 mPaint.setStrokeWidth(1);//恢复画笔默认宽度
 //绘制X轴
@@ -103,9 +103,9 @@ canvas.drawLine(-mWidth/2*0.8f,0,mWidth/2*0.8f,0,mPaint);
 //绘制Y轴
 canvas.drawLine(0,mHeight/2*0.8f,0,mHeight/2*0.8f,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E8%BD%B4.png" alt="坐标轴" title="坐标轴"width="300"/>
 
-绘制坐标轴箭头，一次绘制多条线，这次使用**drawLines**
+绘制坐标轴箭头，一次绘制多条线
 ```Java
 mPaint.setStrokeWidth(3);
 //绘制X轴箭头
@@ -118,7 +118,7 @@ canvas.drawLines(new float[]{
       0,mHeight/2*0.8f,-mWidth/2*0.8f*0.05f,mHeight/2*0.8f-mWidth/2*0.8f*0.05f,
 },mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%B3%BB.png" alt="坐标系" title="坐标系"width="300"/>
 
 为什么Y轴的箭头是向下的呢？这是因为原坐标系原点在左上角，向下为Y轴正方向，有疑问的可以查看我之前的文章[自定义View——Android坐标系与View绘制流程](http://www.idtkm.com/customview/piechart1/)
 <br>
@@ -126,23 +126,30 @@ canvas.drawLines(new float[]{
 ```Java
 canvas.scale(1,-1);//翻转Y轴
 ```
-### 3、绘制图形
-#### 矩形以及画布缩放，旋转，错切
-绘制一个矩形
+### 3、画布变换
+绘制矩形
 ```Java
 //绘制矩形
 mPaint.setStyle(Paint.Style.STROKE);//设置画笔类型
 canvas.drawRect(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8,mPaint);
 ```
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%9F%A9%E5%BD%A2.png" alt="矩形" title="矩形"width="300"/>
+
+平移，同时使用**new Rect**方法设置矩形
+```Java
+canvas.translate(200,200);
+mPaint.setColor(Color.BLUE);
+canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
+```
 图
 
-缩放，同时使用**new Rect**方法设置矩形
+缩放
 ```Java
 canvas.scale(0.5f,0.5f);
 mPaint.setColor(Color.BLUE);
 canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%BC%A9%E6%94%BE.png" alt="缩放" title="缩放"width="300"/>
 
 旋转
 ```Java
@@ -150,6 +157,7 @@ canvas.rotate(90);
 mPaint.setColor(Color.BLUE);
 canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
+图
 
 错切
 ```Java
@@ -157,11 +165,12 @@ canvas.skew(1,0.5f);
 mPaint.setColor(Color.BLUE);
 canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E9%94%99%E5%88%87.png" alt="错切" title="错切"width="300"/>
 
 #### 豆瓣的加载时候的笑脸表情
-<br>
-图
+
+绘制2个点和一个半圆弧
+
 ```Java
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
@@ -174,8 +183,10 @@ canvas.drawPoints(new float[]{
         ,-point,-point
 },mPaint);
 ```
-<br>
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%AC%91%E8%84%B8.png" alt="笑脸" title="笑脸"width="300"/>
+
+但是豆瓣表情在旋转的过程中，是一个链接着两个点的270°的圆弧
+
 ```Java
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
@@ -184,3 +195,7 @@ float r = point*(float) Math.sqrt(2);
 RectF rectF = new RectF(-r,-r,r,r);
 canvas.drawArc(rectF,-45,270,false,mPaint);
 ```
+
+图
+
+**动画的变换过程是从一个点延长至一个270°的圆弧，旋转一圈，变换成笑脸表情，旋转135°结束**
