@@ -82,7 +82,7 @@ mPaint.setColor(Color.BLACK);//设置画笔颜色
 mPaint.setStrokeWidth(10);//为了看得清楚,设置了较大的画笔宽度
 canvas.drawPoint(0,0,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%8E%9F%E7%82%B9.png" alt="原点" title="原点"width="150"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%8E%9F%E7%82%B9.png" alt="原点" title="原点"width="200"/>
 
 绘制坐标系的4个端点，一次绘制多个点
 ```Java
@@ -93,7 +93,7 @@ canvas.drawPoints(new float[]{
     ,-mWidth/2*0.8f,0
     ,0,-mHeight/2*0.8f},mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%82%B9.png" alt="坐标点" title="坐标点"width="150"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%82%B9.png" alt="坐标点" title="坐标点"width="200"/>
 
 绘制坐标轴
 ```Java
@@ -103,7 +103,7 @@ canvas.drawLine(-mWidth/2*0.8f,0,mWidth/2*0.8f,0,mPaint);
 //绘制Y轴
 canvas.drawLine(0,mHeight/2*0.8f,0,mHeight/2*0.8f,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E8%BD%B4.png" alt="坐标轴" title="坐标轴"width="100"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E8%BD%B4.png" alt="坐标轴" title="坐标轴"width="200"/>
 
 绘制坐标轴箭头，一次绘制多条线
 ```Java
@@ -118,7 +118,7 @@ canvas.drawLines(new float[]{
       0,mHeight/2*0.8f,-mWidth/2*0.8f*0.05f,mHeight/2*0.8f-mWidth/2*0.8f*0.05f,
 },mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%B3%BB.png" alt="坐标系" title="坐标系"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%B3%BB.png" alt="坐标系" title="坐标系"width="200"/>
 
 为什么Y轴的箭头是向下的呢？这是因为原坐标系原点在左上角，向下为Y轴正方向，有疑问的可以查看我之前的文章[自定义View——Android坐标系与View绘制流程](http://www.idtkm.com/customview/piechart1/)
 <br>
@@ -133,7 +133,7 @@ canvas.scale(1,-1);//翻转Y轴
 mPaint.setStyle(Paint.Style.STROKE);//设置画笔类型
 canvas.drawRect(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%9F%A9%E5%BD%A2.png" alt="矩形" title="矩形"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%9F%A9%E5%BD%A2.png" alt="矩形" title="矩形"width="200"/>
 
 平移，同时使用**new Rect**方法设置矩形
 ```Java
