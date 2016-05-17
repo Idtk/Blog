@@ -82,7 +82,7 @@ mPaint.setColor(Color.BLACK);//设置画笔颜色
 mPaint.setStrokeWidth(10);//为了看得清楚,设置了较大的画笔宽度
 canvas.drawPoint(0,0,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%8E%9F%E7%82%B9.png" alt="原点" title="原点"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%8E%9F%E7%82%B9.png" alt="原点" title="原点"width="150"/>
 
 绘制坐标系的4个端点，一次绘制多个点
 ```Java
@@ -93,7 +93,7 @@ canvas.drawPoints(new float[]{
     ,-mWidth/2*0.8f,0
     ,0,-mHeight/2*0.8f},mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%82%B9.png" alt="坐标点" title="坐标点"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%82%B9.png" alt="坐标点" title="坐标点"width="150"/>
 
 绘制坐标轴
 ```Java
@@ -103,7 +103,7 @@ canvas.drawLine(-mWidth/2*0.8f,0,mWidth/2*0.8f,0,mPaint);
 //绘制Y轴
 canvas.drawLine(0,mHeight/2*0.8f,0,mHeight/2*0.8f,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E8%BD%B4.png" alt="坐标轴" title="坐标轴"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E8%BD%B4.png" alt="坐标轴" title="坐标轴"width="100"/>
 
 绘制坐标轴箭头，一次绘制多条线
 ```Java
