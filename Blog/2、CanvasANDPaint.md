@@ -141,7 +141,7 @@ canvas.translate(200,200);
 mPaint.setColor(Color.BLUE);
 canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%B9%B3%E7%A7%BB.png" alt="平移" title="平移"width="300"/>
 
 缩放
 ```Java
@@ -157,7 +157,7 @@ canvas.rotate(90);
 mPaint.setColor(Color.BLUE);
 canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E6%97%8B%E8%BD%AC.png" alt="旋转" title="旋转"width="300"/>
 
 错切
 ```Java
@@ -196,6 +196,6 @@ RectF rectF = new RectF(-r,-r,r,r);
 canvas.drawArc(rectF,-45,270,false,mPaint);
 ```
 
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BC%A7.png" alt="圆弧" title="圆弧"width="300"/>
 
 **动画的变换过程是从一个点延长至一个270°的圆弧，旋转一圈，变换成笑脸表情，旋转135°结束**
