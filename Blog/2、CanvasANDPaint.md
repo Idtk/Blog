@@ -225,7 +225,8 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 #### 这里使用ValueAnimator类，来进行演示(实际上应该是根据touch以及网络情况来进行加载的变化)
 
 
-简单说下ValueAnimator类：
+简单说下ValueAnimator类:<br>
+
 | API        | 简介           |
 | ------------- | ------------- |
 |ofFloat(value, value)|用于设置变化的取值范围|
