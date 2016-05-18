@@ -20,7 +20,7 @@
 | 绘制文本      | drawText, drawPosText, drawTextOnPath |    依次为绘制文字、指定每个字符位置绘制文字、根据路径绘制文字|
 | 画布变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
 | 画布裁剪      | clipPath, clipRect, clipRegion |   依次为按路径、按矩形、按区域对画布进行裁剪 |
-| 画布的保存与恢复      | sava,restore |   保存当前画布矩阵，恢复之前保存的画布 |
+| 画布状态      | sava,restore |   保存当前画布矩阵，恢复之前保存的画布 |
 </br>
 **Paint涉及方法**</br>
 
@@ -186,7 +186,7 @@ canvas.restore();
 mPaint.setColor(Color.BLUE);
 canvas.drawCircle(200,0,r,mPaint);//圆心(200,0)
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%94%BB%E5%B8%83.png" alt="画布" title="画布"width="300"/>
 
 保存画布，旋转90°，绘制一个圆，之后恢复画布，使用相同参数再绘制一个圆。可以看到在恢复画布前后，相同参数绘制的圆，分别显示在了坐标系的不同位置。
 
@@ -322,7 +322,7 @@ private void doubanAnimator(Canvas canvas){
 
 在调试完成之后就可以删除，坐标系部分的代码了
 
-gif图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%AC%91%E8%84%B8.gif" alt="笑脸" title="笑脸"/>
 
 ## 四、小结
 本文介绍了canvas的变化，文中的不同部分穿插说明了canvas绘制各种图形的方法，以及结合ValueAnimator制作的豆瓣加载动画。之后的一篇文章会主要分析字符串的长度和宽度，根据这些来参数调整字符串的位置，以达到居中等效果，再后一篇文章内容应该就会编写[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)了。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
