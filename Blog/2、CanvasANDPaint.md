@@ -30,7 +30,7 @@
 | 类型      | setStyle |   填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE) |
 | 抗锯齿      | setAntiAlias |   画笔是否抗锯齿 |
 | 字体大小      | setTextSize |   设置字体大小 |
-| 字体测量      | getFontMetrics()，getFontMetricsInt()，measureText |   返回字体的行间距，返回值依次为float、int |
+| 字体测量      | getFontMetrics()，getFontMetricsInt() |   返回字体的行间距，返回值依次为float、int |
 | 文字宽度测量      | measureText |   返回文字的宽度 |
 | 文字对齐方式      | setTextAlign |   左对齐(LEFT),居中对齐(CENTER),右对齐(RIGHT) |
 | 宽度      | setStrokeWidth |   设置画笔宽度 |
@@ -168,9 +168,10 @@ canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E9%94%99%E5%88%87.png" alt="错切" title="错切"width="300"/>
 
-### 画布的保存和恢复
+### 4、画布的保存和恢复
 
-保存与恢复画布的主要作用，是在对画布进行一些变换操作后，可以恢复到之前的画布矩阵(或者说坐标系)，可以更方便和清晰的进行之后的操作。
+save():用于保存canvas的状态，之后可以调用canvas的平移、旋转、缩放、错切、裁剪等操作。
+restore():在save之后调用，用于恢复之前保存的画布状态，从而在之后的操作中忽略save与restore之间的画布变化。
 
 ```Java
 float point = Math.min(mWidth,mHeight)*0.06f/2;
@@ -229,10 +230,10 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 
 | API        | 简介           |
 | ------------- | ------------- |
-|ofFloat(value, value)|用于设置变化的取值范围|
-|setDuration(duration)|设置动画的时间|
-|setInterpolator(timeInterpolator)|设置动画类型|
-|addUpdateListener()|增加动画取值更新监听|
+|ofFloat(float... values)|构建ValueAnimator，设置动画的浮点值，需要设置2个以上的值|
+|setDuration(long duration)|设置动画时长，默认的持续时间为300毫秒。|
+|setInterpolator(TimeInterpolator value)|设置动画的线性非线性运动，默认AccelerateDecelerateInterpolator|
+|addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 
 分解步骤，计算一下总共需要的角度:<br>
 1、一个笑脸，下部分的圆弧旋135°，覆盖2个点，同时圆弧增加45°<br>
