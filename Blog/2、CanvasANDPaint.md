@@ -111,7 +111,8 @@ canvas.drawLine(0,mHeight/2*0.8f,0,mHeight/2*0.8f,mPaint);
 mPaint.setStrokeWidth(3);
 //绘制X轴箭头
 canvas.drawLines(new float[]{
-	mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,-mWidth/2*0.8f*0.05f,            mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,mWidth/2*0.8f*0.05f
+	mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,-mWidth/2*0.8f*0.05f, 
+	mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,mWidth/2*0.8f*0.05f
 },mPaint);
 //绘制Y轴箭头
 canvas.drawLines(new float[]{
