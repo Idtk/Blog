@@ -20,6 +20,7 @@
 | 绘制文本      | drawText, drawPosText, drawTextOnPath |    依次为绘制文字、指定每个字符位置绘制文字、根据路径绘制文字|
 | 画布变换      | translate, scale, rotate, skew |   依次为平移、缩放、旋转、倾斜（错切） |
 | 画布裁剪      | clipPath, clipRect, clipRegion |   依次为按路径、按矩形、按区域对画布进行裁剪 |
+| 画布的保存与恢复      | sava,restore |   保存当前画布矩阵，恢复之前保存的画布 |
 </br>
 **Paint涉及方法**</br>
 
@@ -38,8 +39,8 @@
 
 （**PS: 因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
 
-## 二、Canvas
 **(PS: 以下的代码中未指定函数名的都是在onDraw函数中进行使用,同时为了演示方便，在onDraw中使用了一些new方法，请在实际使用中不要这样做，因为onDraw函数是经常需要重新运行的)**
+## 二、Canvas
 ### 1、创建画笔
 创建画笔并初始化
 ```Java
@@ -167,7 +168,29 @@ canvas.drawRect(new RectF(-mWidth/8,-mHeight/8,mWidth/8,mHeight/8),mPaint);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E9%94%99%E5%88%87.png" alt="错切" title="错切"width="300"/>
 
-## 三、模仿豆瓣的加载动画
+### 画布的保存和恢复
+
+保存与恢复画布的主要作用，是在对画布进行一些变换操作后，可以恢复到之前的画布矩阵(或者说坐标系)，可以更方便和清晰的进行之后的操作。
+
+```Java
+float point = Math.min(mWidth,mHeight)*0.06f/2;
+float r = point*(float) Math.sqrt(2);
+mPaint.setStyle(Paint.Style.STROKE);
+mPaint.setColor(Color.BLACK);
+canvas.save();
+canvas.rotate(90);
+canvas.drawCircle(200,0,r,mPaint);//圆心(200,0)
+canvas.restore();
+mPaint.setColor(Color.BLUE);
+canvas.drawCircle(200,0,r,mPaint);//圆心(200,0)
+```
+图
+
+保存画布，旋转90°，绘制一个圆，之后恢复画布，使用相同参数再绘制一个圆。可以看到在恢复画布前后，相同参数绘制的圆，分别显示在了坐标系的不同位置。
+
+
+
+## 三、豆瓣的加载动画
 
 绘制2个点和一个半圆弧
 
@@ -198,7 +221,6 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BC%A7.png" alt="圆弧" title="圆弧"width="300"/>
 
-加载的过程是从一个点延长至一个270°的圆弧，旋转一圈又135°，变换成笑脸表情，旋转至水平结束
 
 #### 这里使用ValueAnimator类，来进行演示(实际上应该是根据touch以及网络情况来进行加载的变化)
 
@@ -212,9 +234,11 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 |addUpdateListener()|增加动画取值更新监听|
 
 分解步骤，计算一下总共需要的角度:<br>
-1、起始角度-180°，一个点延长至270°圆弧，变化270°<br>
-2、旋转一圈又135°，经过495°<br>
-3、变成笑脸旋转至水平，需经过90°<br>
+1、一个笑脸，下部分的圆弧旋135°，覆盖2个点，同时圆弧增加45°<br>
+2、旋转135°，同时圆弧增加45°<br>
+3、旋转360°，圆弧减少360/5度<br>
+4、旋转90°，圆弧减少90/5度<br>
+5、旋转135°，释放覆盖的2个点<br>
 
 动画部分: 
 ```Java
@@ -242,27 +266,60 @@ private void initAnimator(long duration){
 }
 ```
 
+表情部分:在绘制前最好使用sava()方法保存当前的画布状态，在结束后使用restore()恢复之前保存的状态。<br>为了是表情看上去更自然，所以减少10°的初始角度
+
 ```Java
 private void doubanAnimator(Canvas canvas){
-    mPaint.setStyle(Paint.Style.STROKE);
-    mPaint.setColor(Color.GREEN);
-    mPaint.setStrokeWidth(10);
-    float point = Math.min(mWidth,mHeight)*0.2f/2;
+    mPaint.setStyle(Paint.Style.STROKE);//描边
+    mPaint.setStrokeCap(Paint.Cap.ROUND);//圆角笔触
+    mPaint.setColor(Color.rgb(97, 195, 109));
+    mPaint.setStrokeWidth(15);
+    float point = Math.min(mWidth,mHeight)*0.06f/2;
     float r = point*(float) Math.sqrt(2);
     RectF rectF = new RectF(-r,-r,r,r);
-    if (animatedValue<270){
-        canvas.drawArc(rectF,-180,animatedValue,false,mPaint);
-    }else if (animatedValue<=720){;
-        canvas.rotate(animatedValue-270);
-        canvas.drawArc(rectF,-180,270,false,mPaint);;
-    } else{
-        canvas.rotate((animatedValue-720));
-        canvas.drawArc(rectF,-90,270-(animatedValue-720),false,mPaint);
-        mPaint.setColor(Color.GREEN);
+	canvas.save();
+    if (animatedValue<135){
+        canvas.drawArc(rectF,animatedValue+5,170+animatedValue/3,false,mPaint);
         canvas.drawPoints(new float[]{
-                -point,point
-                ,-point,-point
+                -point,-point
+                ,point,-point
+        },mPaint);
+    }else if (animatedValue<270){
+        canvas.rotate(animatedValue-135);
+        canvas.drawArc(rectF,135+5,170+animatedValue/3,false,mPaint);
+        canvas.drawPoints(new float[]{
+                -point,-point
+                ,point,-point
+        },mPaint);
+    }else if (animatedValue<630){
+        canvas.rotate(animatedValue-135);
+        canvas.drawArc(rectF,135+5,260-(animatedValue-270)/5,false,mPaint);
+        canvas.drawPoints(new float[]{
+                -point,-point
+                ,point,-point
+        },mPaint);
+    }else if (animatedValue<720){
+        canvas.rotate(animatedValue-135);
+        canvas.drawArc(rectF,135-(animatedValue-630)/2+5,260-(animatedValue-270)/5,false,mPaint);
+        canvas.drawPoints(new float[]{
+                -point,-point
+                ,point,-point
+        },mPaint);
+    }else{
+        canvas.rotate(animatedValue-135);
+        canvas.drawArc(rectF,135-(animatedValue-630)/2-(animatedValue-720)/6+5,170,false,mPaint);
+        canvas.drawPoints(new float[]{
+                -point,-point
+                ,point,-point
         },mPaint);
     }
+	canvas.restore();
 }
 ```
+
+在调试完成之后就可以删除，坐标系部分的代码了
+
+gif图
+
+## 四、小结
+本文介绍了canvas的变化，文中的不同部分穿插说明了canvas绘制各种图形的方法，以及结合ValueAnimator制作的豆瓣加载动画。之后的一篇文章会主要分析字符串的长度和宽度，根据这些来参数调整字符串的位置，以达到居中等效果，再后一章内容应该就会编写[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)了
