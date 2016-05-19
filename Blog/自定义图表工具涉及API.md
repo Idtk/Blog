@@ -34,7 +34,10 @@
 <br>
 
 ** ValueAnimator **
+
 <br>
 ** Path **
+
 <br>
+
 ** Paint.setXfermode,Xfermode有AvoidXfermode, PixelXorXfermode, PorterDuffXfermode三个子类，PorterDuffXfermode 这是一个非常强大的转换模式，使用它，可以使用图像合成的16条Porter-Duff规则的任意一条来控制Paint如何与已有的Canvas图像进行交互 **
