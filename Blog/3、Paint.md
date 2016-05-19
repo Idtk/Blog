@@ -38,3 +38,13 @@
 <br>
 
 （**PS: 因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
+
+```Java
+mPaint.setTextSize(50);
+mPaint.setTextAlign(Paint.Align.CENTER);
+String string = "Hello";
+float textWidth = mPaint.measureText(string);
+Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
+float textHeight = (-fontMetrics.leading-fontMetrics.ascent-fontMetrics.descent)/2;
+canvas.drawText(string,0,textHeight,mPaint);
+```
