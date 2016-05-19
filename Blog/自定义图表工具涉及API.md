@@ -33,7 +33,7 @@
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
 
-** ValueAnimator **
+**ValueAnimator**
 
 <br>
 ** Path **
