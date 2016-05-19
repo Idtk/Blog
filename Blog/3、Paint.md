@@ -26,7 +26,7 @@
 
 | 类别        | API           | 描述  |
 | ------------- |:-------------:| -----   | 
-| 颜色      | setColor,setARGB，setAlpha，setColorFilter | 依次为设置画笔颜色、透明度，色彩过滤器 |
+| 颜色      | setColor,setARGB，setAlpha | 依次为设置画笔颜色、透明度 |
 | 类型      | setStyle |   填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE) |
 | 抗锯齿      | setAntiAlias |   画笔是否抗锯齿 |
 | 字体大小      | setTextSize |   设置字体大小 |
