@@ -1,6 +1,6 @@
 #自定义View——Android坐标系与View绘制流程<br>
 
-## 一、涉及知识<br>
+## 涉及知识<br>
 **绘制过程**<br>
 
 | 类别        | API           |描述  |
@@ -37,7 +37,7 @@
 <br>
 
 （**Ps:因API较多，只列出了涉及的方法，想了解更多，请查看[官方文档](http://developer.android.com/reference/packages.html)**)<br>
-## 二、坐标系
+## 一、坐标系
 ### 1、屏幕坐标系
 &nbsp;&nbsp;屏幕坐标系以手机屏幕的左上角为坐标原点，过的原点水平直线为X轴，向右为正方向；过原点的垂线为Y轴，向下为正方向。<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%B1%8F%E5%B9%95.png" alt="屏幕坐标系" title="屏幕坐标系"width="300"/>
@@ -56,7 +56,7 @@ getRight();   //View的右边到其Parent View的左边的距离，即View的右
 图示如下:<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getTop.png" alt="View坐标系" title="View坐标系"width="300"/>
 
-## 三、绘制过程<br>
+## 二、绘制过程<br>
 ### 1、构造函数
 &nbsp;&nbsp;构造函数用于读取一些参数、属性对View进行初始化操作<br>
 &nbsp;&nbsp;View的构造函数有四种重载方法，分别如下:<br>
@@ -354,7 +354,7 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getRawX.png" alt="View坐标系" title="View坐标系"width="300"/><br>
 
 **onWindowFocusChanged**运行于onMeasure与onLayout之后，可以获取到正确的width、height、top、left等属性值。<br>
-## 四、小结
+## 三、小结
 &nbsp;&nbsp;简单分析了自定义View的入门准备知识，包括屏幕坐标系、View坐标、View的绘制过程中的主要函数、以及屏幕触摸事件。后面的内容将会围绕onDraw函数展开，在完成涉及知识点的分析之后，将会实战去编写PieView的代码。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
