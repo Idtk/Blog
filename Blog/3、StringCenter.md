@@ -1,4 +1,4 @@
-#自定义View——String Center<br>
+#自定义View——Text Center<br>
 
 ## 涉及知识<br>
 **绘制过程**<br>
@@ -105,9 +105,9 @@ canvas.drawTextOnPath(string,path,100,100,mPaint);
 
 另一种方法，和上面drawText中使用字符数组的方法，同理。
 
-## 二、字符串居中
+## 二、文本居中
 
-### 1、单行字符串居中
+### 1、单行文本居中
 
 #### a、getFontMetrics()，getFontMetricsInt()
 
@@ -121,16 +121,38 @@ getFontMetrics()，getFontMetricsInt()用于返回字符串的测量，而两个
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"/>
 
-在Android的坐标系之中，向下为Y轴正方向，向上位Y轴负方向，所以baseline之上的Top与Ascent都是负数，而baselin之下的Descent、Bottom都是正数。
-
-如果要让字符串在垂直方向上居中，则使用
+<br>
+在Android的坐标系之中，向下为Y轴正方向，向上位Y轴负方向，所以baseline之上的Top与Ascent都是负数，而baselin之下的Descent、Bottom都是正数。如果要让字符串在垂直方向上居中，则需要在纵坐标上增加Asecent绝对值与descent的差。
+<br>
+leading值是一行文本的底部与下一行文本的顶部之间的距离，图中就是line1的橙色线条与line2的紫色线条之间测距离，一般情况下是0。根据[stackoverflow](http://stackoverflow.com/questions/27631736)中的说法，是一行的bottom与下一行的top已经为字符串提供了足够的空间，所以leading的值在一般情况下都为0。需要注意的是，在获取FontMetrics之前请完成Paint的设置，这样才能准确的获取测量值。
 
 ```Java
 mPaint.setTextSize(50);
-mPaint.setTextAlign(Paint.Align.CENTER);
 String string = "Idtk";
-float textWidth = mPaint.measureText(string);
 Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
 float textHeight = (-fontMetrics.ascent-fontMetrics.descent)/2;
 canvas.drawText(string,0,textHeight,mPaint);
 ```
+图
+
+#### b、setTextAlign
+setTextAlign可以设置画笔绘制文本的对齐方式，选择center即可完成文本的水平居中。
+```Java
+mPaint.setTextAlign(Paint.Align.CENTER);
+```
+
+图
+
+#### c、measureText
+measureText可以测量文本的宽度，即横向长度，这样也可以来完成居中设置，但在这之前，需要恢复文本对齐方式至默认设置(居左)。
+```Java
+float textWidth = mPaint.measureText(string);
+canvas.drawText(string,-textWidth/2,textHeight,mPaint);
+```
+
+图
+<br>
+我们可以看出结果与之前相同。
+
+### 2、多行文本居中
+
