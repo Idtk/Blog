@@ -29,8 +29,8 @@
 | 类型      | setStyle |   填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE) |
 | 抗锯齿      | setAntiAlias |   画笔是否抗锯齿 |
 | 字体大小      | setTextSize |   设置字体大小 |
-| 字体测量      | getFontMetrics()，getFontMetricsInt() |   返回字体的各种测量值，返回值依次为float、int |
-| 文字宽度测量      | measureText |   返回文字的宽度 |
+| 字体测量      | getFontMetrics()，getFontMetricsInt() |   返回字体的测量，返回值依次为float、int |
+| 文字宽度      | measureText |   返回文字的宽度 |
 | 文字对齐方式      | setTextAlign |   左对齐(LEFT),居中对齐(CENTER),右对齐(RIGHT) |
 | 宽度      | setStrokeWidth |   设置画笔宽度 |
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
