@@ -60,13 +60,15 @@ String string = "Idtk";
 canvas.drawText(string,0,0,mPaint);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext.png" alt="drawText1" title="drawText1"width="300"/>
-或者只绘制其中的一部分字符
+<br>
+或者只绘制其中的一部分字符<br>
 start表示从第几个字符开始，end表示到第几个字符之前结束
 
 ```Java
 canvas.drawText(string,1,4,0,0,mPaint);//截取第一到第四个字符
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext2.png" alt="drawText2" title="drawText2"width="300"/>
+<br>
 可以使用CharSequence绘制
 
 ```Java
@@ -81,7 +83,7 @@ canvas.drawText(charSequence,5,10,0,0,mPaint);
 char[] chars = "chars".toCharArray();
 canvas.drawText(chars,2,3,0,0,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext4.png" alt="drawText4" title="drawText4"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawText4.png" alt="drawText4" title="drawText4"width="300"/>
 
 ### 2、drawPosText
 
