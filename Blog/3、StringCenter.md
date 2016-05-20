@@ -133,7 +133,7 @@ Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
 float textHeight = (-fontMetrics.ascent-fontMetrics.descent)/2;
 canvas.drawText(string,0,textHeight,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/center1.png" alt="center" title="center" width="300"/>
 
 #### b、setTextAlign
 setTextAlign可以设置画笔绘制文本的对齐方式，选择center即可完成文本的水平居中。
@@ -141,7 +141,7 @@ setTextAlign可以设置画笔绘制文本的对齐方式，选择center即可�
 mPaint.setTextAlign(Paint.Align.CENTER);
 ```
 
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/center2.png" alt="center" title="center" width="300"/>
 
 #### c、measureText
 measureText可以测量文本的宽度，即横向长度，这样也可以来完成居中设置，但在这之前，需要恢复文本对齐方式至默认设置(居左)。
@@ -150,7 +150,7 @@ float textWidth = mPaint.measureText(string);
 canvas.drawText(string,-textWidth/2,textHeight,mPaint);
 ```
 
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/center3.png" alt="center" title="center" width="300"/>
 <br>
 我们可以看出结果与之前相同。
 
