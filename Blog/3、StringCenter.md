@@ -119,7 +119,7 @@ getFontMetrics()，getFontMetricsInt()用于返回字符串的测量，而两个
 * Bottom:baseline到文本底部的最大距离
 * Leading:两行文本之间的推荐距离，一般为0
 
-<img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"/>
 
 在Android的坐标系之中，向下为Y轴正方向，向上位Y轴负方向，所以baseline之上的Top与Ascent都是负数，而baselin之下的Descent、Bottom都是正数。
 
