@@ -59,7 +59,7 @@ mPaint.setTextSize(50);
 String string = "Idtk";
 canvas.drawText(string,0,0,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext.png" alt="drawText1" title="drawText1"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawText1.png" alt="drawText1" title="drawText1"width="300"/>
 <br>
 或者只绘制其中的一部分字符<br>
 start表示从第几个字符开始，end表示到第几个字符之前结束
@@ -67,7 +67,7 @@ start表示从第几个字符开始，end表示到第几个字符之前结束
 ```Java
 canvas.drawText(string,1,4,0,0,mPaint);//截取第一到第四个字符
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext2.png" alt="drawText2" title="drawText2"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawText2.png" alt="drawText2" title="drawText2"width="300"/>
 <br>
 可以使用CharSequence绘制
 
@@ -75,7 +75,7 @@ canvas.drawText(string,1,4,0,0,mPaint);//截取第一到第四个字符
 CharSequence charSequence = "charSequence";
 canvas.drawText(charSequence,5,10,0,0,mPaint);
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext3.png" alt="drawText3" title="drawText3"width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawText3.png" alt="drawText3" title="drawText3"width="300"/>
 
 或者使用字符数组，index表示从第几个字符开始，count表示截取的数组长度
 
