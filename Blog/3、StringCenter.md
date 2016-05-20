@@ -1,4 +1,4 @@
-#自定义View——Paint<br>
+#自定义View——String Center<br>
 
 ## 涉及知识<br>
 **绘制过程**<br>
@@ -59,20 +59,21 @@ mPaint.setTextSize(50);
 String string = "Idtk";
 canvas.drawText(string,0,0,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext.png" alt="drawText1" title="drawText1"width="300"/>
 或者只绘制其中的一部分字符
 start表示从第几个字符开始，end表示到第几个字符之前结束
 
 ```Java
 canvas.drawText(string,1,4,0,0,mPaint);//截取第一到第四个字符
 ```
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext2.png" alt="drawText2" title="drawText2"width="300"/>
 可以使用CharSequence绘制
 
 ```Java
 CharSequence charSequence = "charSequence";
 canvas.drawText(charSequence,5,10,0,0,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext3.png" alt="drawText3" title="drawText3"width="300"/>
 
 或者使用字符数组，index表示从第几个字符开始，count表示截取的数组长度
 
@@ -80,7 +81,7 @@ canvas.drawText(charSequence,5,10,0,0,mPaint);
 char[] chars = "chars".toCharArray();
 canvas.drawText(chars,2,3,0,0,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/drawtext4.png" alt="drawText4" title="drawText4"width="300"/>
 
 ### 2、drawPosText
 
@@ -98,7 +99,7 @@ Path path = new Path();
 path.lineTo(0,200);
 canvas.drawTextOnPath(string,path,100,100,mPaint);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/path.png" alt="drawTextOnPath" title="drawTextOnPath"width="300"/>
 
 另一种方法，和上面drawText中使用字符数组的方法，同理。
 
@@ -116,7 +117,7 @@ getFontMetrics()，getFontMetricsInt()用于返回字符串的测量，而两个
 * Bottom:baseline到文本底部的最大距离
 * Leading:两行文本之间的推荐距离，一般为0
 
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"width="300"/>
 
 在Android的坐标系之中，向下为Y轴正方向，向上位Y轴负方向，所以baseline之上的Top与Ascent都是负数，而baselin之下的Descent、Bottom都是正数。
 
