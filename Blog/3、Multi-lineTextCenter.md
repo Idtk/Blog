@@ -160,11 +160,11 @@ canvas.drawText(string,-textWidth/2,textHeight,mPaint);
 <br>
 假设有设定好的字符串数组，画笔，画布，坐标点
 <br>
-*1、drawText每次只能绘制一行，所以我们有个for循环
-*2、更具上图，假设字符串数组大于1，每个字符串的高度应该为-top+bottom，总高度就为length*(-top+bottom);
-3、偏移量就等于length*(-top+bottom)/2-bottom;
-4、如果顺序向上(即Y负方向)排列的话，那么第i个字符串的高度就是-(length-i-1)*(-top+bottom);
-5、每个字符串高度的减去偏移量，就应该是每个字符串的baseline的Y坐标
+* 1、drawText每次只能绘制一行，所以我们有个for循环
+* 2、更具上图，假设字符串数组大于1，每个字符串的高度应该为-top+bottom，总高度就为length*(-top+bottom);
+* 3、偏移量就等于length*(-top+bottom)/2-bottom;
+* 4、如果顺序向上(即Y负方向)排列的话，那么第i个字符串的高度就是-(length-i-1)*(-top+bottom);
+* 5、每个字符串高度的减去偏移量，就应该是每个字符串的baseline的Y坐标
 <br>
 详细代码如下:
 ```Java
