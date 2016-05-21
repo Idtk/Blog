@@ -1,4 +1,4 @@
-#自定义View——Text Center<br>
+#自定义View——多行文本居中<br>
 
 ## 涉及知识<br>
 **绘制过程**<br>
@@ -156,3 +156,40 @@ canvas.drawText(string,-textWidth/2,textHeight,mPaint);
 
 ### 2、多行文本居中
 
+这是整片博客来说最有趣的地方，我们如何让一个多行字符串居中呢？
+<br>
+假设有设定好的字符串数组，画笔，画布，坐标点
+<br>
+*1、drawText每次只能绘制一行，所以我们有个for循环
+*2、更具上图，假设字符串数组大于1，每个字符串的高度应该为-top+bottom，总高度就为length*(-top+bottom);
+3、偏移量就等于length*(-top+bottom)/2-bottom;
+4、如果顺序向上(即Y负方向)排列的话，那么第i个字符串的高度就是-(length-i-1)*(-top+bottom);
+5、每个字符串高度的减去偏移量，就应该是每个字符串的baseline的Y坐标
+<br>
+详细代码如下:
+```Java
+private void stringCenter(String[] strings, Paint paint, Canvas canvas, Point point,Paint.Align align){
+    mPaint.setTextAlign(align);
+    Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
+    float top = fontMetrics.top;
+    float bottom = fontMetrics.bottom;
+    int length = strings.length;
+    float total = (length-1)*(-top+bottom)+(-fontMetrics.ascent+fontMetrics.descent);
+    float offset = total/2-bottom;
+    for (int i=0; i<length; i++){
+        float yAxis = -(length-i-1)*(-top+bottom)+offset;
+        canvas.drawText(strings[i],point.x,point.y+yAxis,mPaint);
+    }
+}
+```
+偏移量取值的变化，是因为在字符串的首尾两个字符串，需要把top改成ascent，bottom改成descent。
+<br>
+使用代码:
+```Java
+mPaint.setTextSize(50);
+mPaint.setColor(Color.BLUE);
+String[] strings = new String[]{"Idtk","是","一","个","小","学","生"
+Point point = new Point(0,0);
+stringCenter(strings,mPaint,canvas,point,Paint.Align.CENTER);
+```
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Multi-line.png" alt="Multi-line" title="Multi-line" width="300"/>
