@@ -182,7 +182,7 @@ private void stringCenter(String[] strings, Paint paint, Canvas canvas, Point po
     }
 }
 ```
-偏移量取值的变化，是因为在字符串的首尾两个字符串，需要把top改成ascent，bottom改成descent。
+偏移量取值的变化，是因为在字符串的首尾两个字符串，需要把top改成ascent，bottom改成descent。通过设置画笔来完成横向的居中，居左，居右。
 <br>
 使用代码:
 ```Java
@@ -193,3 +193,9 @@ Point point = new Point(0,0);
 stringCenter(strings,mPaint,canvas,point,Paint.Align.CENTER);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Multi-line.png" alt="Multi-line" title="Multi-line" width="300"/>
+
+## 三、小结
+本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
