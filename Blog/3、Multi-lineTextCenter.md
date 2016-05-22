@@ -168,7 +168,7 @@ canvas.drawText(string,-textWidth/2,textHeight,mPaint);
 <br>
 详细代码如下:
 ```Java
-private void stringCenter(String[] strings, Paint paint, Canvas canvas, Point point,Paint.Align align){
+private void textCenter(String[] strings, Paint paint, Canvas canvas, Point point,Paint.Align align){
     mPaint.setTextAlign(align);
     Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
     float top = fontMetrics.top;
@@ -190,9 +190,59 @@ mPaint.setTextSize(50);
 mPaint.setColor(Color.BLUE);
 String[] strings = new String[]{"Idtk","是","一","个","小","学","生"
 Point point = new Point(0,0);
-stringCenter(strings,mPaint,canvas,point,Paint.Align.CENTER);
+textCenter(strings,mPaint,canvas,point,Paint.Align.CENTER);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Multi-line.png" alt="Multi-line" title="Multi-line" width="300"/>
+
+### 3、多列文本居右
+这个是模仿古文的书写方式<br>
+* 1、一个字符串数组，分割正多个字符数组
+* 2、每个字符数组中，获取最宽的字符宽度，为字符数组的字符宽度
+* 3、计算数组x坐标，再调用之前的文本居中代码
+<br>
+我们先重载一个textcenter方法:
+```Java
+private void textCenter(char[] chars, Paint paint, Canvas canvas, Point point,Paint.Align align){
+    mPaint.setTextAlign(align);
+    Paint.FontMetrics fontMetrics= mPaint.getFontMetrics();
+    float top = fontMetrics.top;
+    float bottom = fontMetrics.bottom;
+    int length = chars.length;
+    float total = (length-1)*(-top+bottom)+(-fontMetrics.ascent+fontMetrics.descent);
+    float offset = total/2-bottom;
+    for (int i=0; i<length; i++){
+        float yAxis = -(length-i-1)*(-top+bottom)+offset;
+        canvas.drawText(chars[i]+"",point.x,point.y+yAxis,mPaint);
+    }
+}
+```
+接下来编写多列居左的代码:
+```Java
+private void rowTextRigth(String[] strings, Paint paint, Canvas canvas, Point point){
+    mPaint.setTextAlign(Paint.Align.RIGHT);
+    int length = strings.length;
+    float len,newLen;
+    float total = 0;
+    for (int j=0; j<length; j++){
+        char[] chars=strings[j].toCharArray();
+        len = mPaint.measureText(chars[0]+"");
+        for (int i=1; i<chars.length; i++){
+            newLen = mPaint.measureText(chars[i]+"");
+            len = Math.max(newLen,len);
+        }
+        point.x = point.x - (int) total;
+        textCenter(chars,mPaint,canvas,point,Paint.Align.RIGHT);
+        point.x = point.x + (int) total;
+        total = total+len;
+    }
+}
+```
+使用方法示例,且容在下吟诗一首:
+```Java
+String[] strings2 = new String[]{"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
+rowTextRigth(strings2,mPaint,canvas,point);
+```
+<img src="https://github.com/Idtk/Blog/blob/master/Image/row.png" alt="Multi-line" title="Multi-line" width="300"/>
 
 ## 三、小结
 本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
