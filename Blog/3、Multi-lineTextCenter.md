@@ -117,7 +117,7 @@ getFontMetrics()，getFontMetricsInt()用于返回字符串的测量，而两个
 * Ascent : baseline到文本顶部的推荐距离
 * Descent : baseline到文本底部的推荐距离
 * Bottom : baseline到文本底部的最大距离
-* Leading : 两行文本之间的推荐距离，一般为0
+* Leading : 两行文本之间推荐的额外距离，一般为0
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"/>
 
