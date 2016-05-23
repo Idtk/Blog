@@ -56,7 +56,7 @@ private void textCenter(String string, TextPaint textPaint, Canvas canvas, int w
         canvas.restore();
     }
 ```
-
+使用方法，StaticLayout还有设置偏移量等方法
 ```Java
 String mString = "Idtk";
 TextPaint tp = new TextPaint();
