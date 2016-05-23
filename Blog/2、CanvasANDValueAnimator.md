@@ -219,7 +219,7 @@ mPaint.setStrokeWidth(10);
 float point = Math.min(mWidth,mHeight)*0.2f/2;
 float r = point*(float) Math.sqrt(2);
 RectF rectF = new RectF(-r,-r,r,r);
-canvas.drawArc(rectF,-45,270,false,mPaint);
+canvas.drawArc(rectF,-180,270,false,mPaint);
 ```
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BC%A7.png" alt="圆弧" title="圆弧"width="300"/>
