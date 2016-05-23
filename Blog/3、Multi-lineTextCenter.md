@@ -117,7 +117,7 @@ getFontMetrics()，getFontMetricsInt()用于返回字符串的测量，而两个
 * Ascent : baseline到文本顶部的推荐距离
 * Descent : baseline到文本底部的推荐距离
 * Bottom : baseline到文本底部的最大距离
-* Leading : 两行文本之间的推荐距离，一般为0
+* Leading : 两行文本之间推荐的额外距离，一般为0
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/String%20Center.png" alt="center" title="center"/>
 
@@ -237,7 +237,7 @@ private void rowTextRigth(String[] strings, Paint paint, Canvas canvas, Point po
     }
 }
 ```
-使用方法示例,且容在下吟诗一首:
+使用方法示例:
 ```Java
 String[] strings2 = new String[]{"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
 rowTextRigth(strings2,mPaint,canvas,point);
@@ -245,7 +245,7 @@ rowTextRigth(strings2,mPaint,canvas,point);
 <img src="https://github.com/Idtk/Blog/blob/master/Image/row.png" alt="Multi-line" title="Multi-line" width="300"/>
 
 ## 三、小结
-本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中，多列文本居右。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>

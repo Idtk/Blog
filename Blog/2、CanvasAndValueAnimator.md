@@ -197,6 +197,7 @@ canvas.drawCircle(200,0,r,mPaint);//圆心(200,0)
 绘制2个点和一个半圆弧
 
 ```Java
+mPaint.setStyle(Paint.Style.STROKE);//设置画笔样式为描边，如果已经设置，可以忽略
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
 float point = Math.min(mWidth,mHeight)*0.2f/2;
@@ -218,7 +219,7 @@ mPaint.setStrokeWidth(10);
 float point = Math.min(mWidth,mHeight)*0.2f/2;
 float r = point*(float) Math.sqrt(2);
 RectF rectF = new RectF(-r,-r,r,r);
-canvas.drawArc(rectF,-45,270,false,mPaint);
+canvas.drawArc(rectF,-180,270,false,mPaint);
 ```
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BC%A7.png" alt="圆弧" title="圆弧"width="300"/>
@@ -237,11 +238,11 @@ canvas.drawArc(rectF,-45,270,false,mPaint);
 |addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 
 分解步骤，计算一下总共需要的角度:<br>
-1、一个笑脸，下部分的圆弧旋135°，覆盖2个点，同时圆弧增加45°<br>
-2、旋转135°，同时圆弧增加45°<br>
-3、旋转360°，圆弧减少360/5度<br>
-4、旋转90°，圆弧减少90/5度<br>
-5、旋转135°，释放覆盖的2个点<br>
+1、一个笑脸，x轴下方的圆弧旋转135°，覆盖2个点，此过程中圆弧增加45°<br>
+2、画布旋转135°，此过程中圆弧增加45°<br>
+3、画布旋转360°，此过程中圆弧减少360/5度<br>
+4、画布旋转90°，此过程中圆弧减少90/5度<br>
+5、画布旋转135°，释放覆盖的2个点<br>
 
 动画部分: 
 ```Java
