@@ -197,7 +197,7 @@ canvas.drawCircle(200,0,r,mPaint);//圆心(200,0)
 绘制2个点和一个半圆弧
 
 ```Java
-mPaint.setStyle(Paint.Style.STROKE);
+mPaint.setStyle(Paint.Style.STROKE);//设置画笔样式为描边，如果已经设置，可以忽略
 mPaint.setColor(Color.GREEN);
 mPaint.setStrokeWidth(10);
 float point = Math.min(mWidth,mHeight)*0.2f/2;
