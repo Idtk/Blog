@@ -34,8 +34,14 @@
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
 
-**ValueAnimator**
+**ValueAnimator**<br>
 
+| API        | 简介           |
+| ------------- | ------------- |
+|ofFloat(float... values)|构建ValueAnimator，设置动画的浮点值，需要设置2个以上的值|
+|setDuration(long duration)|设置动画时长，默认的持续时间为300毫秒。|
+|setInterpolator(TimeInterpolator value)|设置动画的线性非线性运动，默认AccelerateDecelerateInterpolator|
+|addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 <br>
 **Path**
 
