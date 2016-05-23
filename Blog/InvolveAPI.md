@@ -33,7 +33,6 @@
 | 宽度      | setStrokeWidth |   设置画笔宽度 |
 | 笔锋      | setStrokeCap |   默认(BUTT),半圆形(ROUND),方形(SQUARE) |
 <br>
-
 **ValueAnimator**<br>
 
 | API        | 简介           |
@@ -44,5 +43,3 @@
 |addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 <br>
 **Path**
-
-<br>
