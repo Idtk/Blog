@@ -43,10 +43,25 @@
 |addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 <br>
 **Path**
-<<<<<<< HEAD
-
 <br>
 
 
-=======
->>>>>>> origin/master
+StaticLayout 可以设定宽度后，可以完成文本的自动换行
+```Java
+private void textCenter(String string, TextPaint textPaint, Canvas canvas, int width,Layout.Alignment align,float spacingmult, float spacingadd,boolean includepad){
+        StaticLayout staticLayout = new StaticLayout(string,textPaint,width, align,spacingmult,spacingadd,includepad);
+        canvas.save();
+        canvas.translate(-staticLayout.getWidth()/2,-staticLayout.getHeight()/2);
+        staticLayout.draw(canvas);
+        canvas.restore();
+    }
+```
+
+```Java
+String mString = "Idtk";
+TextPaint tp = new TextPaint();
+tp.setColor(Color.BLUE);
+tp.setStyle(Paint.Style.FILL);
+tp.setTextSize(200);
+textCenter(mString,tp,canvas,400,Layout.Alignment.ALIGN_CENTER,1f,0,false);
+```
