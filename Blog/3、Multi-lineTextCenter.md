@@ -245,7 +245,7 @@ rowTextRigth(strings2,mPaint,canvas,point);
 <img src="https://github.com/Idtk/Blog/blob/master/Image/row.png" alt="Multi-line" title="Multi-line" width="300"/>
 
 ### 4、长文本自动换行居中
-系统中有一个StaticLayout方法，可以在设置宽度，当前行文本超过此宽度后，进行自动换行，提供ALIGN_CENTER(居中)、ALIGN_NORMAL(通常)、ALIGN_OPPOSITE(与通常相反)三种对齐方式。<br>
+系统中有一个StaticLayout方法，可以在设置宽度，当前行文本超过此宽度后，进行自动换行，提供ALIGN_CENTER(居中)、ALIGN_NORMAL(标准)、ALIGN_OPPOSITE(与标准相反)三种对齐方式。<br>
 可以简单的封装成一个方法:
 ``` Java
 private void textCenter(String string, TextPaint textPaint, Canvas canvas, Point point, int width,
