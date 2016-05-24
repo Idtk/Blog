@@ -244,6 +244,32 @@ rowTextRigth(strings2,mPaint,canvas,point);
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/row.png" alt="Multi-line" title="Multi-line" width="300"/>
 
+### 4、长文本自动换行居中
+系统中有一个StaticLayout方法，可以在设置宽度，当前行文本超过此宽度后，进行自动换行，提供ALIGN_CENTER(居中)、ALIGN_NORMAL(通常)、ALIGN_OPPOSITE(与通常相反)三种对齐方式。<br>
+可以简单的封装成一个方法:
+``` Java
+private void textCenter(String string, TextPaint textPaint, Canvas canvas, Point point, int width,
+                        Layout.Alignment align, float spacingmult, float spacingadd, boolean includepad){
+    StaticLayout staticLayout = new StaticLayout(string,textPaint,width, align,spacingmult,spacingadd,includepad);
+    canvas.save();
+    canvas.translate(-staticLayout.getWidth()/2+point.x,-staticLayout.getHeight()/2+point.y);
+    staticLayout.draw(canvas);
+    canvas.restore();
+}
+```
+使用方法:
+```Java
+String mString = "Idtk是一个小学生";
+TextPaint tp = new TextPaint();
+tp.setColor(Color.BLUE);
+tp.setStyle(Paint.Style.FILL);
+tp.setTextSize(50);
+Point point = new Point(0,0);
+textCenter(mString,tp,canvas,point,150,Layout.Alignment.ALIGN_CENTER,1.5f,0,false);
+```
+
+图
+
 ## 三、小结
 本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中，多列文本居右。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
