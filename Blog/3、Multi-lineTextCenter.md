@@ -257,7 +257,7 @@ private void textCenter(String string, TextPaint textPaint, Canvas canvas, Point
     canvas.restore();
 }
 ```
-使用方法:
+使用方法,这里设置宽度为150:
 ```Java
 String mString = "Idtk是一个小学生";
 TextPaint tp = new TextPaint();
