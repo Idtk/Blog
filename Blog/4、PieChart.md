@@ -1,6 +1,6 @@
 # 自定义PieChart
 
-图
+<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="PieChat" title="PieChat" width="300" /><br>
 
 (**PS: 经过之前[3篇博客](https://github.com/Idtk/Blog)的基础知识学习，终于可以开始编写PieChart~\(≧▽≦)/~啦啦啦**)
 
