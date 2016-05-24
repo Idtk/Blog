@@ -15,6 +15,7 @@ public class PieData {
     private float angle = 0;
 }
 ```
+各属性的set与get请自行增加。
 
 ## 二、构造函数
 构造函数中，增加一些xml设置，创建一个attrs.xml
