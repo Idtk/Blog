@@ -2,7 +2,7 @@
 
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="PieChat" title="PieChat" width="300" /><br>
 
-(**PS: 经过之前[3篇博客](https://github.com/Idtk/Blog)的基础知识学习，终于可以开始编写PieChart~\(≧▽≦)/~啦啦啦**)
+(**PS: 经过之前[3篇博客](https://github.com/Idtk/Blog)的基础知识学习，终于可以开始编写PieChart了 ~\(≧▽≦)/~啦啦啦**)
 
 ## 一、数据需求
 来分析下，用户需要提供怎样的数据，首先要有数据的值，然后还需要对应的数据名称，以及颜色。绘制PieChart需要什么呢，由图可以看出，需要百分比值，扇形角度，色块颜色。所以总共属性有:
