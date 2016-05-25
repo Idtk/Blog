@@ -66,3 +66,6 @@ tp.setStyle(Paint.Style.FILL);
 tp.setTextSize(200);
 textCenter(mString,tp,canvas,400,Layout.Alignment.ALIGN_CENTER,1f,0,false);
 ```
+
+
+# 05-25 11:47:10.050 4692-4692/com.example.administrator.customview A/libc: Fatal signal 11 (SIGSEGV), code 2, fault addr 0xef5fc000 in tid 4692 (ator.customview)
