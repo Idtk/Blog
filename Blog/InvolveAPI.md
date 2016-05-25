@@ -45,7 +45,8 @@
 **Path**
 <br>
 
-# staticLayout居中方法，源码阅读(未完成)
+# staticLayout居中方法，源码阅读
+
 StaticLayout 可以设定宽度后，可以完成文本的自动换行
 ```Java
 private void textCenter(String string, TextPaint textPaint, Canvas canvas, int width,Layout.Alignment align,float spacingmult, float spacingadd,boolean includepad){
