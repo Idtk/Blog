@@ -136,19 +136,19 @@ public class BaseChart extends View {
         for (int i=0; i<n; i++){
             switch (i){
                 case R.styleable.base_chart_attr1:
-                    Log.d(TAG,"attr1 =>" + array.getString(R.styleable.base_chart_attr1));
+                    Log.d(TAG,"attr1 =>" + array.getString(i));
                     break;
                 case R.styleable.base_chart_attr2:
-                    Log.d(TAG,"attr2 =>" + array.getString(R.styleable.base_chart_attr2));
+                    Log.d(TAG,"attr2 =>" + array.getString(i));
                     break;
                 case R.styleable.base_chart_attr3:
-                    Log.d(TAG,"attr3 =>" + array.getString(R.styleable.base_chart_attr3));
+                    Log.d(TAG,"attr3 =>" + array.getString(i));
                     break;
                 case R.styleable.base_chart_attr4:
-                    Log.d(TAG,"attr4 =>" + array.getString(R.styleable.base_chart_attr4));
+                    Log.d(TAG,"attr4 =>" + array.getString(i));
                     break;
                 case R.styleable.base_chart_attr5:
-                    Log.d(TAG,"attr5 =>" + array.getString(R.styleable.base_chart_attr5));
+                    Log.d(TAG,"attr5 =>" + array.getString(i));
                     break;
             }
         }
