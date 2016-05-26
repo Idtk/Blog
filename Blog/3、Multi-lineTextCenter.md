@@ -271,7 +271,7 @@ textCenter(mString,tp,canvas,point,150,Layout.Alignment.ALIGN_CENTER,1.5f,0,fals
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Multi-line2.png" alt="Multi-line" title="Multi-line" width="300"/>
 
 ## 三、小结
-本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中，多列文本居右。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文介绍了如何在canvas中绘制文字，以及单行、多行文字居中，多列文本居右。在下一篇文章将会迎来一个阶段性的目标，进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif)的绘制。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
