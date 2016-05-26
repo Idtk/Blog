@@ -323,7 +323,7 @@ private void doubanAnimator2(Canvas canvas, Paint mPaint){
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%AC%91%E8%84%B8.gif" alt="笑脸" title="笑脸"/>
 
 ## 三、小结
-本文介绍了canvas的变化，文中的不同部分穿插说明了canvas绘制各种图形的方法，以及结合ValueAnimator制作的豆瓣加载动画。之后的一篇文章会主要分析字符串的长度和宽度，根据这些来参数调整字符串的位置，以达到居中等效果，再后一篇文章内容应该就会编写[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif)了。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文介绍了canvas的变化，文中的不同部分穿插说明了canvas绘制各种图形的方法，以及结合ValueAnimator制作的豆瓣加载动画。之后的一篇文章会主要分析字符串的长度和宽度，根据这些来参数调整字符串的位置，以达到居中等效果，再后一篇文章内容应该就会编写[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif)了。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
