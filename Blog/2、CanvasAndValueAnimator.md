@@ -274,48 +274,48 @@ private void initAnimator(long duration){
 
 ```Java
 private void doubanAnimator2(Canvas canvas, Paint mPaint){
-        mPaint.setStyle(Paint.Style.STROKE);//描边
-        mPaint.setStrokeCap(Paint.Cap.ROUND);//圆角笔触
-        mPaint.setColor(Color.rgb(97, 195, 109));
-        mPaint.setStrokeWidth(15);
-        float point = Math.min(mViewWidth,mViewWidth)*0.06f/2;
-        float r = point*(float) Math.sqrt(2);
-        RectF rectF = new RectF(-r,-r,r,r);
-        canvas.save();
+    mPaint.setStyle(Paint.Style.STROKE);//描边
+    mPaint.setStrokeCap(Paint.Cap.ROUND);//圆角笔触
+    mPaint.setColor(Color.rgb(97, 195, 109));
+    mPaint.setStrokeWidth(15);
+    float point = Math.min(mViewWidth,mViewWidth)*0.06f/2;
+    float r = point*(float) Math.sqrt(2);
+    RectF rectF = new RectF(-r,-r,r,r);
+    canvas.save();
 
-        // rotate
-        if (animatedValue>=135){
-            canvas.rotate(animatedValue-135);
-        }
-
-        // draw mouth
-        float startAngle=0, sweepAngle=0;
-        if (animatedValue<135){
-            startAngle = animatedValue +5;
-            sweepAngle = 170+animatedValue/3;
-        }else if (animatedValue<270){
-            startAngle = 135+5;
-            sweepAngle = 170+animatedValue/3;
-        }else if (animatedValue<630){
-            startAngle = 135+5;
-            sweepAngle = 260-(animatedValue-270)/5;
-        }else if (animatedValue<720){
-            startAngle = 135-(animatedValue-630)/2+5;
-            sweepAngle = 260-(animatedValue-270)/5;
-        }else{
-            startAngle = 135-(animatedValue-630)/2-(animatedValue-720)/6+5;
-            sweepAngle = 170;
-        }
-        canvas.drawArc(rectF,startAngle,sweepAngle,false,mPaint);
-
-        // draw eye
-        canvas.drawPoints(new float[]{
-                -point,-point
-                ,point,-point
-        },mPaint);
-
-        canvas.restore();
+    // rotate
+    if (animatedValue>=135){
+        canvas.rotate(animatedValue-135);
     }
+
+    // draw mouth
+    float startAngle=0, sweepAngle=0;
+    if (animatedValue<135){
+        startAngle = animatedValue +5;
+        sweepAngle = 170+animatedValue/3;
+    }else if (animatedValue<270){
+        startAngle = 135+5;
+        sweepAngle = 170+animatedValue/3;
+    }else if (animatedValue<630){
+        startAngle = 135+5;
+        sweepAngle = 260-(animatedValue-270)/5;
+    }else if (animatedValue<720){
+        startAngle = 135-(animatedValue-630)/2+5;
+        sweepAngle = 260-(animatedValue-270)/5;
+    }else{
+        startAngle = 135-(animatedValue-630)/2-(animatedValue-720)/6+5;
+        sweepAngle = 170;
+    }
+    canvas.drawArc(rectF,startAngle,sweepAngle,false,mPaint);
+
+    // draw eye
+    canvas.drawPoints(new float[]{
+        -point,-point
+        ,point,-point
+    },mPaint);
+
+    canvas.restore();
+}
 ```
 
 在调试完成之后就可以删除，坐标系部分的代码了。感谢[GcsSloop](https://github.com/GcsSloop)，帮助修改代码，减少冗余
