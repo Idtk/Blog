@@ -12,6 +12,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -58,7 +59,7 @@ public class PieChart extends View {
     private double radiusScaleInside = 0.43;
     //Paint的字体大小
     private int percentTextSize = 45;
-    private int centerTextSize = 80;
+    private int centerTextSize = 60;
 
     //中间文字颜色
     private int centerTextColor = Color.BLACK;
@@ -67,7 +68,7 @@ public class PieChart extends View {
     //百分比的小数位
     private int percentDecimal = 0;
     //饼图名
-    private String name = "饼图名";
+    private String name = "PieChart";
     //居中点
     private Point mPoint = new Point();
     //小于此角度在未点击状态下不显示百分比
@@ -78,26 +79,35 @@ public class PieChart extends View {
     private Path inPath = new Path();
     private Path outMidPath = new Path();
     private Path midInPath = new Path();
+    //百分比最长字符
+    private int stringId = 0;
+    //wrap_content尺寸
+//    private float wrapSize;
 
     public PieChart(Context context) {
-//        super(context);
         this(context,null);
     }
 
     public PieChart(Context context, @Nullable AttributeSet attrs) {
-//        super(context, attrs);
         this(context,attrs,0);
     }
 
     public PieChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        this(context,attrs,defStyleAttr,0);
         init(context,attrs,defStyleAttr,0);
     }
 
     public PieChart(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context,attrs,defStyleAttr,defStyleRes);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = measureDimension(widthMeasureSpec);
+        int height = measureDimension(heightMeasureSpec);
+        setMeasuredDimension(width,height);
     }
 
     @Override
@@ -148,6 +158,13 @@ public class PieChart extends View {
         reatFWhite.top = -rWhiteF;
         reatFWhite.right = rWhiteF;
         reatFWhite.bottom = rWhiteF;
+
+        //animated
+        if (animatedFlag){
+            initAnimator(animatorDuration);
+        }else {
+            animatedValue = 360f;
+        }
     }
 
     @Override
@@ -169,7 +186,7 @@ public class PieChart extends View {
             }else {
                 drawAngle = 0;
             }
-            if (i==angleId&&animatedValue==360){
+            if (i==angleId){
                 drawArc(canvas,currentStartAngle,drawAngle,pie,rF,rTraF,rWhiteF,rectFF,rectFTraF,reatFWhite,mPaint);
             }else {
                 drawArc(canvas,currentStartAngle,drawAngle,pie,r,rTra,rWhite,rectF,rectFTra,rectFIn,mPaint);
@@ -191,8 +208,8 @@ public class PieChart extends View {
             int textPathX;
             int textPathY;
 
-            if (animatedValue>pieAngles[i]-pie.getAngle()/3) {
-                if (i == angleId&&animatedValue==360) {
+            if (animatedValue>pieAngles[i]-pie.getAngle()/2) {
+                if (i == angleId) {
                     textPathX = (int) (Math.cos(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
                     textPathY = (int) (Math.sin(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
                     mPoint.x = textPathX;
@@ -224,6 +241,8 @@ public class PieChart extends View {
         String[] strings = new String[]{name+""};
         if (strings.length==1)
         textCenter(strings,mPaint,canvas,mPoint, Paint.Align.CENTER);
+
+
     }
 
     @Override
@@ -281,14 +300,11 @@ public class PieChart extends View {
 
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);//抗锯齿
-        if (animatedFlag){
-            initAnimator(animatorDuration);
-        }else {
-            animatedValue = 360f;
-        }
     }
 
     private void initDate(ArrayList<PieData> mPieData){
+
+        float dataMax=0;
         if (mPieData ==null||mPieData.size()==0)
             return;
         pieAngles = new float[mPieData.size()];
@@ -307,8 +323,20 @@ public class PieChart extends View {
             pie.setAngle(angle);
             sumAngle += angle;
             pieAngles[i]=sumAngle;
+
+            NumberFormat numberFormat =NumberFormat.getPercentInstance();
+            numberFormat.setMinimumFractionDigits(percentDecimal);
+            if (dataMax<textWidth(numberFormat.format(pie.getPercentage()),percentTextSize,mPaint)){
+                stringId = i;
+            }
         }
         angleId = -1;
+    }
+
+    private float textWidth(String string, int size, Paint paint){
+        paint.setTextSize(size);
+        float textWidth =paint.measureText(string+"");
+        return textWidth;
     }
 
     private void initAnimator(long duration){
@@ -340,6 +368,7 @@ public class PieChart extends View {
         for (int i = 0; i < length; i++) {
             float yAxis = -(length - i - 1) * (-top + bottom) + offset;
             canvas.drawText(strings[i], point.x, point.y + yAxis, paint);
+            Log.d("TAG",mPaint.measureText(strings[i])+":"+strings[i]);
         }
     }
 
@@ -364,6 +393,45 @@ public class PieChart extends View {
         midInPath.reset();
     }
 
+    private int measureWrap(Paint paint){
+        float wrapSize;
+        if (mPieData!=null&mPieData.size()>1){
+            NumberFormat numberFormat =NumberFormat.getPercentInstance();
+            numberFormat.setMinimumFractionDigits(percentDecimal);
+            paint.setTextSize(percentTextSize);
+            float percentWidth = paint.measureText(numberFormat.format(mPieData.get(stringId).getPercentage())+"");
+            paint.setTextSize(centerTextSize);
+            float nameWidth = paint.measureText(name+"");
+            wrapSize = (percentWidth*4+nameWidth*2)*(float) offsetScaleRadius;
+        }else {
+            wrapSize = 0;
+        }
+        return (int) wrapSize;
+    }
+
+    private int measureDimension(int measureSpec){
+        int size;
+
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        switch (specMode){
+            case MeasureSpec.UNSPECIFIED:
+                size = measureWrap(mPaint);
+                break;
+            case MeasureSpec.EXACTLY:
+                size = specSize;
+                break;
+            case MeasureSpec.AT_MOST:
+                size = Math.min(specSize,measureWrap(mPaint));
+                break;
+            default:
+                size = measureWrap(mPaint);
+                break;
+        }
+        return size;
+    }
+
     /**
      * 设置起始角度
      * @param mStartAngle 起始角度
@@ -385,13 +453,6 @@ public class PieChart extends View {
     public void setPieData(ArrayList<PieData> mPieData) {
         this.mPieData = mPieData;
         initDate(mPieData);
-    }
-
-    /**
-     * 重绘View
-     */
-    public void setInvalidate(){
-        invalidate();
     }
 
     /**
