@@ -47,25 +47,4 @@
 
 # staticLayout居中方法，源码阅读
 
-StaticLayout 可以设定宽度后，可以完成文本的自动换行
-```Java
-private void textCenter(String string, TextPaint textPaint, Canvas canvas, int width,Layout.Alignment align,float spacingmult, float spacingadd,boolean includepad){
-        StaticLayout staticLayout = new StaticLayout(string,textPaint,width, align,spacingmult,spacingadd,includepad);
-        canvas.save();
-        canvas.translate(-staticLayout.getWidth()/2,-staticLayout.getHeight()/2);
-        staticLayout.draw(canvas);
-        canvas.restore();
-    }
-```
-使用方法，StaticLayout还有设置偏移量等方法
-```Java
-String mString = "Idtk";
-TextPaint tp = new TextPaint();
-tp.setColor(Color.BLUE);
-tp.setStyle(Paint.Style.FILL);
-tp.setTextSize(200);
-textCenter(mString,tp,canvas,400,Layout.Alignment.ALIGN_CENTER,1f,0,false);
-```
-
-
-# 05-25 11:47:10.050 4692-4692/com.example.administrator.customview A/libc: Fatal signal 11 (SIGSEGV), code 2, fault addr 0xef5fc000 in tid 4692 (ator.customview)
+# [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)
