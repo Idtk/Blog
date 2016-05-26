@@ -376,4 +376,4 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 **邮箱:IdtkMa@gmail.com**<br>
 
 **PieChart效果图如下：**<br>
-<img src="https://github.com/Idtk/CustomView/blob/master/gif/CustomView.gif" alt="环形图" title="环形图"/><br>
+<img src="https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif" alt="PieChart" title="PieChart"/><br>
