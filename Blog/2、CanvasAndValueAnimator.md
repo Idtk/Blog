@@ -270,58 +270,55 @@ private void initAnimator(long duration){
 }
 ```
 
-表情部分:在绘制前最好使用sava()方法保存当前的画布状态，在结束后使用restore()恢复之前保存的状态。<br>为了是表情看上去更自然，所以减少10°的初始角度
+表情部分:在绘制前最好使用sava()方法保存当前的画布状态，在结束后使用restore()恢复之前保存的状态。<br>为了是表情看上去更自然，所以减少10°的初始角度。
 
 ```Java
-private void doubanAnimator(Canvas canvas){
-    mPaint.setStyle(Paint.Style.STROKE);//描边
-    mPaint.setStrokeCap(Paint.Cap.ROUND);//圆角笔触
-    mPaint.setColor(Color.rgb(97, 195, 109));
-    mPaint.setStrokeWidth(15);
-    float point = Math.min(mWidth,mHeight)*0.06f/2;
-    float r = point*(float) Math.sqrt(2);
-    RectF rectF = new RectF(-r,-r,r,r);
-	canvas.save();
-    if (animatedValue<135){
-        canvas.drawArc(rectF,animatedValue+5,170+animatedValue/3,false,mPaint);
+private void doubanAnimator2(Canvas canvas, Paint mPaint){
+        mPaint.setStyle(Paint.Style.STROKE);//描边
+        mPaint.setStrokeCap(Paint.Cap.ROUND);//圆角笔触
+        mPaint.setColor(Color.rgb(97, 195, 109));
+        mPaint.setStrokeWidth(15);
+        float point = Math.min(mViewWidth,mViewWidth)*0.06f/2;
+        float r = point*(float) Math.sqrt(2);
+        RectF rectF = new RectF(-r,-r,r,r);
+        canvas.save();
+
+        // rotate
+        if (animatedValue>=135){
+            canvas.rotate(animatedValue-135);
+        }
+
+        // draw mouth
+        float startAngle=0, sweepAngle=0;
+        if (animatedValue<135){
+            startAngle = animatedValue +5;
+            sweepAngle = 170+animatedValue/3;
+        }else if (animatedValue<270){
+            startAngle = 135+5;
+            sweepAngle = 170+animatedValue/3;
+        }else if (animatedValue<630){
+            startAngle = 135+5;
+            sweepAngle = 260-(animatedValue-270)/5;
+        }else if (animatedValue<720){
+            startAngle = 135-(animatedValue-630)/2+5;
+            sweepAngle = 260-(animatedValue-270)/5;
+        }else{
+            startAngle = 135-(animatedValue-630)/2-(animatedValue-720)/6+5;
+            sweepAngle = 170;
+        }
+        canvas.drawArc(rectF,startAngle,sweepAngle,false,mPaint);
+
+        // draw eye
         canvas.drawPoints(new float[]{
                 -point,-point
                 ,point,-point
         },mPaint);
-    }else if (animatedValue<270){
-        canvas.rotate(animatedValue-135);
-        canvas.drawArc(rectF,135+5,170+animatedValue/3,false,mPaint);
-        canvas.drawPoints(new float[]{
-                -point,-point
-                ,point,-point
-        },mPaint);
-    }else if (animatedValue<630){
-        canvas.rotate(animatedValue-135);
-        canvas.drawArc(rectF,135+5,260-(animatedValue-270)/5,false,mPaint);
-        canvas.drawPoints(new float[]{
-                -point,-point
-                ,point,-point
-        },mPaint);
-    }else if (animatedValue<720){
-        canvas.rotate(animatedValue-135);
-        canvas.drawArc(rectF,135-(animatedValue-630)/2+5,260-(animatedValue-270)/5,false,mPaint);
-        canvas.drawPoints(new float[]{
-                -point,-point
-                ,point,-point
-        },mPaint);
-    }else{
-        canvas.rotate(animatedValue-135);
-        canvas.drawArc(rectF,135-(animatedValue-630)/2-(animatedValue-720)/6+5,170,false,mPaint);
-        canvas.drawPoints(new float[]{
-                -point,-point
-                ,point,-point
-        },mPaint);
+
+        canvas.restore();
     }
-	canvas.restore();
-}
 ```
 
-在调试完成之后就可以删除，坐标系部分的代码了
+在调试完成之后就可以删除，坐标系部分的代码了。感谢[GcsSloop](https://github.com/GcsSloop)，帮助修改代码，减少冗余
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%AC%91%E8%84%B8.gif" alt="笑脸" title="笑脸"/>
 
