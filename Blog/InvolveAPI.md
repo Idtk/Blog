@@ -8,6 +8,7 @@
 | 绘制     | onDraw  |   实际绘制View的内容|
 | 事件处理     | onTouchEvent  |   处理屏幕触摸事件|
 | 重绘     | invalidate  |   调用onDraw方法，重绘View中变化的部分|
+| 重新布局     | requestLayout  |   调用onLayout、onMeasure方法，重新布局|
 <br>
 **Canvas涉及方法**</br>
 
@@ -42,9 +43,29 @@
 |setInterpolator(TimeInterpolator value)|设置动画的线性非线性运动，默认AccelerateDecelerateInterpolator|
 |addUpdateListener(ValueAnimator.AnimatorUpdateListener listener)|监听动画属性每一帧的变化|
 <br>
-**Path**
+**Path**<br>
+
+| 类型  | API | 描述 |
+| ------------- |:-------------:| ------------- |
+| 添加路径 | addArc, addCircle, addOval, addPath, addRect, addRoundRect, arcTo | 依次为添加圆弧、圆、椭圆、路径、矩形、圆角矩形、圆弧|
+| 移动起点 | moveTo | 移动起点位置，仅对之后路径产生影响 |
+| 移动终点 | setLastPoint | 移动终点位置，对前后的路径都会产生影响|
+| 直线 | lineTo | 增加一条道指定点的直线 |
+| 贝塞尔 | quadTo, cubicTo | 二阶、三阶贝塞尔曲线 |
+| 闭合路径 | close | 路径终点连接到起点|
+| rXXX | rMoveTo, rLineTo, rQuadTo, rCubicTo, | 依次为相对路径的移动起点，增加直线，二阶贝塞尔曲线，三阶贝塞尔曲线 | 
+| 偏移 | offset | 对路径进行平移|
+| 判断 | isConvex, isEmpty, isInverseFillType, isRect | 依次为判断路径的凹凸、是否为空、是否为逆填充模式，是否为矩形|
+| 逻辑运算 | op | A\B(DIFFERENCE), A∩B(INTERSECT), B\A(REVERSE_DIFFERENCE), A∪B(UNION), A⊕B(XOR)|
+| 替换路径 | set | 用新的路径替换当前路径 |
+| 重置 | reset, rewind| 清除path使它为空，清除path但保留内部的数据结构 |
+| 计算边界 | computeBounds| 计算路径的矩形边界 |
+| 填充 | getFillType, setFillType, toggleInverseFillType| 获取，设置，切换填充模式|
+| Matrix | transform | 矩阵变换，缩放，旋转、平移、倾斜(错切)等 |
 <br>
 
 # staticLayout居中方法，源码阅读
 
 # [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)
+
+# Matrix 理论与应用
