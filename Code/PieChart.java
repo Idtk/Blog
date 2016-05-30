@@ -12,7 +12,6 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -32,8 +31,8 @@ public class PieChart extends View {
     //画笔
     private Paint mPaint = new Paint();
     //宽高
-    private int mWidth;
-    private int mHeight;
+    private int mWidth,mViewWidth;
+    private int mHeight,mViewHeight;
     //数据
     private ArrayList<PieData> mPieData = new ArrayList<>();
     //饼状图初始绘制角度
@@ -54,9 +53,9 @@ public class PieChart extends View {
     private int angleId;
     private double offsetScaleRadius = 1.1;
     //圆环半径比例
-    private double widthScaleRadius = 0.8;
-    private double radiusScaleTransparent = 0.5;
-    private double radiusScaleInside = 0.43;
+    private double widthScaleRadius = 0.9;
+    private double radiusScaleTransparent = 0.6;
+    private double radiusScaleInside = 0.5;
     //Paint的字体大小
     private int percentTextSize = 45;
     private int centerTextSize = 60;
@@ -81,8 +80,9 @@ public class PieChart extends View {
     private Path midInPath = new Path();
     //百分比最长字符
     private int stringId = 0;
-    //wrap_content尺寸
-//    private float wrapSize;
+    //百分比文字是否绘制
+    private boolean percentFlag = true;
+
 
     public PieChart(Context context) {
         this(context,null);
@@ -113,11 +113,18 @@ public class PieChart extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mWidth = w;
-        mHeight = h;
+        mWidth = w-getPaddingLeft()-getPaddingRight();
+        mHeight = h-getPaddingTop()-getPaddingBottom();
+        mViewWidth = w;
+        mViewHeight = h;
         //标准圆环
         //圆弧
         r = (float) (Math.min(mWidth,mHeight)/2*widthScaleRadius);// 饼状图半径
+        if (r>Math.min(mWidth,mHeight)){
+            r =0;
+            percentFlag = false;
+            name = "";
+        }
         // 饼状图绘制区域
         rectF.left = -r;
         rectF.top = -r;
@@ -173,7 +180,7 @@ public class PieChart extends View {
         if (mPieData == null)
             return;
         float currentStartAngle = 0;// 当前起始角度
-        canvas.translate(mWidth/2,mHeight/2);// 将画布坐标原点移动到中心位置
+        canvas.translate(mViewWidth/2,mViewHeight/2);// 将画布坐标原点移动到中心位置
 
         canvas.save();
         canvas.rotate(mStartAngle);
@@ -208,7 +215,7 @@ public class PieChart extends View {
             int textPathX;
             int textPathY;
 
-            if (animatedValue>pieAngles[i]-pie.getAngle()/2) {
+            if (animatedValue>pieAngles[i]-pie.getAngle()/2&&percentFlag) {
                 if (i == angleId) {
                     textPathX = (int) (Math.cos(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
                     textPathY = (int) (Math.sin(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
@@ -281,6 +288,7 @@ public class PieChart extends View {
     }
 
     private void init(Context context,AttributeSet attrs, int defStyleAttr, int defStyleRes){
+//        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.PieChart, defStyleAttr,defStyleRes);
         int n = array.getIndexCount();
         for (int i=0; i<n; i++){
@@ -368,7 +376,7 @@ public class PieChart extends View {
         for (int i = 0; i < length; i++) {
             float yAxis = -(length - i - 1) * (-top + bottom) + offset;
             canvas.drawText(strings[i], point.x, point.y + yAxis, paint);
-            Log.d("TAG",mPaint.measureText(strings[i])+":"+strings[i]);
+//            Log.d("TAG",mPaint.measureText(strings[i])+":"+strings[i]);
         }
     }
 
@@ -402,7 +410,7 @@ public class PieChart extends View {
             float percentWidth = paint.measureText(numberFormat.format(mPieData.get(stringId).getPercentage())+"");
             paint.setTextSize(centerTextSize);
             float nameWidth = paint.measureText(name+"");
-            wrapSize = (percentWidth*4+nameWidth*2)*(float) offsetScaleRadius;
+            wrapSize = (percentWidth*4+nameWidth*1.0f)*(float) offsetScaleRadius;
         }else {
             wrapSize = 0;
         }
