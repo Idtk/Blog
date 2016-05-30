@@ -202,11 +202,11 @@ op(Path path1, Path path2, Path.Op op)
 
 | 方法  | 描述 | 示意图 |
 | ------------- |-------------|-------------|
-| DIFFERENCE | B在A中的相对补集，即A减去A与B的交集 | <img src="https://github.com/Idtk/Blog/blob/master/Image/%E8%A1%A5%E9%9B%861.png" alt="DIFFERENCE" width="30"/> |
-| REVERSE_DIFFERENCE | A在B中的相对补集合，即B减去B与A的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E8%A1%A5%E9%9B%862.png" alt="REVERSE_DIFFERENCE" width="30"/> |
-| INTERSECT | A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E4%BA%A4%E9%9B%86.png" alt="INTERSECT" width="30"/> |
-| UNION | A与B的合集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%90%88%E9%9B%86.png" alt="UNION" width="30"/> |
-| XOR | A与B的合集减去A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%BC%82%E6%88%96.png" alt="XOR" width="30"/> |
+| DIFFERENCE | B在A中的相对补集，即A减去A与B的交集 | <img src="https://github.com/Idtk/Blog/blob/master/Image/%E8%A1%A5%E9%9B%861.png" alt="DIFFERENCE" width="100"/> |
+| REVERSE_DIFFERENCE | A在B中的相对补集合，即B减去B与A的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E8%A1%A5%E9%9B%862.png" alt="REVERSE_DIFFERENCE" width="100"/> |
+| INTERSECT | A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E4%BA%A4%E9%9B%86.png" alt="INTERSECT" width="100"/> |
+| UNION | A与B的合集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%90%88%E9%9B%86.png" alt="UNION" width="100"/> |
+| XOR | A与B的合集减去A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%BC%82%E6%88%96.png" alt="XOR" width="100"/> |
 
 这里使用Path.op方法再给圆角图片类，增加一种样式:
 ```Java
