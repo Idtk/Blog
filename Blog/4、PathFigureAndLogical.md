@@ -68,7 +68,7 @@ mPath.lineTo(-mWidth/2*0.8f*0.05f,mHeight/2*0.8f-mWidth/2*0.8f*0.05f);
 canvas.drawPath(mPath,mPaint);
 ```
 
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9D%90%E6%A0%87%E7%B3%BB2.png" alt="坐标系" title="坐标系"width="300"/>
 <br>
 可以看出moveTo方法，可以移动下一次增加path的起点，而lineTo中的参数，即为直线的终点。
 
@@ -90,7 +90,8 @@ mPath.addArc(mRectF,-60,180);
 //绘制Path
 canvas.drawPath(mPath,mPaint);
 ```
-图
+
+<img src="https://github.com/Idtk/Blog/blob/master/Image/addarc.png" alt="addArc" title="addArc" width="300"/>
 <br>
 再来看看arcTo
 ```Java
@@ -100,7 +101,8 @@ mPath.arcTo(mRectF,-60,180);
 //绘制Path
 canvas.drawPath(mPath,mPaint);
 ```
-图
+
+<img src="https://github.com/Idtk/Blog/blob/master/Image/arcto.png" alt="arcTo" title="arcTo" width="300"/>
 <br>
 可以看到arcTo多了一条从原点到圆弧起点的直线，而如果设置为mPath.arcTo(mRectF,-60,180,false);效果将和addArc相同。
 <br>
@@ -173,7 +175,7 @@ protected Path pathFigure(){
     return mPath;
 }
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%921.png" alt="圆角" title="圆角" width="300"/>
 
 然后在写一个扇形，这时候为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍
 ```Java
@@ -186,7 +188,7 @@ case SECTOR:
     mPath.arcTo(rectF,angle,-angle*2-180);
     break;
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%922.png" alt="圆角" title="圆角" width="300"/>
 
 
 ## 四、逻辑运算
@@ -223,13 +225,13 @@ case RING:
     mPath2.arcTo(rectF,angle,-angle*2-180);
     mPath.op(mPath1,mPath2, Path.Op.XOR);
 ```
-图
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%923.png" alt="圆角" title="圆角" width="300"/>
 
 ## 五、小结
 本文介绍了Path的基本使用方法与逻辑运算，同时通过圆角图片的例子，进行了实战。在下一章节终于可以进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif)的编写了，虽然只是一个简单的环形图，却是对之前[四篇文章](https://github.com/Idtk/CustomView)的综合有趣的运用。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
-圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码，通过path方法，还可以增加更多有趣的图形，比如star，比如多边形等等。
+圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码，通过path方法，还可以增加更多有趣的图形，比如star，多边形,格子图等等。
 
 
