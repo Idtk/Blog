@@ -273,4 +273,5 @@ case RING:
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
+## * 源码
 圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码，通过path方法，还可以增加更多有趣的图形，比如star，多边形，格子图等等。
