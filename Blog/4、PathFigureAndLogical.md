@@ -134,7 +134,7 @@ canvas.drawPath(mPath,mPaint);
 可以看到arcTo多了**一条从原点到圆弧起点的直线**，而如果设置为mPath.arcTo(mRectF,-60,180,false);效果将和addArc相同。
 <br>
 
-## 三、圆角图片以及更多形状
+## 三、圆角图片以及更多形状图片
 继承**ImageView**,重写父类的**onSizeChanged**方法，获取View尺寸，之后根据View大小对图片进行压缩。
 ```Java
 @Override
