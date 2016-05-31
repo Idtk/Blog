@@ -22,7 +22,7 @@
 
 ## 一、什么是Path
 
-看看官方描述:<br>
+官方描述:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Path class 封装了由直线、二次、三次贝塞尔曲线构成的多重曲线几何路径。它可以用canvas.drawPath(path,paint)方法绘图，填充和线都可以（根据paint的样式），或者它可以用于在绘图路径上裁剪或者绘出文本。
 <br>
 
