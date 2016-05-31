@@ -131,11 +131,11 @@ canvas.drawPath(mPath,mPaint);
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/arcto.png" alt="arcTo" title="arcTo" width="300"/>
 <br>
-可以看到arcTo多了一条从原点到圆弧起点的直线，而如果设置为mPath.arcTo(mRectF,-60,180,false);效果将和addArc相同。
+可以看到arcTo多了**一条从原点到圆弧起点的直线**，而如果设置为mPath.arcTo(mRectF,-60,180,false);效果将和addArc相同。
 <br>
 
 ## 三、圆角图片以及更多形状
-继承ImageView,重写父类的onSizeChanged和onDraw方法，在其中使用clipPath的方法来实现圆角图片。
+继承ImageView,重写父类的onSizeChanged方法，获取View尺寸，进行图片压缩。
 ```Java
 @Override
 protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -145,6 +145,9 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     size();//切割尺寸计算
     scaleBitmap();//压缩图片尺寸函数
 }
+```
+在onDraw方法中进行样式绘制，在其中使用clipPath的方法来实现圆角图片。
+```Java
 @Override
 protected void onDraw(Canvas canvas) {
     canvas.translate(mViewWidth/2,mViewHeight/2);//将画布坐标原点移动到中心位置
@@ -153,7 +156,7 @@ protected void onDraw(Canvas canvas) {
     canvas.drawBitmap(b,rect,rect,mPaint);
 }
 ```
-在scaleBitmap中对图片的尺寸进行压缩
+在scaleBitmap方法中对图片的尺寸进行压缩
 ```Java
 private void scaleBitmap(){
     Drawable drawable = getDrawable();//获取图片
@@ -176,14 +179,15 @@ private void scaleBitmap(){
     b=Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),matrix,true);//压缩图片
 }
 ```
-在size中对canvas的切割尺寸进行设置
+在size方法中对canvas的切割尺寸进行设置
 ```Java
 protected void size(){
     length = Math.min(mViewWidth,mViewHeight)/2;
     rect = new Rect(-(int) length, -(int) length, (int) length, (int) length);//绘制图片矩阵
 }
 ```
-现在就是发挥想象力的时候啦，来编写pathFigure()方法,先来绘制圆形图片
+**现在就是发挥想象力的时候啦，来编写pathFigure()方法**<br>
+#### a、先编写一个简单的圆形图片样式
 ```Java
 protected Path pathFigure(){
     switch (modeFlag){
@@ -194,7 +198,7 @@ protected Path pathFigure(){
     return mPath;
 }
 ```
-增加一个圆角图片样式
+#### b、增加一个圆角图片样式
 ```Java
 
 private RectF rectF = new RectF();
@@ -210,7 +214,8 @@ case ROUNDRECT:
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%921.png" alt="圆角" title="圆角" width="300"/>
 
-然后在写一个扇形，这时候为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍
+#### c、再增加一个扇形样式<br>
+PS:为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍
 ```Java
 case SECTOR:
     rectF.left = -length*2;
@@ -241,7 +246,7 @@ op(Path path1, Path path2, Path.Op op)
 | UNION | A与B的合集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%90%88%E9%9B%86.png" alt="UNION" width="100"/> |
 | XOR | A与B的合集减去A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%BC%82%E6%88%96.png" alt="XOR" width="100"/> |
 
-这里使用Path.op方法再给圆角图片类，增加一种样式:
+这里使用Path.op方法再给圆角图片类，增加一种环形样式:
 ```Java
 case RING:
     rectF.left = -length*2;
