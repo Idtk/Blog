@@ -192,7 +192,7 @@ protected void size(){
 protected Path pathFigure(){
     switch (modeFlag){
         case CIRCLE:
-            mPath.addCircle(0,0,length, Path.Direction.CW);//增加圆的path，顺时针闭合
+            mPath.addCircle(0,0,length, Path.Direction.CW);//增加圆的path，顺时针封闭圆
             break;
     }
     return mPath;
@@ -211,7 +211,7 @@ case ROUNDRECT:
             rectF.top = -length;
             rectF.right = length;
             rectF.bottom = length;
-            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径，顺时针闭合
+            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径，顺时针封闭圆角矩形
             break;
 ```
 
