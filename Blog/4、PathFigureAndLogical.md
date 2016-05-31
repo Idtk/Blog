@@ -208,7 +208,7 @@ case ROUNDRECT:
             rectF.top = -length;
             rectF.right = length;
             rectF.bottom = length;
-            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形
+            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径
             break;
 ```
 
@@ -230,7 +230,7 @@ case SECTOR:
 
 
 ## 四、逻辑运算
-
+两条Path可通过多种逻辑运算进行结合，形成新的Path。<br>
 API:
 ```Java
 op(Path path, Path.Op op)
@@ -246,7 +246,8 @@ op(Path path1, Path path2, Path.Op op)
 | UNION | A与B的合集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%90%88%E9%9B%86.png" alt="UNION" width="100"/> |
 | XOR | A与B的合集减去A与B的交集 |<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%BC%82%E6%88%96.png" alt="XOR" width="100"/> |
 
-这里使用Path.op方法再给圆角图片类，增加一种环形样式:
+
+使用Path.op方法再给圆角图片类，增加一种环形样式:
 ```Java
 case RING:
     rectF.left = -length*2;
