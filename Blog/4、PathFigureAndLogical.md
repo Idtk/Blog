@@ -15,6 +15,7 @@
 | 替换路径 | set | 用新的路径替换当前路径 |
 | 重置 | reset, rewind| 清除path使它为空，清除path但保留内部的数据结构 |
 | 计算边界 | computeBounds| 计算路径的矩形边界 |
+| 闭合方向 | Direction | 顺时针方向闭合Path(CW),逆时针方向闭合Path(CCW) |
 <br>
 
 **本来这章应该是PieChart的实战，可是我在编写的时候发现了一个设置背景图片的bug。作为一个强迫症(ಥ _ ಥ)，我只好引入了Path来解决这个bug，所以就有了这一篇内容。**
@@ -192,7 +193,7 @@ protected void size(){
 protected Path pathFigure(){
     switch (modeFlag){
         case CIRCLE:
-            mPath.addCircle(0,0,length, Path.Direction.CW);//增加圆的path，顺时针封闭圆
+            mPath.addCircle(0,0,length, Path.Direction.CW);//增加圆的path，顺时针闭合圆
             break;
     }
     return mPath;
@@ -211,7 +212,7 @@ case ROUNDRECT:
             rectF.top = -length;
             rectF.right = length;
             rectF.bottom = length;
-            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径，顺时针封闭圆角矩形
+            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径，顺时针闭合圆角矩形
             break;
 ```
 
