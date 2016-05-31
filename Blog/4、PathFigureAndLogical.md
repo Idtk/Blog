@@ -231,7 +231,7 @@ case SECTOR:
 
 ## 四、逻辑运算
 两条Path可通过多种逻辑运算进行结合，形成新的Path。<br>
-API:
+逻辑运算的API如下:
 ```Java
 op(Path path, Path.Op op)
 op(Path path1, Path path2, Path.Op op)
