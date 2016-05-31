@@ -32,16 +32,40 @@ Path由任意多条直线、二次贝塞尔或三次贝塞尔曲线组成,可以
 ## 二、添加路径
 ### 1、lineTo,moveTo
 在之前的文章中，使用canvas的函数绘制过[坐标系](http://www.idtkm.com/customview/customview2/)，这次使用path来绘制。<br>
+#### a、创建画笔
+创建画笔并初始化
+```Java
+//创建画笔
+private Paint mPaint = new Paint();
 
-绘制坐标轴
+private void initPaint(){
+    //初始化画笔
+    mPaint.setStyle(Paint.Style.FILL);//设置画笔类型
+    mPaint.setAntiAlias(true);//抗锯齿
+}
+```
+#### b、绘制坐标轴
+使用onSizeChanged方法，获取根据父布局等因素确认的View宽高
+```Java
+//宽高
+private int mWidth;
+private int mHeight;
+
+@Override
+protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    super.onSizeChanged(w, h, oldw, oldh);
+    mWidth = w;
+    mHeight = h;
+}
+```
+把原点从左上角移动到画布中心,绘制原点与四个端点
 ```Java
 private Path mPath = new Path();
 
 canvas.translate(mWidth/2,mHeight/2);// 将画布坐标原点移动到中心位置
-mPaint.setStyle(Paint.Style.STROKE);
-mPaint.setColor(Color.BLACK);
-mPaint.setStrokeWidth(10);//设置画笔宽度
-//绘制原点
+//绘制坐标原点
+mPaint.setColor(Color.BLACK);//设置画笔颜色
+mPaint.setStrokeWidth(10);//为了看得清楚,设置了较大的画笔宽度
 canvas.drawPoint(0,0,mPaint);
 //绘制坐标轴4个断点
 canvas.drawPoints(new float[]{
@@ -49,7 +73,10 @@ canvas.drawPoints(new float[]{
         ,0,mHeight/2*0.8f
         ,-mWidth/2*0.8f,0
         ,0,-mHeight/2*0.8f},mPaint);
-mPaint.setStrokeWidth(1);//恢复至默认画笔宽度
+```
+增加坐标轴与箭头的path，在完成后使用canvas.drawPath一次进行绘制
+```Java
+mPaint.setStrokeWidth(1);//恢复画笔默认宽度
 //x轴
 mPath.moveTo(-mWidth/2*0.8f,0);//移动path起点到(-mWidth/2*0.8f,0)
 mPath.lineTo(mWidth/2*0.8f,0);//直线终点为(mWidth/2*0.8f,0)
@@ -115,13 +142,13 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mViewWidth = w;
     mViewHeight = h;
-    size();
-    scaleBitmap();
+    size();//切割尺寸计算
+    scaleBitmap();//压缩图片尺寸函数
 }
 @Override
 protected void onDraw(Canvas canvas) {
-    canvas.translate(mViewWidth/2,mViewHeight/2);
-    canvas.clipPath(pathFigure(), Region.Op.INTERSECT);
+    canvas.translate(mViewWidth/2,mViewHeight/2);//将画布坐标原点移动到中心位置
+    canvas.clipPath(pathFigure(), Region.Op.INTERSECT);//切割
     mPath.reset();
     canvas.drawBitmap(b,rect,rect,mPaint);
 }
@@ -129,7 +156,7 @@ protected void onDraw(Canvas canvas) {
 在scaleBitmap中对图片的尺寸进行压缩
 ```Java
 private void scaleBitmap(){
-    Drawable drawable = getDrawable();
+    Drawable drawable = getDrawable();//获取图片
     if (drawable == null) {
         return;
     }
@@ -139,42 +166,48 @@ private void scaleBitmap(){
     if (!(drawable instanceof BitmapDrawable)) {
         return;
     }
-    b = ((BitmapDrawable) drawable).getBitmap();
+    b = ((BitmapDrawable) drawable).getBitmap();//获取bitmap
     if (null == b) {
         return;
     }
     float scaleWidth = (float) length/b.getWidth();
     float scaleHeight = (float) length/b.getHeight();
-    matrix.postScale(scaleWidth,scaleHeight);
-    b=Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),matrix,true);
+    matrix.postScale(scaleWidth,scaleHeight);//缩放矩阵
+    b=Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),matrix,true);//压缩图片
 }
 ```
 在size中对canvas的切割尺寸进行设置
 ```Java
 protected void size(){
     length = Math.min(mViewWidth,mViewHeight)/2;
-    rect = new Rect(-(int) length, -(int) length, (int) length, (int) length);
-    rectF = new RectF(-length, -length, length, length);
+    rect = new Rect(-(int) length, -(int) length, (int) length, (int) length);//绘制图片矩阵
 }
 ```
-现在就是发挥想象力的时候啦，来编写pathFigure()方法,先来写基本的圆角和圆形图片。
+现在就是发挥想象力的时候啦，来编写pathFigure()方法,先来绘制圆形图片
 ```Java
 protected Path pathFigure(){
     switch (modeFlag){
         case CIRCLE:
-            mPath.addCircle(0,0,length, Path.Direction.CW);
-            break;
-        case ROUNDRECT:
-            rectF.left = -length;
-            rectF.top = -length;
-            rectF.right = length;
-            rectF.bottom = length;
-            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);
+            mPath.addCircle(0,0,length, Path.Direction.CW);//增加圆的path
             break;
     }
     return mPath;
 }
 ```
+增加一个圆角图片样式
+```Java
+
+private RectF rectF = new RectF();
+
+case ROUNDRECT:
+            rectF.left = -length;
+            rectF.top = -length;
+            rectF.right = length;
+            rectF.bottom = length;
+            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形
+            break;
+```
+
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%921.png" alt="圆角" title="圆角" width="300"/>
 
 然后在写一个扇形，这时候为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍
@@ -185,7 +218,7 @@ case SECTOR:
     rectF.right = length*2;
     rectF.bottom = length*3;
     mPath.moveTo(0,length);
-    mPath.arcTo(rectF,angle,-angle*2-180);
+    mPath.arcTo(rectF,angle,-angle*2-180);//绘制圆弧
     break;
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%922.png" alt="圆角" title="圆角" width="300"/>
@@ -216,14 +249,16 @@ case RING:
     rectF.right = length*2;
     rectF.bottom = length*3;
     mPath1.moveTo(0,length);
-    mPath1.arcTo(rectF,angle,-angle*2-180);
+    mPath1.arcTo(rectF,angle,-angle*2-180);//较大的圆弧
+    
     rectF.left = -length/2;
     rectF.top = length/2;
     rectF.right = length/2;
     rectF.bottom = length*3/2;
     mPath2.moveTo(0,length);
-    mPath2.arcTo(rectF,angle,-angle*2-180);
-    mPath.op(mPath1,mPath2, Path.Op.XOR);
+    mPath2.arcTo(rectF,angle,-angle*2-180);//较小的圆弧
+    
+    mPath.op(mPath1,mPath2, Path.Op.XOR);//异或获取环形
 ```
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%923.png" alt="圆角" title="圆角" width="300"/>
 
