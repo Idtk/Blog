@@ -273,9 +273,9 @@ case RING:
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%923.png" alt="圆环" title="圆环" width="300"/>
 
 ## 五、小结
-本文介绍了Path的基本使用方法与逻辑运算，同时通过圆角图片的例子，进行了实战。在下一章节终于可以进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif)的编写了，虽然只是一个简单的环形图，却是对之前[四篇文章](https://github.com/Idtk/Blog)的综合有趣的运用。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文介绍了Path的基本使用方法与逻辑运算，同时通过圆角图片的例子，进行了实战。使用Path方法，还可以增加更多有趣的图形，比如star，多边形，格子图等等。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
-**圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码，通过Path方法，还可以增加更多有趣的图形，比如star，多边形，格子图等等。**
+**圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码**
