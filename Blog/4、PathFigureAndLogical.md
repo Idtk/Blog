@@ -212,7 +212,8 @@ case ROUNDRECT:
             rectF.top = -length;
             rectF.right = length;
             rectF.bottom = length;
-            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);//圆角矩形，radius为圆角的半径，顺时针闭合圆角矩形
+            //圆角矩形，radius为圆角的半径，顺时针闭合圆角矩形
+            mPath.addRoundRect(rectF,radius,radius, Path.Direction.CW);
             break;
 ```
 
