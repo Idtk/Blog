@@ -7,7 +7,7 @@
 | ------------- |:-------------:| ------------- |
 | 添加路径 | addArc, addCircle, addOval, addPath, addRect, addRoundRect, arcTo | 依次为添加圆弧、圆、椭圆、路径、矩形、圆角矩形、圆弧|
 | 移动起点 | moveTo | 移动起点位置，仅对之后路径产生影响 |
-| 移动终点 | setLastPoint | 移动终点位置，对前后的路径都会产生影响|
+| 移动终点 | setLastPoint | 移动上一次的终点位置，对前后的路径都会产生影响|
 | 直线 | lineTo | 增加一条道指定点的直线 |
 | 贝塞尔 | quadTo, cubicTo | 二阶、三阶贝塞尔曲线 |
 | 闭合路径 | close | 路径终点连接到起点|
