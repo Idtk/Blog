@@ -186,7 +186,7 @@ protected void size(){
     rect = new Rect(-(int) length, -(int) length, (int) length, (int) length);//绘制图片矩阵
 }
 ```
-**现在就是发挥想象力的时候啦，来编写pathFigure()方法**<br>
+**现在就是发挥想象力的时候啦♪(^∇^*)，来编写pathFigure()方法吧**<br>
 #### a、先编写一个简单的圆形图片样式
 ```Java
 protected Path pathFigure(){
