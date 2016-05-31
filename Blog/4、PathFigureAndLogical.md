@@ -74,7 +74,7 @@ canvas.drawPoints(new float[]{
         ,-mWidth/2*0.8f,0
         ,0,-mHeight/2*0.8f},mPaint);
 ```
-增加坐标轴与箭头的path，在完成后使用canvas.drawPath一次进行绘制
+增加坐标轴与箭头的Path，在完成后使用**canvas.drawPath**一次进行绘制
 ```Java
 mPaint.setStrokeWidth(1);//恢复画笔默认宽度
 //x轴
@@ -135,7 +135,7 @@ canvas.drawPath(mPath,mPaint);
 <br>
 
 ## 三、圆角图片以及更多形状
-继承ImageView,重写父类的onSizeChanged方法，获取View尺寸，进行图片压缩。
+继承**ImageView**,重写父类的**onSizeChanged**方法，获取View尺寸，之后根据View大小对图片进行压缩。
 ```Java
 @Override
 protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -146,7 +146,7 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     scaleBitmap();//压缩图片尺寸函数
 }
 ```
-在onDraw方法中进行样式绘制，在其中使用clipPath的方法来实现圆角图片。
+在**onDraw**方法中进行样式绘制，在其中使用**clipPath**的方法来实现圆角图片。
 ```Java
 @Override
 protected void onDraw(Canvas canvas) {
@@ -156,7 +156,7 @@ protected void onDraw(Canvas canvas) {
     canvas.drawBitmap(b,rect,rect,mPaint);
 }
 ```
-在scaleBitmap方法中对图片的尺寸进行压缩
+在**scaleBitmap**方法中对图片的尺寸进行压缩
 ```Java
 private void scaleBitmap(){
     Drawable drawable = getDrawable();//获取图片
@@ -179,7 +179,7 @@ private void scaleBitmap(){
     b=Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),matrix,true);//压缩图片
 }
 ```
-在size方法中对canvas的切割尺寸进行设置
+在**size**方法中设置canvas的切割尺寸
 ```Java
 protected void size(){
     length = Math.min(mViewWidth,mViewHeight)/2;
@@ -215,7 +215,7 @@ case ROUNDRECT:
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%921.png" alt="圆角" title="圆角" width="300"/>
 
 #### c、再增加一个扇形样式<br>
-PS:为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍
+(**PS:为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍**)
 ```Java
 case SECTOR:
     rectF.left = -length*2;
@@ -274,5 +274,3 @@ case RING:
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码，通过path方法，还可以增加更多有趣的图形，比如star，多边形，格子图等等。
-
-
