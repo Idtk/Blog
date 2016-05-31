@@ -198,6 +198,9 @@ protected Path pathFigure(){
     return mPath;
 }
 ```
+
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E5%BD%A2.png" alt="圆形" title="圆形" width="300"/>
+
 #### b、增加一个圆角图片样式
 ```Java
 
@@ -212,7 +215,7 @@ case ROUNDRECT:
             break;
 ```
 
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%921.png" alt="圆角" title="圆角" width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%92.png" alt="圆角" title="圆角" width="300"/>
 
 #### c、再增加一个扇形样式<br>
 (**PS:为了可以获得更多的图片面积，需要把圆心下移一个length的距离，半径扩大到之前的两倍**)
@@ -226,7 +229,7 @@ case SECTOR:
     mPath.arcTo(rectF,angle,-angle*2-180);//绘制圆弧
     break;
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%922.png" alt="圆角" title="圆角" width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%922.png" alt="扇形" title="扇形" width="300"/>
 
 
 ## 四、逻辑运算
@@ -267,7 +270,7 @@ case RING:
     
     mPath.op(mPath1,mPath2, Path.Op.XOR);//异或获取环形
 ```
-<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%923.png" alt="圆角" title="圆角" width="300"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E5%9C%86%E8%A7%923.png" alt="圆环" title="圆环" width="300"/>
 
 ## 五、小结
 本文介绍了Path的基本使用方法与逻辑运算，同时通过圆角图片的例子，进行了实战。在下一章节终于可以进行[PieChart](https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif)的编写了，虽然只是一个简单的环形图，却是对之前[四篇文章](https://github.com/Idtk/Blog)的综合有趣的运用。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
