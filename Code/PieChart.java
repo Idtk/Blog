@@ -292,15 +292,16 @@ public class PieChart extends View {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.PieChart, defStyleAttr,defStyleRes);
         int n = array.getIndexCount();
         for (int i=0; i<n; i++){
-            switch (i){
+            int attr = array.getIndex(i);
+            switch (attr){
                 case R.styleable.PieChart_name:
-                    name = array.getString(i);
+                    name = array.getString(attr);
                     break;
                 case R.styleable.PieChart_percentDecimal:
-                    percentDecimal = array.getInt(i,percentDecimal);
+                    percentDecimal = array.getInt(attr,percentDecimal);
                     break;
                 case R.styleable.PieChart_textSize:
-                    percentTextSize = array.getDimensionPixelSize(i,percentTextSize);
+                    percentTextSize = array.getDimensionPixelSize(attr,percentTextSize);
                     break;
             }
         }
