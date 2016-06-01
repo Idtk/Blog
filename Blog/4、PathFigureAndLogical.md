@@ -280,4 +280,4 @@ case RING:
 **GitHub:https://github.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
-**圆角图片[FigureImageView](https://github.com/Idtk/FigureImageView)源码**
+**PS: 示例中使用的方法，相对消耗内存，更合适的是设置反向填充来完成圆角图片的生成，FigureImageView为反向填充的方法，OldFigureImageView为示例中的方法 [源码](https://github.com/Idtk/FigureImageView)**
