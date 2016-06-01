@@ -134,21 +134,22 @@ public class BaseChart extends View {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.base_chart, defStyleAttr,defStyleRes);
         int n = array.getIndexCount();
         for (int i=0; i<n; i++){
-            switch (i){
+            int attr = array.getIndex(i);
+            switch (attr){
                 case R.styleable.base_chart_attr1:
-                    Log.d(TAG,"attr1 =>" + array.getString(i));
+                    Log.d(TAG,"attr1 =>" + array.getString(attr));
                     break;
                 case R.styleable.base_chart_attr2:
-                    Log.d(TAG,"attr2 =>" + array.getString(i));
+                    Log.d(TAG,"attr2 =>" + array.getString(attr));
                     break;
                 case R.styleable.base_chart_attr3:
-                    Log.d(TAG,"attr3 =>" + array.getString(i));
+                    Log.d(TAG,"attr3 =>" + array.getString(attr));
                     break;
                 case R.styleable.base_chart_attr4:
-                    Log.d(TAG,"attr4 =>" + array.getString(i));
+                    Log.d(TAG,"attr4 =>" + array.getString(attr));
                     break;
                 case R.styleable.base_chart_attr5:
-                    Log.d(TAG,"attr5 =>" + array.getString(i));
+                    Log.d(TAG,"attr5 =>" + array.getString(attr));
                     break;
             }
         }
