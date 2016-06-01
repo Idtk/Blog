@@ -1,4 +1,4 @@
-package com.example.administrator.customview.PieChart;
+package com.customview.PieChart;
 
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
@@ -12,11 +12,12 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.example.administrator.customview.R;
+import com.customview.R;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -113,8 +114,8 @@ public class PieChart extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mWidth = w-getPaddingLeft()-getPaddingRight();
-        mHeight = h-getPaddingTop()-getPaddingBottom();
+        mWidth = w-getPaddingLeft()-getPaddingRight();//适应padding设置
+        mHeight = h-getPaddingTop()-getPaddingBottom();//适应padding设置
         mViewWidth = w;
         mViewHeight = h;
         //标准圆环
@@ -194,9 +195,9 @@ public class PieChart extends View {
                 drawAngle = 0;
             }
             if (i==angleId){
-                drawArc(canvas,currentStartAngle,drawAngle,pie,rF,rTraF,rWhiteF,rectFF,rectFTraF,reatFWhite,mPaint);
+                drawArc(canvas,currentStartAngle,drawAngle,pie,rectFF,rectFTraF,reatFWhite,mPaint);
             }else {
-                drawArc(canvas,currentStartAngle,drawAngle,pie,r,rTra,rWhite,rectF,rectFTra,rectFIn,mPaint);
+                drawArc(canvas,currentStartAngle,drawAngle,pie,rectF,rectFTra,rectFIn,mPaint);
             }
             currentStartAngle += pie.getAngle();
         }
@@ -212,27 +213,15 @@ public class PieChart extends View {
             NumberFormat numberFormat =NumberFormat.getPercentInstance();
             numberFormat.setMinimumFractionDigits(percentDecimal);
             //根据Paint的TextSize计算Y轴的值
-            int textPathX;
-            int textPathY;
+            int textPathX = 0;
+            int textPathY = 0;
 
             if (animatedValue>pieAngles[i]-pie.getAngle()/2&&percentFlag) {
                 if (i == angleId) {
-                    textPathX = (int) (Math.cos(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
-                    textPathY = (int) (Math.sin(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (rF + rTraF) / 2);
-                    mPoint.x = textPathX;
-                    mPoint.y = textPathY;
-                    String[] strings = new String[]{pie.getName() + "", numberFormat.format(pie.getPercentage()) + ""};
-                    if (strings.length == 2)
-                        textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
+                    drawText(canvas,pie,currentStartAngle,numberFormat,true);
                 } else {
                     if (pie.getAngle() > minAngle) {
-                        textPathX = (int) (Math.cos(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (r + rTra) / 2);
-                        textPathY = (int) (Math.sin(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (r + rTra) / 2);
-                        mPoint.x = textPathX;
-                        mPoint.y = textPathY;
-                        String[] strings = new String[]{numberFormat.format(pie.getPercentage()) + ""};
-                        if (strings.length == 1)
-                            textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
+                        drawText(canvas,pie,currentStartAngle,numberFormat,false);
                     }
                 }
                 currentStartAngle += pie.getAngle();
@@ -248,8 +237,6 @@ public class PieChart extends View {
         String[] strings = new String[]{name+""};
         if (strings.length==1)
         textCenter(strings,mPaint,canvas,mPoint, Paint.Align.CENTER);
-
-
     }
 
     @Override
@@ -342,12 +329,6 @@ public class PieChart extends View {
         angleId = -1;
     }
 
-    private float textWidth(String string, int size, Paint paint){
-        paint.setTextSize(size);
-        float textWidth =paint.measureText(string+"");
-        return textWidth;
-    }
-
     private void initAnimator(long duration){
         if (animator !=null &&animator.isRunning()){
             animator.cancel();
@@ -381,30 +362,15 @@ public class PieChart extends View {
         }
     }
 
-    private void drawArc(Canvas canvas, float currentStartAngle, float drawAngle, PieData pie,
-                         float outR, float midR, float inR, RectF outRectF, RectF midRectF, RectF inRectF,Paint paint){
-        outPath.lineTo(outR*(float) Math.cos(Math.toRadians(currentStartAngle)),outR*(float) Math.sin(Math.toRadians(currentStartAngle)));
-        outPath.arcTo(outRectF,currentStartAngle,drawAngle);
-        midPath.lineTo(midR*(float) Math.cos(Math.toRadians(currentStartAngle)),midR*(float) Math.sin(Math.toRadians(currentStartAngle)));
-        midPath.arcTo(midRectF,currentStartAngle,drawAngle);
-        inPath.lineTo(inR*(float) Math.cos(Math.toRadians(currentStartAngle)),inR*(float) Math.sin(Math.toRadians(currentStartAngle)));
-        inPath.arcTo(inRectF,currentStartAngle,drawAngle);
-        outMidPath.op(outPath,midPath, Path.Op.DIFFERENCE);
-        midInPath.op(midPath,inPath, Path.Op.DIFFERENCE);
-        paint.setColor(pie.getColor());
-        canvas.drawPath(outMidPath,paint);
-        paint.setAlpha(0x80);//设置透明度
-        canvas.drawPath(midInPath,paint);
-        outPath.reset();
-        midPath.reset();
-        inPath.reset();
-        outMidPath.reset();
-        midInPath.reset();
+    private float textWidth(String string, int size, Paint paint){
+        paint.setTextSize(size);
+//        float textWidth =paint.measureText(string+"");
+        return paint.measureText(string+"");
     }
 
     private int measureWrap(Paint paint){
         float wrapSize;
-        if (mPieData!=null&mPieData.size()>1){
+        if (mPieData!=null&&mPieData.size()>1){
             NumberFormat numberFormat =NumberFormat.getPercentInstance();
             numberFormat.setMinimumFractionDigits(percentDecimal);
             paint.setTextSize(percentTextSize);
@@ -441,6 +407,45 @@ public class PieChart extends View {
         return size;
     }
 
+    private void drawArc(Canvas canvas, float currentStartAngle, float drawAngle, PieData pie,
+                         RectF outRectF, RectF midRectF, RectF inRectF,Paint paint){
+        outPath.moveTo(0,0);
+        outPath.arcTo(outRectF,currentStartAngle,drawAngle);
+        midPath.moveTo(0,0);
+        midPath.arcTo(midRectF,currentStartAngle,drawAngle);
+        inPath.moveTo(0,0);
+        inPath.arcTo(inRectF,currentStartAngle,drawAngle);
+        outMidPath.op(outPath,midPath, Path.Op.DIFFERENCE);
+        midInPath.op(midPath,inPath, Path.Op.DIFFERENCE);
+        paint.setColor(pie.getColor());
+        canvas.drawPath(outMidPath,paint);
+        paint.setAlpha(0x80);//设置透明度
+        canvas.drawPath(midInPath,paint);
+        outPath.reset();
+        midPath.reset();
+        inPath.reset();
+        outMidPath.reset();
+        midInPath.reset();
+    }
+
+    private void drawText(Canvas canvas, PieData pie ,float currentStartAngle, NumberFormat numberFormat,boolean flag){
+        int textPathX = (int) (Math.cos(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (r + rTra) / 2);
+        int textPathY = (int) (Math.sin(Math.toRadians(currentStartAngle + (pie.getAngle() / 2))) * (r + rTra) / 2);
+        mPoint.x = textPathX;
+        mPoint.y = textPathY;
+        String[] strings;
+        if (flag){
+            strings = new String[]{pie.getName() + "", numberFormat.format(pie.getPercentage()) + ""};
+//            if (strings.length == 2)
+//                textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
+        }else {
+            strings = new String[]{numberFormat.format(pie.getPercentage()) + ""};
+//            if (strings.length == 1)
+//                textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
+        }
+        textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
+    }
+
     /**
      * 设置起始角度
      * @param mStartAngle 起始角度
@@ -460,6 +465,8 @@ public class PieChart extends View {
      * @param mPieData 数据
      */
     public void setPieData(ArrayList<PieData> mPieData) {
+        if (mPieData==null)
+            return;
         this.mPieData = mPieData;
         initDate(mPieData);
     }
