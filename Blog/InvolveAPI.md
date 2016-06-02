@@ -64,6 +64,17 @@
 | Matrix | transform | 矩阵变换，缩放，旋转、平移、倾斜(错切)等 |
 <br>
 
+**SaveFlags**
+
+数据类型 | 名称 | 简介
+--- | --- | ---
+int |	ALL_SAVE_FLAG	              | 默认，保存全部状态
+int	| CLIP_SAVE_FLAG	             | 保存剪辑区
+int	| CLIP_TO_LAYER_SAVE_FLAG	    | 剪裁区作为图层保存
+int	| FULL_COLOR_LAYER_SAVE_FLAG	 | 保存图层的全部色彩通道
+int	| HAS_ALPHA_LAYER_SAVE_FLAG	  | 保存图层的alpha(不透明度)通道
+int	| MATRIX_SAVE_FLAG	           | 保存Matrix信息(translate, rotate, scale, skew)
+
 # staticLayout居中方法，源码阅读
 
 # [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)
