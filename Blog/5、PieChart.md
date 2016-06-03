@@ -309,6 +309,7 @@ public boolean onTouchEvent(MotionEvent event) {
 * 用户手指离开屏幕时，重置angleId为默认值，并使用invalidate()函数，重新绘制onDraw中变化的部分。
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchEvent.png" alt="onTouchEvent" title="onTouchEvent" width="300" /><br>
+
 ## 八、小结
 经过之前4篇的知识准备，终于迎来了本章的PieChart的具体实现。在本文中重温了之前的绘制流程的各个函数，VlaueAnimator函数，以及Canvas、Path的使用方法，并使用这些方法完成了一个自定义饼图的绘制。在之后的文章中还会进行几个图表的实战，比如下面这个曲线图。<br>
 
