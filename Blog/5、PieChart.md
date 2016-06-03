@@ -129,7 +129,7 @@ private int measureWrap(Paint paint){
 <br>
 
 ## 五、onSizeChanged
-在此函数中，获取当前View的宽高以及根据**padding**值计算出的宽高，同时进行PieChart绘制所需的半径以及布局位置设置。<br>
+在此函数中，获取当前View的宽高以及根据**padding**值计算出的实际绘制区域的宽高，同时进行PieChart绘制所需的半径以及布局位置设置。<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onSizeChange.png" alt="onSizeChanged" title="onSizeChanged" width="300" /><br>
 ```Java
@@ -267,7 +267,7 @@ textCenter(strings,mPaint,canvas,mPoint, Paint.Align.CENTER);
 绘制图名的部分就比较简单了，和之前绘制单个Pie时类似，获取x，y坐标为(0,0),然后使用textCenter多行文本绘制函数进行文本绘制。
 
 ## 七、onTouchEvent
-onTouchEvent用于处理当前的点击事件，具体内容在[第一篇文章](http://www.idtkm.com/customview/customview1/)中已经进行了说明，这里使用其中的ACTION_DOWN与ACTION_UP事件。<br>
+onTouchEvent用于处理当前的点击事件，具体内容在[第一篇文章](http://www.idtkm.com/customview/customview1/)中已经进行了说明，这里使用其中的**ACTION_DOWN**与**ACTION_UP**事件。<br>
 
 ```Java
 public boolean onTouchEvent(MotionEvent event) {
