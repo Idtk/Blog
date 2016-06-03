@@ -103,7 +103,7 @@ private int measureDimension(int measureSpec){
 }
 ```
 <br>
-**measureDimension**根据测量的类型，分别计算尺寸的长度，每个类型的含义在[第一篇](http://www.idtkm.com/customview/customview1/)中已经进行了说明，在这里不在赘述。**EXACTLY**是在xml中定义**match_parent以及具体的数值**是使用，而**AT_MOST**则是在**wrap_content**时使用，**measureWrap**方法用于计算当前PieChart的最小合适长度，接下来看看这个方法。
+**measureDimension**根据测量的类型，分别计算尺寸的长度，每个类型的含义在[第一篇](http://www.idtkm.com/customview/customview1/)中已经进行了说明，在这里不再赘述。**EXACTLY**是在xml中定义**match_parent以及具体的数值**是使用，而**AT_MOST**则是在**wrap_content**时使用，**measureWrap**方法用于计算当前PieChart的最小合适长度，接下来看看这个方法。
 <br>
 ```Java
 private int measureWrap(Paint paint){
@@ -304,7 +304,7 @@ public boolean onTouchEvent(MotionEvent event) {
     return super.onTouchEvent(event);
 }
 ```
-* 运行之前需要判断PieChart是否开启了点击效果，同事需要判断数据不为空。<br>
+* 运行之前需要判断PieChart是否开启了点击效果，同时需要判断数据不为空。<br>
 * 在用户点击下的时候，获取当前的坐标，计算出这个点与原点的距离以及角度。通过距离可以判断出是否点击在了扇形区域上，而通过角度可以判断出点击了哪一个区域。将判断出的区域Id传递给angleId值，就像我们之前在onDraw中说的那样，重新绘制，根据angleId浮出指定的扇形区域。<br>
 * 用户手指离开屏幕时，重置angleId为默认值，并使用invalidate()函数，重新绘制onDraw中变化的部分。
 <br>
