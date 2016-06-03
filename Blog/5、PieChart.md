@@ -130,8 +130,8 @@ private int measureWrap(Paint paint){
 
 ## 五、onSizeChanged
 在此函数中，获取当前View的宽高以及根据padding值计算出的宽高，同时进行PieChart绘制所需的半径以及布局位置设置。<br>
-图<br>
-
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/onSizeChange.png" alt="onSizeChanged" title="onSizeChanged" width="300" /><br>
 ```Java
 protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
@@ -158,16 +158,15 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     rWhite = (float) (r*radiusScaleInside);
 
     //浮出圆环
-	//圆弧
-	// 饼状图半径
-	rF = (float) (Math.min(mWidth,mHeight)/2*widthScaleRadius*offsetScaleRadius);
-	// 饼状图绘制区域
-	rectFF.left = -rF;
-	rectFF.top = -rF;
-	rectFF.right = rF;
-	rectFF.bottom = rF;
-
-   	...
+    //圆弧
+    // 饼状图半径
+    rF = (float) (Math.min(mWidth,mHeight)/2*widthScaleRadius*offsetScaleRadius);
+    // 饼状图绘制区域
+    rectFF.left = -rF;
+    rectFF.top = -rF;
+    rectFF.right = rF;
+    rectFF.bottom = rF;
+    ...
 }
 ```
 ## 六、onDraw
@@ -199,12 +198,12 @@ canvas.restore();
 根据当前的初始角度旋转画布。初始化扇形的起始角度，通过累加计算出下一次的起始角度。<br>
 drawArc用于绘制扇形，和[上一篇](http://www.idtkm.com/customview/customview4/)最后的环形图片一样，通过一大一小两个扇形进行补集运算，获得可知半径的及宽度的圆环，只不过这里多了一个为了立体效果而增加的半透明圆弧。<br>
 
-图<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%BB%98%E5%88%B6%E6%89%87%E5%BD%A2.png" alt="绘制扇形" title="绘制扇形" width="300" /><br>
 
 绘制扇形时，使用当前的动画值减去起始角度与当前的扇形经过的角度对比取小，作为当前扇形的需要绘制的经过角度。减1是为了生存扇形区域之间的间隔。<br>
 angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
 
-### 2、绘制文字
+### 2、绘制文本
 
 ```Java
 //扇形百分比文字
@@ -230,7 +229,7 @@ for (int i=0; i<mPieData.size(); i++){
 }
 ```
 <br>
-文本是有方向的，无法在画布旋转后绘制，所以初始化当前扇形的起始角度为PieChart的起始角度。<br>
+**文本是有方向的，无法在画布旋转后绘制**，所以初始化当前扇形的起始角度为PieChart的起始角度。<br>
 然后循环绘制文本，当扇形绘制到当前区域的1/2时，开始绘制当前区域的文字。为了防止文本遮挡视线，在绘制前需要判断此扇形经过的角度是否大于最小显示角度。<br>
 angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
 <br>
@@ -250,8 +249,7 @@ private void drawText(Canvas canvas, PieData pie ,float currentStartAngle, Numbe
     textCenter(strings, mPaint, canvas, mPoint, Paint.Align.CENTER);
 }
 ```
-图
-<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%BB%98%E5%88%B6%E6%96%87%E6%9C%AC.png" alt="绘制文本" title="绘制文本" width="300" /><br>
 drawText函数的主要作用就是根据传入的Pie，获取大小扇形的半径合除以2，角度取一半，计算出扇形中心点，然后使用之前介绍的[textCenter多行文本居中函数](http://www.idtkm.com/customview/customview3/)进行文本绘制。最后累加当前扇形的起始角度，用于下一个扇形使用。<br>
 
 ### 3、绘制图名
@@ -268,8 +266,8 @@ textCenter(strings,mPaint,canvas,mPoint, Paint.Align.CENTER);
 ```
 绘制图名的部分就比较简单了，和之前绘制单个Pie时类似，获取x，y坐标为(0,0),然后使用textCenter多行文本绘制函数进行文本绘制。
 
-## 七、TouchEvent
-TouchEvent用于处理当前的点击事件，具体内容在[第一篇文章](http://www.idtkm.com/customview/customview1/)中已经进行了说明，这里使用其中的ACTION_DOWN与ACTION_UP事件。<br>
+## 七、onTouchEvent
+onTouchEvent用于处理当前的点击事件，具体内容在[第一篇文章](http://www.idtkm.com/customview/customview1/)中已经进行了说明，这里使用其中的ACTION_DOWN与ACTION_UP事件。<br>
 
 ```Java
 public boolean onTouchEvent(MotionEvent event) {
@@ -310,12 +308,11 @@ public boolean onTouchEvent(MotionEvent event) {
 在用户点击下的时候，获取当前的坐标，计算出这个点与原点的距离以及角度。通过距离可以判断出是否点击在了扇形区域上，而通过角度可以判断出点击了哪一个区域。将判断出的区域Id传递给angleId值，就像我们之前在onDraw中说的那样，重新绘制，根据angleId浮出指定的扇形区域。<br>
 用户手指离开屏幕时，重置angleId为默认值，并使用invalidate()函数，重新绘制onDraw中变化的部分。
 <br>
-图
-<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchEvent.png" alt="onTouchEvent" title="onTouchEvent" width="300" /><br>
 ## 八、小结
 经过之前4篇的知识准备，终于迎来了本章的PieChart的具体实现，在本文中重温了之前的绘制流程的各个函数，VlaueAnimator函数，以及Canvas、Path的使用方法。在之后的文章中还会进行几个图表的实战，比如下面这个曲线图。<br>
-图
-<br>
+
+<img src="https://github.com/Idtk/Blog/blob/master/Image/cubic.gif" alt="曲线图" title="曲线图" width="300" /><br>
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
