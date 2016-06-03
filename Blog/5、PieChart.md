@@ -71,7 +71,7 @@ private void initAnimator(long duration){
 }
 ```
 ## 四、onMeasure
-View默认的onMeasure方法中，并没有根据测量模式，对布局宽高进行调整，所以为了适应wrap_content的布局设置，需要对onMeasure方法进行重写。<br>
+View默认的onMeasure方法中，并没有根据测量模式，对布局宽高进行调整，所以为了适应**wrap_content**的布局设置，需要对onMeasure方法进行重写。<br>
 
 ```Java
 protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -81,7 +81,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 }
 ```
 <br>
-重写的onMeasure方法，调用了自定义的measureDimension方法处理数据，完成后交给系统的setMeasuredDimension方法。接下来看下自定义的measureDimension方法。<br>
+重写的onMeasure方法，调用了自定义的**measureDimension**方法处理数据，完成后交给系统的setMeasuredDimension方法。接下来看下自定义的measureDimension方法。<br>
 ```Java
 private int measureDimension(int measureSpec){
     int size = measureWrap(mPaint);
@@ -103,7 +103,7 @@ private int measureDimension(int measureSpec){
 }
 ```
 <br>
-measureDimension根据测量的类型，分别计算尺寸的长度，每个类型的含义在[第一篇](http://www.idtkm.com/customview/customview1/)中已经进行了说明，在这里不在赘述。EXACTLY是在xml中定义match_parent以及具体的数值是使用，而AT_MOST则是在wrap_content时使用，measureWrap方法用于计算当前PieChart的最小合适长度，接下来看看这个方法。
+**measureDimension**根据测量的类型，分别计算尺寸的长度，每个类型的含义在[第一篇](http://www.idtkm.com/customview/customview1/)中已经进行了说明，在这里不在赘述。**EXACTLY**是在xml中定义**match_parent以及具体的数值**是使用，而**AT_MOST**则是在**wrap_content**时使用，**measureWrap**方法用于计算当前PieChart的最小合适长度，接下来看看这个方法。
 <br>
 ```Java
 private int measureWrap(Paint paint){
@@ -125,20 +125,20 @@ private int measureWrap(Paint paint){
 <br>
 测量宽高的方式类似于TextView，根据PieChart中的**图名与百分比文本的宽度**进行计算的。其中stringId是在处理数据的过程中，计算出的拥有最长字符的区域Id。<br>
 
-从代码中可以看出，wrap_content情况下的，PieChart的宽高就等于百分比字符长度的4倍，加上图名的长度。
+从代码中可以看出，**wrap_content情况下的，PieChart的宽高就等于百分比字符长度的4倍，加上图名的长度。**
 <br>
 
 ## 五、onSizeChanged
-在此函数中，获取当前View的宽高以及根据padding值计算出的宽高，同时进行PieChart绘制所需的半径以及布局位置设置。<br>
+在此函数中，获取当前View的宽高以及根据**padding**值计算出的宽高，同时进行PieChart绘制所需的半径以及布局位置设置。<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onSizeChange.png" alt="onSizeChanged" title="onSizeChanged" width="300" /><br>
 ```Java
 protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mWidth = w-getPaddingLeft()-getPaddingRight();//适应padding设置
-	mHeight = h-getPaddingTop()-getPaddingBottom();//适应padding设置
-	mViewWidth = w;
-	mViewHeight = h;
+    mHeight = h-getPaddingTop()-getPaddingBottom();//适应padding设置
+    mViewWidth = w;
+    mViewHeight = h;
     //标准圆环
     //圆弧
     r = (float) (Math.min(mWidth,mHeight)/2*widthScaleRadius);// 饼状图半径
@@ -195,13 +195,13 @@ for (int i=0; i<mPieData.size(); i++){
 }
 canvas.restore();
 ```
-根据当前的初始角度旋转画布。初始化扇形的起始角度，通过累加计算出下一次的起始角度。<br>
-drawArc用于绘制扇形，和[上一篇](http://www.idtkm.com/customview/customview4/)最后的环形图片一样，通过一大一小两个扇形进行补集运算，获得可知半径的及宽度的圆环，只不过这里多了一个为了立体效果而增加的半透明圆弧。<br>
+* 根据当前的初始角度旋转画布。初始化扇形的起始角度，通过累加计算出下一次的起始角度。<br>
+* drawArc用于绘制扇形，和[上一篇](http://www.idtkm.com/customview/customview4/)最后的环形图片一样，通过一大一小两个扇形进行补集运算，获得可知半径的及宽度的圆环，只不过这里多了一个为了立体效果而增加的半透明圆弧。<br>
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/%E7%BB%98%E5%88%B6%E6%89%87%E5%BD%A2.png" alt="绘制扇形" title="绘制扇形" width="300" /><br>
 
-绘制扇形时，使用当前的动画值减去起始角度与当前的扇形经过的角度对比取小，作为当前扇形的需要绘制的经过角度。减1是为了生存扇形区域之间的间隔。<br>
-angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
+* 绘制扇形时，使用当前的动画值减去起始角度与当前的扇形经过的角度对比取小，作为当前扇形的需要绘制的经过角度。减1是为了生存扇形区域之间的间隔。<br>
+* angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
 
 ### 2、绘制文本
 
@@ -229,9 +229,9 @@ for (int i=0; i<mPieData.size(); i++){
 }
 ```
 <br>
-**文本是有方向的，无法在画布旋转后绘制**，所以初始化当前扇形的起始角度为PieChart的起始角度。<br>
-然后循环绘制文本，当扇形绘制到当前区域的1/2时，开始绘制当前区域的文字。为了防止文本遮挡视线，在绘制前需要判断此扇形经过的角度是否大于最小显示角度。<br>
-angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
+* **文本是有方向的，无法在画布旋转后绘制**，所以初始化当前扇形的起始角度为PieChart的起始角度。<br>
+* 然后循环绘制文本，当扇形绘制到当前区域的1/2时，开始绘制当前区域的文字。为了防止文本遮挡视线，在绘制前需要判断此扇形经过的角度是否大于最小显示角度。<br>
+* angleId用于Touch时显示点击是哪一块扇形，具体判断会在TouchEvent中进行。
 <br>
 
 ```Java
@@ -304,13 +304,13 @@ public boolean onTouchEvent(MotionEvent event) {
     return super.onTouchEvent(event);
 }
 ```
-运行之前需要判断PieChart是否开启了点击效果，同事需要判断数据不为空。<br>
-在用户点击下的时候，获取当前的坐标，计算出这个点与原点的距离以及角度。通过距离可以判断出是否点击在了扇形区域上，而通过角度可以判断出点击了哪一个区域。将判断出的区域Id传递给angleId值，就像我们之前在onDraw中说的那样，重新绘制，根据angleId浮出指定的扇形区域。<br>
-用户手指离开屏幕时，重置angleId为默认值，并使用invalidate()函数，重新绘制onDraw中变化的部分。
+* 运行之前需要判断PieChart是否开启了点击效果，同事需要判断数据不为空。<br>
+* 在用户点击下的时候，获取当前的坐标，计算出这个点与原点的距离以及角度。通过距离可以判断出是否点击在了扇形区域上，而通过角度可以判断出点击了哪一个区域。将判断出的区域Id传递给angleId值，就像我们之前在onDraw中说的那样，重新绘制，根据angleId浮出指定的扇形区域。<br>
+* 用户手指离开屏幕时，重置angleId为默认值，并使用invalidate()函数，重新绘制onDraw中变化的部分。
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchEvent.png" alt="onTouchEvent" title="onTouchEvent" width="300" /><br>
 ## 八、小结
-经过之前4篇的知识准备，终于迎来了本章的PieChart的具体实现，在本文中重温了之前的绘制流程的各个函数，VlaueAnimator函数，以及Canvas、Path的使用方法。在之后的文章中还会进行几个图表的实战，比如下面这个曲线图。<br>
+经过之前4篇的知识准备，终于迎来了本章的PieChart的具体实现。在本文中重温了之前的绘制流程的各个函数，VlaueAnimator函数，以及Canvas、Path的使用方法，并使用这些方法完成了一个自定义饼图的绘制。在之后的文章中还会进行几个图表的实战，比如下面这个曲线图。<br>
 
 <img src="https://github.com/Idtk/Blog/blob/master/Image/cubic.gif" alt="曲线图" title="曲线图" width="300" /><br>
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
