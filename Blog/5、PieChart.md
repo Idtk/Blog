@@ -81,7 +81,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 }
 ```
 <br>
-重写的onMeasure方法，调用了自定义的**measureDimension**方法处理数据，完成后交给系统的setMeasuredDimension方法。接下来看下自定义的measureDimension方法。<br>
+重写的onMeasure方法，调用了自定义的**measureDimension**方法处理数据，完成后交给系统的setMeasuredDimension方法。接下来看下自定义的**measureDimension**方法。<br>
 ```Java
 private int measureDimension(int measureSpec){
     int size = measureWrap(mPaint);
