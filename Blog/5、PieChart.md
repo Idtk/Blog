@@ -1,4 +1,4 @@
-# 自定义PieChart
+# 自定义View——PieChart
 
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif" alt="PieChat" title="PieChat" width="300" /><br>
 
