@@ -96,7 +96,7 @@ mPath.addArc(rectF,0,180);
 ```
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/quadTo3.png" alt="quadTo" title="quadTo" width="300" />
 <br>
-* 更进一步
+* **更进一步**<br>
 如果我希望水量是30%，80%或者别的值呢？其实只需要修改正弦值的周期即可。具体代码如下 : 
 ```Java
 /**
