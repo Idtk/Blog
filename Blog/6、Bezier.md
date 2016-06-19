@@ -1,4 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 #自定义View——贝塞尔曲线<br>
 
 ## 一、数学中的贝塞尔详解
@@ -19,11 +18,9 @@ B(t) = (1 - t)^2 * P0 + 2t * (1 - t) * P1 + t^2 * P2, t ∈ [0,1]
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.svg.png" alt="Bezier" title="Bezier" width="300" />
 <br><br>
-
-P0Q0/Q0P1 = P1Q1/Q1P2 = Q0B/BQ1<br>
-
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default">
 $$ \dfrac{P0Q0}{Q0P1} = \dfrac{P1Q1}{Q1P2} = \dfrac{Q0B}{BQ1}$$
-
+</script>
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.gif" alt="Bezier" title="Bezier" width="300" />
 <br><br>
