@@ -1,6 +1,6 @@
 #自定义View——贝塞尔曲线<br>
 
-## 一、数学中的贝塞尔详解
+## 一、数学中的贝塞尔
 ### 概述
 贝塞尔曲线于1962年，由法国工程师皮埃尔·贝塞尔（Pierre Bézier）所广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。贝塞尔曲线最初由Paul de Casteljau于1959年运用de Casteljau算法开发，以稳定数值的方法求出贝塞尔曲线。<br>
 在计算机图形学中贝赛尔曲线的运用也很广泛，Photoshop中的钢笔效果，Flash5的贝塞尔曲线工具，在软件GUI开发中一般也会提供对应的方法来实现贝赛尔曲线。
@@ -97,7 +97,7 @@ mPath.addArc(rectF,0,180);
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/quadTo3.png" alt="quadTo" title="quadTo" width="300" />
 <br>
 * **更进一步**<br>
-如果我希望水量是30%，80%或者别的值呢？其实只需要修改正弦值的周期即可。具体代码如下 : 
+如果我希望水量是30%，80%或者别的值呢？其实只需要修改正弦值的周期即可。具体代码如下(已省略set方法) : 
 ```Java
 /**
  * Created by Idtk on 2016/6/19.
@@ -239,7 +239,7 @@ protected void onDraw(Canvas canvas) {
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/cubicTo.png" alt="cubicTo" title="cubicTo" width="300" />
 <br>
 
-我最近在做的开源图表库SmallChart中绘制曲线时，就是用了cubicTo。同时使用了MPChart项目中的算法，对高阶贝塞尔曲线进行了降阶，关键代码如下 :
+我最近在做的开源图表库SmallChart中绘制曲线时，就是用了cubicTo。同时使用了MPChart项目中的算法，对高阶贝塞尔曲线进行了降阶，相关代码如下 :
 ```Java
 cubicPath.moveTo((cur.x-xAxisData.getMinimum())*xAxisData.getAxisScale(),
         -(cur.y-yAxisData.getMinimum())*yAxisData.getAxisScale()*animatedValue);
