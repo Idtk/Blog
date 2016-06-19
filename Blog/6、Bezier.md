@@ -8,25 +8,32 @@
 给定点P0、P1，线性贝兹曲线只是一条两点之间的直线。这条线由下式给出：<br>
 B(t) = P0 + (P1 - P0) * t = (1 - t) * P0 + t * P1, t ∈ [0, 1] <br>
 就像由0至1的连续t，B（t）描述一条由P0至P1的直线。
-<br><img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_1_big.gif" alt="Bezier" title="Bezier" width="300" /><br>
+<br><br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_1_big.gif" alt="Bezier" title="Bezier" width="300" />
+<br><br>
 ### 二次贝塞尔曲线
 二次方贝塞尔曲线的路径由给定点P0、P1、P2的函数B（t）追踪：<br>
 B(t) = (1 - t)^2 * P0 + 2t * (1 - t) * P1 + t^2 * P2, t ∈ [0,1]
 
-<br><img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.svg.png" alt="Bezier" title="Bezier" width="300" />
-<br>
+<br><br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.svg.png" alt="Bezier" title="Bezier" width="300" />
+<br><br>
+
 P0Q0/Q0P1 = P1Q1/Q1P2 = Q0B/BQ1
-<br><img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.gif" alt="Bezier" title="Bezier" width="300" />
-<br>
+$$ \dfrac{P0Q0}{Q0P1} = \dfrac{P1Q1}{Q1P2} = \dfrac{Q0B}{BQ1}$$
+<br><br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.gif" alt="Bezier" title="Bezier" width="300" />
+<br><br>
 ### 三阶贝塞尔曲线
 P0、P1、P2、P3四个点在平面或在三维空间中定义了三次方贝塞尔曲线。曲线起始于P0走向P1，并从P2的方向来到P3。一般不会经过P1或P2；这两个点只是在那里提供方向资讯。P0和P1之间的间距，决定了曲线在转而趋进P2之前，走向P1方向的“长度有多长”。<br>
 曲线的参数形式为：<br>
 B(t) = (1 - t)^3 * P0 + 3t * (1 - t)^2 * P1 + 3t^2 * P2 * (1-t) + t^3 * P3, t ∈ [0,1]
 
-<br><img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_3_big.svg.png" alt="Bezier" title="Bezier" width="300" />
+<br><br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_3_big.svg.png" alt="Bezier" title="Bezier" width="300" />
 <br>
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_3_big.gif" alt="Bezier" title="Bezier" width="300" />
-<br>
+<br><br>
 
 (**PS:以上内容来自[Wike](https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A)**)
 ## 二、Android中的贝塞尔使用
