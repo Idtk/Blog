@@ -239,7 +239,7 @@ protected void onDraw(Canvas canvas) {
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/cubicTo.png" alt="cubicTo" title="cubicTo" width="300" />
 <br>
 
-我最近在做的开源图表库SmallChart中绘制曲线时，就是用了cubicTo。同事使用了MPChart项目中的算法，对贝塞尔曲线进行了降阶，关键代码如下 :
+我最近在做的开源图表库SmallChart中绘制曲线时，就是用了cubicTo。同时使用了MPChart项目中的算法，对高阶贝塞尔曲线进行了降阶，关键代码如下 :
 ```Java
 cubicPath.moveTo((cur.x-xAxisData.getMinimum())*xAxisData.getAxisScale(),
         -(cur.y-yAxisData.getMinimum())*yAxisData.getAxisScale()*animatedValue);
