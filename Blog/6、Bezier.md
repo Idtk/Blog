@@ -31,7 +31,7 @@ P0、P1、P2、P3四个点在平面或在三维空间中定义了三次方贝塞
 数学的一节内容只要有个直观的感受就好，重点主要是Android中的贝塞尔曲线。
 <br>
 ### 1、quadTo
-Path.quadTo是Android的二次贝塞尔曲线的API，示例如下。
+**Path.quadTo**是Android的二次贝塞尔曲线的API，示例如下。
 
 ```Java
 @Override
@@ -197,7 +197,7 @@ public class Bezier extends View {
 <br>
 
 ### 2、cubicTo
-Path.cubicTo是Android的三次贝塞尔曲线的API，示例如下。
+**Path.cubicTo**是Android的三次贝塞尔曲线的API，示例如下。
 
 ```Java
 @Override
