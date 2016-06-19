@@ -5,30 +5,21 @@
 贝塞尔曲线于1962年，由法国工程师皮埃尔·贝塞尔（Pierre Bézier）所广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。贝塞尔曲线最初由Paul de Casteljau于1959年运用de Casteljau算法开发，以稳定数值的方法求出贝塞尔曲线。<br>
 在计算机图形学中贝赛尔曲线的运用也很广泛，Photoshop中的钢笔效果，Flash5的贝塞尔曲线工具，在软件GUI开发中一般也会提供对应的方法来实现贝赛尔曲线。
 ### 线性贝塞尔曲线
-给定点P0、P1，线性贝兹曲线只是一条两点之间的直线。这条线由下式给出：<br>
-B(t) = P0 + (P1 - P0) * t = (1 - t) * P0 + t * P1, t ∈ [0, 1] <br>
+给定点P0、P1，线性贝兹曲线只是一条两点之间的直线。
 就像由0至1的连续t，B（t）描述一条由P0至P1的直线。
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_1_big.gif" alt="Bezier" title="Bezier" width="300" />
 <br><br>
 ### 二次贝塞尔曲线
 二次方贝塞尔曲线的路径由给定点P0、P1、P2的函数B（t）追踪：<br>
-B(t) = (1 - t)^2 * P0 + 2t * (1 - t) * P1 + t^2 * P2, t ∈ [0,1]
 
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.svg.png" alt="Bezier" title="Bezier" width="300" />
-<br><br>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default">
-$$ \dfrac{P0Q0}{Q0P1} = \dfrac{P1Q1}{Q1P2} = \dfrac{Q0B}{BQ1}$$
-</script>
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_2_big.gif" alt="Bezier" title="Bezier" width="300" />
 <br><br>
 ### 三阶贝塞尔曲线
 P0、P1、P2、P3四个点在平面或在三维空间中定义了三次方贝塞尔曲线。曲线起始于P0走向P1，并从P2的方向来到P3。一般不会经过P1或P2；这两个点只是在那里提供方向资讯。P0和P1之间的间距，决定了曲线在转而趋进P2之前，走向P1方向的“长度有多长”。<br>
-曲线的参数形式为：<br>
-B(t) = (1 - t)^3 * P0 + 3t * (1 - t)^2 * P1 + 3t^2 * P2 * (1-t) + t^3 * P3, t ∈ [0,1]
-
 <br><br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Bézier_3_big.svg.png" alt="Bezier" title="Bezier" width="300" />
 <br>
