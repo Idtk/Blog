@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 #自定义View——贝塞尔曲线<br>
 
 ## 一、数学中的贝塞尔详解
