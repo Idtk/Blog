@@ -208,12 +208,12 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     mWidth = mViewWidth - getPaddingLeft() - getPaddingRight();
     mHeight = mViewHeight - getPaddingTop() - getPaddingBottom();
     r = Math.min(mWidth,mHeight)*0.4f;
-    start.x = -r/2;
+    start.x = -r;
     start.y = 0;
-    control1.x = 0;
+    control1.x = -r/2;
     control1.y = -r/2;
     control2.x = r/2;
-    control2.y = -r/2;
+    control2.y = r/2;
     end.x = r;
     end.y = 0;
 }
@@ -237,6 +237,10 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 <br><img src="https://github.com/Idtk/Blog/blob/master/Image/cubicTo.png" alt="cubicTo" title="cubicTo" width="300" />
+<br>
+
+是不是和之前quadTo生成的水纹很像？如果想要在上面的**百分比注水球类**中加入动画，并且不要求一定是正弦波的情况下，使用cubicTo可以更为方便。
+
 <br>
 
 我最近在做的开源图表库SmallChart中绘制曲线时，就是用了cubicTo。同时使用了MPChart项目中的算法，对高阶贝塞尔曲线进行了降阶，相关代码如下 :
