@@ -1,4 +1,4 @@
-#自定义View——雷达图（蜘蛛网图）<br>
+#自定义View——雷达图(蜘蛛网图)<br>
 效果图:<br>
 <img src="https://github.com/Idtk/SmallChart/blob/master/image/radar.png" alt="radar" title="radar" width="300"/><br>
 
@@ -47,7 +47,7 @@ public static int resolveSizeAndState(int size, int measureSpec, int childMeasur
 }
 ```
 * **resolveSizeAndState**方法中，在**AT_MOST**测量模式下。如果**onMeasure**传递的measureSpec值小于，你给定的size值，则会使用
-MEASURED_STATE_TOO_SMALL（值为**0x01000000**）整理后的specSize值；如果你给定的size更大，那么就是用你的size作为返回。最后通过与MEASURED_STATE_MASK合成出返回值。
+MEASURED_STATE_TOO_SMALL(值为**0x01000000**)整理后的specSize值；如果你给定的size更大，那么就是用你的size作为返回。最后通过与MEASURED_STATE_MASK合成出返回值。
 
 * 另两种情况下和之前的**getDefaultSize**时相同，在**EXACTLY**时，即给定宽高值得情况下，使用了**onMeasure**中获取的值。
 
@@ -212,7 +212,7 @@ public void drawGraph(Canvas canvas, float animatedValue) {
 }
 ```
 ## 四、小结
-本文详细的说明了雷达图（蜘蛛网图）的具体实现，同时介绍了View中的相关流程函数，以及**resolveSizeAndState**和**getDefaultSize**的大致内容，以选取更合适的方法来动态的适应**wrap_content**。并且通过使用PathMeasure类的**getPosTan**方法，更方便的获取雷达图各顶点方向的cos、sin值。<br>
+本文详细的说明了雷达图(蜘蛛网图)的具体实现，同时介绍了View中的相关流程函数，以及**resolveSizeAndState**和**getDefaultSize**的大致内容，以选取更合适的方法来动态的适应**wrap_content**。并且通过使用PathMeasure类的**getPosTan**方法，更方便的获取雷达图各顶点方向的cos、sin值。<br>
 
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
@@ -220,3 +220,5 @@ public void drawGraph(Canvas canvas, float animatedValue) {
 **微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
+
+[雷达图源码](https://github.com/Idtk/SmallChart)
