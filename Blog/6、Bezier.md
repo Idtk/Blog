@@ -281,5 +281,6 @@ cubicPath.rewind();
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>

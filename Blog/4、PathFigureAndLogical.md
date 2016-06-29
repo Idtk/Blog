@@ -278,6 +278,7 @@ case RING:
 本文介绍了Path的基本使用方法与逻辑运算，同时通过圆角图片的例子，进行了实战。使用Path方法，还可以增加更多有趣的图形，比如star，多边形，格子图等等。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
 **PS: 示例中使用的方法，相对消耗内存，更合适的是设置反向填充来完成圆角图片的生成，FigureImageView为反向填充的方法，OldFigureImageView为示例中的方法 [源码](https://github.com/Idtk/FigureImageView)**

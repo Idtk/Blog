@@ -374,6 +374,7 @@ event.getRawY();   //触摸点相对于屏幕坐标系的Y坐标
 &nbsp;&nbsp;简单分析了自定义View的入门准备知识，包括屏幕坐标系、View坐标、View的绘制过程中的主要函数、以及屏幕触摸事件。后面的内容将会围绕onDraw函数展开，在完成涉及知识点的分析之后，将会实战去编写PieView的代码。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 
 **PieChart效果图如下：**<br>
