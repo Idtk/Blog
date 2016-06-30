@@ -173,7 +173,7 @@ if (radarAxisData.getTypes()!=null)
         //设置文字坐标
         mPointF.y = -radarAxisData.getAxisLength()*radarAxisData.getSinArray()[j]*1.1f;
         mPointF.x = -radarAxisData.getAxisLength()*radarAxisData.getCosArray()[j]*1.1f;
-        根据cos值，判断文字位置，设置居左、居中、居右
+        //根据cos值，判断文字位置，设置居左、居中、居右
         if (radarAxisData.getCosArray()[j]>0.2){
             textCenter(new String[]{radarAxisData.getTypes()[j]},mPaintText,canvas,mPointF, Paint.Align.RIGHT);
         }else if (radarAxisData.getCosArray()[j]<-0.2){
