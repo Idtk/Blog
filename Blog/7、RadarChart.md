@@ -118,7 +118,7 @@ if (radarAxisData.getIsTextSize())
     }
 ```
 ## 三、绘制数据覆盖区域
-绘制实际数据也是在onDraw中进行的，只需计算出各个数据在画布上的实际长度，再乘以相应的cos、sin之后，就可以获得相应的坐标点。位移需要注意的是，绘制的点数需要以传入的各角的字符串的数量为准，同时在数据为空的情况下，设置数据为0即可。
+绘制实际数据也是在onDraw中进行的，只需计算出各个数据在画布上的实际长度，再乘以相应的cos、sin之后，就可以获得相应的坐标点。需要注意的是，绘制的点数需要以传入的各角的字符串的数量为准，同时在数据为空的情况下，设置数据为0即可。
 ```Java
 @Override
 public void drawGraph(Canvas canvas, float animatedValue) {
