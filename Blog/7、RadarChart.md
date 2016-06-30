@@ -5,7 +5,7 @@
 阅读本文需要了解View的绘制流程，如果不熟悉，请先查看我之前的文章[Android坐标系与View绘制流程](http://www.idtkm.com/customview/customview1/)<br>
 
 ## 一、获取View宽高以及cos、sin
-在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时进行出雷达图得半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。<br>
+在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时计算出雷达图的半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。<br>
 
 因为在之前的文章中并没有介绍getPosTan方法，这里对其进行一个简单的介绍。
 ```
