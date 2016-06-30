@@ -197,9 +197,9 @@ public static int resolveSizeAndState(int size, int measureSpec, int childMeasur
 * **resolveSizeAndState**方法中，在**AT_MOST**测量模式下。如果**onMeasure**传递的measureSpec值小于，你给定的size值，则会使用
 MEASURED_STATE_TOO_SMALL(值为**0x01000000**)整理后的specSize值；如果你给定的size更小，那么就是用你的size作为返回。最后通过与MEASURED_STATE_MASK合成出返回值。
 
-* 另两种情况下和之前的**getDefaultSize**时相同，在**EXACTLY**时，即给定宽高值得情况下，使用了**onMeasure**中获取的值。
+* 在**EXACTLY**时，和之前的**getDefaultSize**相同，即给定宽高值得情况下，使用了**onMeasure**中获取的值。
 
-* 而在**UNSPECIFIED**时，即View想要多大就多大的情况下，使用了给定的size作为返回值，而我们没有子View，childMeasuredState设置为0即可。最后通过与MEASURED_STATE_MASK合成出返回值。
+* 在**UNSPECIFIED**时，也和之前的**getDefaultSize**相同，即View想要多大就多大的情况下，使用了给定的size作为返回值，而我们没有子View，childMeasuredState设置为0即可。最后通过与MEASURED_STATE_MASK合成出返回值。
 
 现在使用**resolveSizeAndState**方法只差size值了，获取size值的方法与之前的[PieChart](https://github.com/Idtk/Blog/blob/master/Blog/5%E3%80%81PieChart.md)类似，通过计算需要绘制文字的宽高以及数量，来计算出size值。
 ```Java
@@ -225,7 +225,7 @@ public int getCurrentWidth() {
     return wrapSize;
 }
 ```
-由代码可以看出通过计算出刻度值的高度与各角字符的高度来合成Size值。<br>
+由代码可以看出通过计算出刻度值的高度乘以刻度个数与各角字符的高度乘以2相加来合成Size值。<br>
 最后只要在**onMeasure**中使用size值，即可实现雷达图**wrap_content**效果。与getSuggestedMinimumWidth()获取的值相比较是为了防止，size过小而出现以外，虽然此情况出现的几率并不大。
 ```Java
 @Override
