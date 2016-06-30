@@ -242,7 +242,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 ```
 
 ## 五、小结
-本文通过修改View中的相关流程函数，详细的说明了雷达图(蜘蛛网图)的具体实现，同时比较**resolveSizeAndState**和**getDefaultSize**的大致内容，以选取更合适的方法来动态的适应**wrap_content**。并且简单介绍了PathMeasure类的**getPosTan**方法，使用此方法可以更方便的获取雷达图各顶点方向的cos、sin值。<br>
+本文通过重写View中的相关流程函数，详细的说明了雷达图(蜘蛛网图)的具体实现，同时比较**resolveSizeAndState**和**getDefaultSize**的大致内容，以选取更合适的方法来动态的适应**wrap_content**。并且简单介绍了PathMeasure类的**getPosTan**方法，使用此方法可以更方便的获取雷达图各顶点方向的cos、sin值。<br>
 
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
