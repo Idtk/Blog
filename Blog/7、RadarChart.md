@@ -7,8 +7,8 @@ View原有的**onMeasure**函数中，使用了**getDefaultSize**方法，来根
 ```Java
 public static int getDefaultSize(int size, int measureSpec) {
     int result = size;
-    int specMode = MeasureSpec.getMode(measureSpec);
-    int specSize = MeasureSpec.getSize(measureSpec);
+    int specMode = MeasureSpec.getMode(measureSpec);//获取测量方式
+    int specSize = MeasureSpec.getSize(measureSpec);//获取测量数值
     switch (specMode) {
     case MeasureSpec.UNSPECIFIED:
         result = size;
@@ -58,16 +58,18 @@ MEASURED_STATE_TOO_SMALL(值为**0x01000000**)整理后的specSize值；如果�
 public int getCurrentWidth() {
     int wrapSize;
     if (mDataList!=null&&mDataList.size()>1&&mRadarAxisData.getTypes().length>1){
+    	//设置小数位数
         NumberFormat numberFormat =NumberFormat.getPercentInstance();
         numberFormat.setMinimumFractionDigits(mRadarAxisData.getDecimalPlaces());
         paintText.setStrokeWidth(mRadarAxisData.getPaintWidth());
         paintText.setTextSize(mRadarAxisData.getTextSize());
+        //获取FontMetrics
         Paint.FontMetrics fontMetrics= paintText.getFontMetrics();
-        float top = fontMetrics.top;
-        float bottom = fontMetrics.bottom;
+        float top = fontMetrics.top;//获取baseline之上高度
+        float bottom = fontMetrics.bottom; //获取baseline之下高度
         float webWidth = (bottom-top)*(float) Math.ceil((mRadarAxisData.getMaximum()-mRadarAxisData.getMinimum())
-                /mRadarAxisData.getInterval());
-        float nameWidth = paintText.measureText(mRadarAxisData.getTypes()[0]);
+                /mRadarAxisData.getInterval());//计算单个高度*数量
+        float nameWidth = paintText.measureText(mRadarAxisData.getTypes()[0]);//计算正多边形各角字符的长度
         wrapSize = (int) (webWidth*2+nameWidth*1.1);
     }else {
         wrapSize = 0;
@@ -102,13 +104,18 @@ protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 	mHeight = mViewHeight - getPaddingTop() - getPaddingBottom();
     radius = Math.min(mWidth,mHeight)*0.35f;
     ...
+    //增加圆形路径，起点从90度开始，顺时针旋转
     mPath.addCircle(0,0,mRadarAxisData.getAxisLength(), Path.Direction.CW);
+    //为PathMeasure设置路径
     measure.setPath(mPath,true);
+   
     float[] cosArray = new float[mRadarAxisData.getTypes().length];
     float[] sinArray = new float[mRadarAxisData.getTypes().length];
     for (int i=0; i<mRadarAxisData.getTypes().length; i++){
+    	//获取Path距离起点当前距离的坐标，以及切线
         measure.getPosTan((float) (Math.PI*2*mRadarAxisData.getAxisLength()*i/
                 mRadarAxisData.getTypes().length),pos,tan);
+        //装填cos、sin
         cosArray[i] = tan[0];
         sinArray[i] = tan[1];
     }
@@ -125,21 +132,28 @@ boolean getPosTan (float distance, float[] pos, float[] tan)
 * pos 如果不为null，则返回path当前距离的位置坐标，pos[0] = x,pos[1] = y 。
 * tan 如果不为null，则返回当前位置坐标的切线，tan[0] = x, tan[1] = y 。
 * 返回值为boolean，true表示成功，数据会存入pas、tan，反之则为失败，数据也不会存入pas、tan。
+
 ## 三、onDraw
 在此函数中，首先绘制了雷达图的每组数据的显示区域，然后绘制了雷达图的坐标网络。这样绘制是为了更清晰的显示坐标，但为了便于理解，在这里先介绍雷达图的坐标网络。
+
 ### 1、绘制任意正多边形
 * 首先通过画布缩放的方式绘制一圈圈的网格。
 ```Java
 for (int i=0; i<number; i++){
     canvas.save();
+    //缩放画布
     canvas.scale(1-i/number,1-i/number);
+    移动至第一点
     mPathRing.moveTo(0,radarAxisData.getAxisLength());
+    //连接个点
     if (radarAxisData.getTypes()!=null)
         for (int j=0; j<radarAxisData.getTypes().length; j++){
             mPathRing.lineTo(radarAxisData.getAxisLength()*radarAxisData.getCosArray()[j],
                     radarAxisData.getAxisLength()*radarAxisData.getSinArray()[j]);
         }
+    //闭合路径
     mPathRing.close();
+    //绘制路径
     canvas.drawPath(mPathRing,mPaintLine);
     mPathRing.reset();
     canvas.restore();
@@ -149,13 +163,17 @@ for (int i=0; i<number; i++){
 ```Java
 if (radarAxisData.getTypes()!=null)
     for (int j=0; j<radarAxisData.getTypes().length; j++){
+    	//连接各点
         mPathLine.moveTo(0,0);
         mPathLine.lineTo(radarAxisData.getAxisLength()*radarAxisData.getCosArray()[j],
                 radarAxisData.getAxisLength()*radarAxisData.getSinArray()[j]);
+        //绘制文字
         canvas.save();
         canvas.rotate(180);
+        //设置文字坐标
         mPointF.y = -radarAxisData.getAxisLength()*radarAxisData.getSinArray()[j]*1.1f;
         mPointF.x = -radarAxisData.getAxisLength()*radarAxisData.getCosArray()[j]*1.1f;
+        根据cos值，判断文字位置，设置居左、居中、居右
         if (radarAxisData.getCosArray()[j]>0.2){
             textCenter(new String[]{radarAxisData.getTypes()[j]},mPaintText,canvas,mPointF, Paint.Align.RIGHT);
         }else if (radarAxisData.getCosArray()[j]<-0.2){
@@ -174,12 +192,14 @@ canvas.restore();
 
 * 最后给网格绘制刻度，因为y轴正方向是向下的，所以在设置坐标是需这只负值。
 ```Java
+//设置小数点位数
 NumberFormat numberFormat = NumberFormat.getNumberInstance();
 numberFormat.setMaximumFractionDigits(radarAxisData.getDecimalPlaces());
 if (radarAxisData.getIsTextSize())
     for (int i=1; i<number+1; i++){
         mPointF.x = 0;
         mPointF.y = -radarAxisData.getAxisLength()*(1-i/number);
+        //绘制文字
         canvas.drawText(numberFormat.format(radarAxisData.getMinimum()+radarAxisData.getInterval()*(number-i))
                 +" "+radarAxisData.getUnit(), mPointF.x, mPointF.y, mPaintText);
     }
@@ -194,8 +214,10 @@ public void drawGraph(Canvas canvas, float animatedValue) {
             float value = radarData.getValue().get(i);
             float yValue = (value-radarAxisData.getMinimum())*radarAxisData.getAxisScale();
             if (i==0){
+            	//移动至第一点
                 mPath.moveTo(yValue*radarAxisData.getCosArray()[i],yValue*radarAxisData.getSinArray()[i]);
             }else {
+            	//连接其余各点
                 mPath.lineTo(yValue*radarAxisData.getCosArray()[i],yValue*radarAxisData.getSinArray()[i]);
             }
         }else {
@@ -203,9 +225,11 @@ public void drawGraph(Canvas canvas, float animatedValue) {
         }
     }
     mPath.close();
+    //填充区域绘制
     mPaintFill.setColor(radarData.getColor());
     mPaintFill.setAlpha(radarData.getAlpha());
     canvas.drawPath(mPath,mPaintFill);
+    //描线路径绘制
     mPaintStroke.setColor(radarData.getColor());
     canvas.drawPath(mPath,mPaintStroke);
     mPath.reset();
