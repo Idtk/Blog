@@ -2,8 +2,10 @@
 效果图:<br>
 <img src="https://github.com/Idtk/SmallChart/blob/master/image/radar.png" alt="radar" title="radar" width="300"/><br>
 
+如果不熟悉View的绘制流程，请先查看我之前的文章[Android坐标系与View绘制流程](https://github.com/Idtk/Blog/blob/master/Blog/1%E3%80%81CoordinateAndProcess.md)<br>
+
 ## 一、获取View宽高以及cos、sin
-在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时进行出雷达图得半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。如果不熟悉此函数可以查看我之前的文章[Android坐标系与View绘制流程](https://github.com/Idtk/Blog/blob/master/Blog/1%E3%80%81CoordinateAndProcess.md)<br>
+在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时进行出雷达图得半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。<br>
 
 因为在之前的文章中并没有介绍getPosTan方法，这里对其进行一个简单的介绍。
 ```
