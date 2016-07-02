@@ -2,7 +2,7 @@
 效果图:<br>
 <img src="https://github.com/Idtk/SmallChart/blob/master/image/radar.png" alt="radar" title="radar" width="300"/><br>
 
-阅读本文需要了解View的绘制流程，如果不熟悉，请先查看我之前的文章[Android坐标系与View绘制流程](http://www.idtkm.com/customview/customview1/)<br>
+阅读本文前需了解View绘制流程,画布操作，Path的知识，如果不熟悉，请先查看我之前的文章[Android坐标系与View绘制流程](http://www.idtkm.com/customview/customview1/)、[Canvas与ValueAnimator](http://www.idtkm.com/customview/customview2/)、[Path图形与逻辑运算](http://www.idtkm.com/customview/customview4/)<br>
 
 ## 一、获取View宽高以及cos、sin
 在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时计算出雷达图的半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。<br>
