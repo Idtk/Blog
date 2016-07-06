@@ -1,6 +1,6 @@
 ```flow
-st=>start: Start:>http://alfred-sun.github.io
-e=>end:>https://github.com/adrai/flowchart.js
+st=>start: Start
+e=>end: End
 op=>operation: ViewGrop:mScroller.startScroll
 op1=>operation: ViewGrop:invalidate
 op2=>operation: ViewGrop:dispatcthDraw
