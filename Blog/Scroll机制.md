@@ -12,7 +12,7 @@ op7=>operation: View:scrollTo
 op8=>operation: ViewGropu:postInvalidate
 
 
-st->op->op1->op2->op3->op4->op5->op6->op7->cond
+st->op->op1->op2->op3->op4->op5->op6->op7
 op7(op8)->op2
 ```
 
