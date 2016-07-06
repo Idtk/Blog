@@ -8,12 +8,12 @@ op3=>operation: ViewGrop:drawChild
 op4=>operation: View:boolean draw
 op5=>operation: View:computeScroll
 op6=>operation: View:mScroller.computeScrollOffset
-op7=>operation: ViewGropu:postInvalidate
-cond=>condition: Yes or No?
+op7=>operation: View:scrollTo
+op8=>operation: ViewGropu:postInvalidate
 
-st->op->cond
-cond(yes)->e
-cond(no)->op
+
+st->op->op1->op2->op3->op4->op5->op6->op7->cond
+op7(op8)->op2
 ```
 
 ```Java
