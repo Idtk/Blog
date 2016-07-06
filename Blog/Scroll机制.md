@@ -1,20 +1,4 @@
-```flow
-st=>start: Start
-e=>end: End
-op=>operation: ViewGrop:mScroller.startScroll
-op1=>operation: ViewGrop:invalidate
-op2=>operation: ViewGrop:dispatcthDraw
-op3=>operation: ViewGrop:drawChild
-op4=>operation: View:boolean draw
-op5=>operation: View:computeScroll
-op6=>operation: View:mScroller.computeScrollOffset
-op7=>operation: View:scrollTo
-op8=>operation: ViewGropu:postInvalidate
-
-
-st->op->op1->op2->op3->op4->op5->op6->op7
-op7(op8)->op2
-```
+<br><img src="https://github.com/Idtk/Blog/blob/master/Image/scroll.png" alt="scroll" title="scroll" /><br>
 
 ```Java
 /**
