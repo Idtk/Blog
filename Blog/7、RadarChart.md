@@ -168,7 +168,7 @@ public static int getDefaultSize(int size, int measureSpec) {
     return result;
 }
 ```
-可以看出**getDefaultSize方法**中，对于xml中设置wrap_content时，使用的**AT_MOST**测量方法并没有做相应处理。<br>
+可以看出**getDefaultSize方法**中，对于xml中设置wrap_content时，使用的**AT_MOST**测量方法与**EXACTLY**做了相同处理，并不符合我们的需求。<br>
 <br>
 View中还有另一个方法**resolveSizeAndState**可以满足我们对**AT_MOST**情况下View宽高的需求。源码 : 
 ```Java
