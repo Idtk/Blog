@@ -44,6 +44,7 @@ public void scrollBy(int x, int y) {
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/mScrollXY.png" alt="mScrollXY" title="mScrollXY" width="500" />
 <br>
+
 ### 2、Scroller
 已经有了scrollTo与ScrollBy方法了，为什么还要介绍scroller呢？因为scrollTo与ScrollBy方法的滑动都是瞬时完成的，但我需要的是拥有滑动过程的效果，而Scroller正好可以完成这一点。
 Scroller的使用方法：
@@ -348,7 +349,7 @@ public class HorizontalScroller extends ViewGroup {
 
 </com.idtk.customscroll.HorizontalScroller>
 ```
-HorizontalScroller设置全屏，padding为10dp。使用4个ImageView作为子View，并且都设置为可点击状态。示例效果图如下 : 
+HorizontalScroller设置全屏，padding为10dp。使用4个ImageView作为子View，并且都设置为可点击状态。示例效果图如下 : <br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/scroll.gif" alt="scroll" title="scroll" width="300" />
 <br>
