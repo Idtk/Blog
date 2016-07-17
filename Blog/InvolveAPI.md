@@ -75,6 +75,15 @@ int	| FULL_COLOR_LAYER_SAVE_FLAG	 | 保存图层的全部色彩通道
 int	| HAS_ALPHA_LAYER_SAVE_FLAG	  | 保存图层的alpha(不透明度)通道
 int	| MATRIX_SAVE_FLAG	           | 保存Matrix信息(translate, rotate, scale, skew)
 
+
+# Scroller
+
+# invalidate与requestLayout机制分析
+
+# Mesaure、layout、draw流程分析
+
+# Activity创建Window、新建DecorView，ViewRoot添加DecorView
+
 # staticLayout居中方法，源码阅读
 
 # [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)
