@@ -42,7 +42,7 @@ public void scrollBy(int x, int y) {
 * mScrollX : View的左边缘与View内容的左边缘在水平方向上的距离，即从右向左滑动时，为正值，反之为负值。
 * mScrollY : View的上边缘与View内容的上边缘在竖直方向上的距离，即从下向上滑动时，为正值，反之为负值。
 <br>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/mScrollXY.png" alt="mScrollXY" title="mScrollXY" width="300" />
+<img src="https://github.com/Idtk/Blog/blob/master/Image/mScrollXY.png" alt="mScrollXY" title="mScrollXY" width="500" />
 <br>
 ### 2、Scroller
 已经有了scrollTo与ScrollBy方法了，为什么还要介绍scroller呢？因为scrollTo与ScrollBy方法的滑动都是瞬时完成的，但我需要的是拥有滑动过程的效果，而Scroller正好可以完成这一点。
