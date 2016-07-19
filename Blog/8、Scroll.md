@@ -580,9 +580,9 @@ private void invalidateRectOnScreen(Rect dirty) {
 ```
 ViewRootImpl#invalidateChildInParent方法，进入之后会调用一系列的检查，之后调用invalidateRectOnScreen方法，然后调用scheduleTraversals()方法。这个方法非常非常的重要，它是invalidate从子View向父View传递的终点。之后将会发送Handler消息，从父View开始向子View传递。
 
-### 2、invalidate的向下传递
+### 2、ViewRootImpl内的invalidate传递
 
-来继续看看scheduleTraversals()。
+来继续看看ViewRootImpl#scheduleTraversals()。
 ```Java
 void scheduleTraversals() {
     if (!mTraversalScheduled) {
@@ -625,9 +625,9 @@ void doTraversal() {
     }
 }
 ```
-ViewRootImpl#scheduleTraversals会通过mChoreographer调用mTraversalRunnable类，从而异步调用doTraversal方法，最后调用performTraversals()执行ViewTree的遍历。从这个方法开始，就会一步步的从父View向子View传递绘制了。<br>
+ViewRootImpl#scheduleTraversals会通过mChoreographer调用mTraversalRunnable类，从而异步调用doTraversal方法，最后调用performTraversals()执行ViewTree的遍历。<br>
 
-现在继续查看performTraversals()方法。
+现在继续查看ViewRootImpl#performTraversals()方法。
 ```Java
 private void performTraversals() {
 	...
@@ -639,10 +639,256 @@ private void performTraversals() {
                 }
                 mPendingTransitions.clear();
             }
+			//关键代码
             performDraw();
         }
     } 
 	...
 }
+
+private void performDraw() {
+    ...
+	final boolean fullRedrawNeeded = mFullRedrawNeeded;
+    mFullRedrawNeeded = false;
+    mIsDrawing = true;
+    Trace.traceBegin(Trace.TRACE_TAG_VIEW, "draw");
+    try {
+		//关键代码
+        draw(fullRedrawNeeded);
+    } finally {
+        mIsDrawing = false;
+        Trace.traceEnd(Trace.TRACE_TAG_VIEW);
+    }
+    ...
+}
+
 ```
-在其中进行View的是否可见，surfasce，正在绘制，删除列表中等判断，之后调用performDraw()开始执行绘制。
+在其中进行View的是否可见，surfasce，正在绘制，删除列表中等判断，之后调用performDraw()开始执行绘制。在performDraw()又调用了ViewRootImpl的draw方法，并传递了fullRedrawNeeded参数，此参数源自mFullRedrawNeeded成员变量，用于表示是否需要重新绘制全部的View。现在继续看看ViewRootImpl#draw源码。
+
+```Java
+private void draw(boolean fullRedrawNeeded) {
+    Surface surface = mSurface;
+    ...
+	//获取mDirty，该值表示需要重绘的区域
+    final Rect dirty = mDirty;
+    if (mSurfaceHolder != null) {
+        // The app owns the surface, we won't draw.
+        dirty.setEmpty();
+        if (animating) {
+            if (mScroller != null) {
+                mScroller.abortAnimation();
+            }
+            disposeResizeBuffer();
+        }
+        return;
+    }
+	//如果为ture，则设置dirty区域为全屏
+    if (fullRedrawNeeded) {
+        mAttachInfo.mIgnoreDirtyState = true;
+        dirty.set(0, 0, (int) (mWidth * appScale + 0.5f), (int) (mHeight * appScale + 0.5f));
+    }
+    ...
+	//重绘区域、动画判断
+		//硬件渲染判断
+			//关键代码
+            if (!drawSoftware(surface, mAttachInfo, xOffset, yOffset, scalingRequired, dirty)) {
+                return;
+            }
+    ...
+}
+```
+在draw方法中，根据传如fullRedrawNeeded参数，设置需要重绘的dirty区域，最后调用drawSoftware方法，把参数传递进去，现在继续看ViewRootImpl#drawSoftware源码。
+```Java
+private boolean drawSoftware(Surface surface, AttachInfo attachInfo, int xoff, int yoff,
+        boolean scalingRequired, Rect dirty) {
+    ...
+    try {
+        
+        if (!canvas.isOpaque() || yoff != 0 || xoff != 0) {
+            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        }
+        dirty.setEmpty();
+        mIsAnimating = false;
+        mView.mPrivateFlags |= View.PFLAG_DRAWN;
+        
+        try {
+            canvas.translate(-xoff, -yoff);
+            if (mTranslator != null) {
+                mTranslator.translateCanvas(canvas);
+            }
+            canvas.setScreenDensity(scalingRequired ? mNoncompatDensity : 0);
+            attachInfo.mSetIgnoreDirtyState = false;
+			//关键代码，mView为DecorView，开启View绘制
+            mView.draw(canvas);
+            drawAccessibilityFocusedDrawableIfNeeded(canvas);
+        } finally {
+            if (!attachInfo.mSetIgnoreDirtyState) {
+                // Only clear the flag if it was not set during the mView.draw() call
+                attachInfo.mIgnoreDirtyState = false;
+            }
+        }
+    } 
+	...
+}
+```
+首先对canvas进行一些属性设置，包括色块、平移等。之后调用mView.draw(canvas)方法，开始对View进行绘制。mView就是我们之前说的，window中的顶级视图DecorView。
+
+### 3、invalidate的向下传递
+
+DecorView继承自FrameLayout，而ViewGroup的draw方法继承自View，so，快来看看View#draw的源码吧。
+```Java
+public void draw(Canvas canvas) {
+    final int privateFlags = mPrivateFlags;
+    final boolean dirtyOpaque = (privateFlags & PFLAG_DIRTY_MASK) == PFLAG_DIRTY_OPAQUE &&
+            (mAttachInfo == null || !mAttachInfo.mIgnoreDirtyState);
+    mPrivateFlags = (privateFlags & ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;
+    /*
+     * Draw traversal performs several drawing steps which must be executed
+     * in the appropriate order:
+     *
+     *      1. Draw the background
+     *      2. If necessary, save the canvas' layers to prepare for fading
+     *      3. Draw view's content
+     *      4. Draw children
+     *      5. If necessary, draw the fading edges and restore layers
+     *      6. Draw decorations (scrollbars for instance)
+     */
+    // Step 1, draw the background, if needed
+    int saveCount;
+    if (!dirtyOpaque) {
+        drawBackground(canvas);
+    }
+    // skip step 2 & 5 if possible (common case)
+    final int viewFlags = mViewFlags;
+    boolean horizontalEdges = (viewFlags & FADING_EDGE_HORIZONTAL) != 0;
+    boolean verticalEdges = (viewFlags & FADING_EDGE_VERTICAL) != 0;
+    if (!verticalEdges && !horizontalEdges) {
+        // Step 3, draw the content
+        if (!dirtyOpaque) onDraw(canvas);
+        // Step 4, draw the children
+        dispatchDraw(canvas);
+        // Overlay is part of the content and draws beneath Foreground
+        if (mOverlay != null && !mOverlay.isEmpty()) {
+            mOverlay.getOverlayView().dispatchDraw(canvas);
+        }
+        // Step 6, draw decorations (foreground, scrollbars)
+        onDrawForeground(canvas);
+        // we're done...
+        return;
+    }
+    ...
+}
+```
+draw方法中，官方对其的步骤进行了清晰的注释，我们来看下流程，在执行流程之前会检查绘制区域是否透明:
+* 1、绘制View背景，如果透明则不绘制
+* 2、如果需要，则保存画布的图层
+* 3、绘制View内容，如果透明则不绘制
+* 4、绘制子View————这个很重要
+* 5、如果需要，则绘制View的褪色边缘和恢复图层
+* 6、绘制装饰滚动条
+
+这里最重要的步骤是第四步，绘制子View，现在我们来看下这个ViewGroup#dispatchDraw(canvas)方法，注意这里的View是一个DecorView，所以要在ViewGroup中去查看这个方法，View中的这个方法是一个空方法。
+```Java
+protected void dispatchDraw(Canvas canvas) {
+    ...
+    for (int i = 0; i < childrenCount; i++) {
+        while (transientIndex >= 0 && mTransientIndices.get(transientIndex) == i) {
+            final View transientChild = mTransientViews.get(transientIndex);
+            if ((transientChild.mViewFlags & VISIBILITY_MASK) == VISIBLE ||
+                    transientChild.getAnimation() != null) {
+                more |= drawChild(canvas, transientChild, drawingTime);
+            }
+            transientIndex++;
+            if (transientIndex >= transientCount) {
+                transientIndex = -1;
+            }
+        }
+        int childIndex = customOrder ? getChildDrawingOrder(childrenCount, i) : i;
+        final View child = (preorderedList == null)
+                ? children[childIndex] : preorderedList.get(childIndex);
+        if ((child.mViewFlags & VISIBILITY_MASK) == VISIBLE || child.getAnimation() != null) {
+            more |= drawChild(canvas, child, drawingTime);
+        }
+    }
+    while (transientIndex >= 0) {
+        // there may be additional transient views after the normal views
+        final View transientChild = mTransientViews.get(transientIndex);
+        if ((transientChild.mViewFlags & VISIBILITY_MASK) == VISIBLE ||
+                transientChild.getAnimation() != null) {
+            more |= drawChild(canvas, transientChild, drawingTime);
+        }
+        transientIndex++;
+        if (transientIndex >= transientCount) {
+            break;
+        }
+    }
+    ...
+}
+```
+这里对所有的子View进行遍历，并调用ViewGroup#drawChild方法。
+```Java
+protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    return child.draw(canvas, this, drawingTime);
+}
+```
+这里又调用了子View的draw方法，这样绘制就传递了下去，当然这个draw方法和之前这一小节一开始介绍的View#draw方法并不一样，我们来看看
+```Java
+boolean draw(Canvas canvas, ViewGroup parent, long drawingTime) {
+	...
+	if (!drawingWithRenderNode) {
+    	computeScroll();
+    	sx = mScrollX;
+    	sy = mScrollY;
+	}
+	...
+    if (!drawingWithDrawingCache) {
+        if (drawingWithRenderNode) {
+            mPrivateFlags &= ~PFLAG_DIRTY_MASK;
+            ((DisplayListCanvas) canvas).drawRenderNode(renderNode);
+        } else {
+            // Fast path for layouts with no backgrounds
+            if ((mPrivateFlags & PFLAG_SKIP_DRAW) == PFLAG_SKIP_DRAW) {
+                mPrivateFlags &= ~PFLAG_DIRTY_MASK;
+                dispatchDraw(canvas);
+            } else {
+                draw(canvas);
+            }
+        }
+    } else if (cache != null) {
+        mPrivateFlags &= ~PFLAG_DIRTY_MASK;
+        if (layerType == LAYER_TYPE_NONE) {
+            // no layer paint, use temporary paint to draw bitmap
+            Paint cachePaint = parent.mCachePaint;
+            if (cachePaint == null) {
+                cachePaint = new Paint();
+                cachePaint.setDither(false);
+                parent.mCachePaint = cachePaint;
+            }
+            cachePaint.setAlpha((int) (alpha * 255));
+            canvas.drawBitmap(cache, 0.0f, 0.0f, cachePaint);
+        } else {
+            // use layer paint to draw the bitmap, merging the two alphas, but also restore
+            int layerPaintAlpha = mLayerPaint.getAlpha();
+            mLayerPaint.setAlpha((int) (alpha * layerPaintAlpha));
+            canvas.drawBitmap(cache, 0.0f, 0.0f, mLayerPaint);
+            mLayerPaint.setAlpha(layerPaintAlpha);
+        }
+    }
+	...
+}
+```
+会先判断之前是否进行过了绘制，如果没有则进入快速绘制通道，对没有背景的View进行绘制。判断是否需要跳过自身的draw绘制方法，如果跳过则进入dispatchDraw，不跳过则进入当前View的draw方法，即这一小节开头的draw方法，就此形成了循环。同时我们在这里看到了computeScroll()方法，也就印证了本篇开头对于弹性滑动过程的描述。
+
+<br>
+图
+<br>
+
+## 四、小结
+本文对弹性滑动以及弹性滑动的过程进行了详细分析，同时对因此引出的invalidate流程进行了源码分析。<br>
+
+如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
+<br>
