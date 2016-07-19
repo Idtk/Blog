@@ -884,9 +884,7 @@ boolean draw(Canvas canvas, ViewGroup parent, long drawingTime) {
 <br>
 
 ## 四、小结
-本文对弹性滑动以及弹性滑动的过程进行了详细分析，同时对因此引出的invalidate流程进行了源码分析。<br>
-
-如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文对弹性滑动以及弹性滑动的过程进行了详细分析，同时对因此引出的invalidate流程进行了源码分析，其中包含了重绘如何传递到ViewRoot，ViewRoot内部的传递，以及ViewTree的绘制流程3个部分。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **微博:http://weibo.com/Idtk**<br>
