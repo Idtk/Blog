@@ -411,7 +411,7 @@ void invalidate(boolean invalidateCache) {
     invalidateInternal(0, 0, mRight - mLeft, mBottom - mTop, invalidateCache, true);
 }
 ```
-View#invalidate会调用经过传递之后会进入View#invalidateInternal方法。
+invalidate调用View#invalidateInternal方法传入当前的左、上、右、下的位置参数。
 ```Java
 void invalidateInternal(int l, int t, int r, int b, boolean invalidateCache,
         boolean fullInvalidate) {
