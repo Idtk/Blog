@@ -146,6 +146,7 @@ public boolean computeScrollOffset() {
 }
 ```
 computeScrollOffset()首先检测scroller是否完成滑动，完成则返回false，未完成则继续AnimationUtils.currentAnimationTimeMillis获取当前的毫秒值，减去之前startScroll方法时获得毫秒值，就是当前滑动的执行时间。之后判断执行时间是否小于设置的总时间，如果小于，根据startScroll时设置的模式SCROLL_MODE，然后根据Interpolator计算出当前滑动的mcurrX、mcurrY（顺便提一下在实例化scroller的时候，是可以设置动画插值器。）；如果执行时间大于或者等于设置的总时间，则直接设置mcurrX、mcurrY为终点值，并且设置mFinished，表示动画已经完成。<br>
+
 Scroller弹性滑动的流程如下<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/scroller.png" alt="scroller" title="scroller" width="300" />
 <br>
@@ -877,11 +878,12 @@ boolean draw(Canvas canvas, ViewGroup parent, long drawingTime) {
 	...
 }
 ```
-会先判断之前是否进行过了绘制，如果没有则进入快速绘制通道，对没有背景的View进行绘制。判断是否需要跳过自身的draw绘制方法，如果跳过则进入dispatchDraw，不跳过则进入当前View的draw方法，即这一小节开头的draw方法，就此形成了循环。同时我们在这里看到了computeScroll()方法，也就印证了本篇开头对于弹性滑动过程的描述。
+会先判断之前是否进行过了绘制，如果没有则进入快速绘制通道，对没有背景的View进行绘制。判断是否需要跳过自身的draw绘制方法，如果跳过则进入dispatchDraw，不跳过则进入当前View的draw方法，即这一小节开头的draw方法，就此形成了循环。同时我们在这里看到了computeScroll()方法，也就印证了本篇开头对于弹性滑动过程的描述。<br>
+
+流程图如下:
 
 <br>
-图
-<br>
+<img src="https://github.com/Idtk/SmallChart/blob/master/image/invalidate.png" alt="invalidate" title="invalidate" width="800"/><br>
 
 ## 四、小结
 本文对弹性滑动的使用套路进行了实战练习，并且对弹性滑动的过程进行了详细分析。对因滑动冲突过程而引出的invalidate流程进行了源码分析，这其中包含了重绘如何传递到ViewRoot，ViewRoot内部的传递，以及ViewTree的绘制流程3个部分。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
