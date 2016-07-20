@@ -883,7 +883,7 @@ boolean draw(Canvas canvas, ViewGroup parent, long drawingTime) {
 流程图如下:
 
 <br>
-<img src="https://github.com/Idtk/SmallChart/blob/master/image/invalidate.png" alt="invalidate" title="invalidate" width="800"/><br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/invalidate.png" alt="invalidate" title="invalidate" width="800"/><br>
 
 ## 四、小结
 本文对弹性滑动的使用套路进行了实战练习，并且对弹性滑动的过程进行了详细分析。对因滑动冲突过程而引出的invalidate流程进行了源码分析，这其中包含了重绘如何传递到ViewRoot，ViewRoot内部的传递，以及ViewTree的绘制流程3个部分。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
