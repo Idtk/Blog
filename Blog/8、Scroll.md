@@ -1,10 +1,10 @@
 # 自定义View——View的弹性滑动
 
-**经过之前7篇文章，已经对View的绘制API有了详细的认识，现在再来看下View的滑动效果吧**
+**经过之前7篇文章，已经对View的绘制API有了详细的认识，现在再来看下View的滑动,文中会涉及一些(听上去会让人感到害怕的东西)源码。**
 
 
 ## 一、scrollTo与ScrollBy
-View拥有两个函数API来实现滑动功能，分别为scrollTo与scrollBy。下面是它们的源码：
+View提供了专门的方法用于实现滑动效果，分别为scrollTo与scrollBy。先来看看它们的源码：
 ```Java
 /**
  * Set the scrolled position of your view. This will cause a call to
@@ -411,7 +411,7 @@ public boolean onTouchEvent(MotionEvent event) {
 <br>
 
 ## 四、小结
-本文介绍弹性滑动的实现方法，并对弹性滑动的过程进行了详细分析。在之后通过例子实现了view的弹性滑动以及回弹效果，但**最后还留有两个问题，即invalidate与postInvalidate的区别又在哪里呢？invalidate是如何调用computeScroll()函数的呢？**，这些问题我将在下一篇文章中进行详细的分析，同时《自定义View系列》也将深入View源码。<br>
+本文介绍弹性滑动的实现方法，并对弹性滑动的过程进行了详细分析。在之后通过例子实现了view的弹性滑动以及回弹效果，但**最后还留有两个问题，即invalidate与postInvalidate的区别又在哪里呢？invalidate是如何调用computeScroll()函数的呢？**，这些问题我将在下一篇文章中进行详细的分析。<br>
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 
 **博客:www.idtkm.com**<br>
