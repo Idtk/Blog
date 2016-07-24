@@ -1,4 +1,4 @@
-# 自定义View——弹性滑动invalidate流程分析
+# 自定义View——invalidate流程分析
 
 **上一篇文章[自定义View——View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)中，我们对View的滑动进行了实战以及简单分析。但在文章的最后，仍然遗留了两个问题，第一个是invalidate与postInvalidate的区别又在哪里呢？第二个是invalidate是如何调用computeScroll()函数的呢？这两个问题将在这一篇中得到答案**
 
