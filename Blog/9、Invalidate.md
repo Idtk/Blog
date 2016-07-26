@@ -46,7 +46,7 @@ public void handleMessage(Message msg) {
 犹豫本人的好奇心，所以又有了这一节(╮(╯▽╰)╭)。invalidate是如何让View进行重绘的呢？<br>
 *(PS:我这里使用的API版本为23，具体的代码可能和低版本的有稍许不同)*
 
-### 1、invalidate的向上传递
+### 1、invalidate的请求传递
 
 先来看一下View#invalidate的传递过程，首先在view中调用View#invalidate()。
 ```Java
@@ -226,9 +226,7 @@ private void invalidateRectOnScreen(Rect dirty) {
     }
 }
 ```
-ViewRootImpl#invalidateChildInParent方法，进入之后会调用一系列的检查，之后调用invalidateRectOnScreen方法，然后调用scheduleTraversals()方法。这个方法非常非常的重要，它是invalidate从子View向父View传递的终点。之后将会发送Handler消息，从父View开始向子View传递。
-
-### 2、ViewRootImpl内的invalidate传递
+ViewRootImpl#invalidateChildInParent方法，进入之后会调用一系列的检查，之后调用invalidateRectOnScreen方法，然后调用scheduleTraversals()方法。这个方法非常非常的重要，它是invalidate从子View向父View传递的终点。之后将会发送Handler消息，从父View开始向子View传递。<br>
 
 来继续看看ViewRootImpl#scheduleTraversals()。
 ```Java
@@ -381,7 +379,7 @@ private boolean drawSoftware(Surface surface, AttachInfo attachInfo, int xoff, i
 ```
 首先对canvas进行一些属性设置，包括色块、平移等。之后调用mView.draw(canvas)方法，开始对View进行绘制。mView就是我们之前说的，window中的顶级视图DecorView。
 
-### 3、invalidate的向下传递
+### 2、draw过程
 
 DecorView继承自FrameLayout，而ViewGroup的draw方法继承自View，so，快来看看View#draw的源码吧。
 ```Java
