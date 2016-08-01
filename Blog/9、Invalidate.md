@@ -1,4 +1,4 @@
-# 自定义View——invalidate流程分析
+# 自定义View——invalidate传递与draw流程分析
 
 **上一篇文章[自定义View——View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)中，我们对View的滑动进行了实战以及简单分析。但在文章的最后，仍然遗留了两个问题,第一个是invalidate与postInvalidate有什么区别呢？第二个是invalidate是如何调用computeScroll()方法的呢？这两个问题将在这一篇文章中进行分析。**
 
@@ -190,7 +190,7 @@ public final void invalidateChild(View child, final Rect dirty) {
     }
 }
 ```
-上述代码中，设置了需要重绘的区域dirty。之后再do...while方法中，反复的调用**parent = parent.invalidateChildInParent(location, dirty)**方法，来调用父类的invalidateChildInParent对View的重绘请求进行传递。这里的parent有可能是ViewGroup，也有可能是ViewRoot，我们先来看看ViewGroup#invalidateChildInParent<br>
+上述代码中，设置了需要重绘的区域dirty。之后再do...while方法中，反复的调用**parent = parent.invalidateChildInParent(location, dirty)**方法，来调用父类的invalidateChildInParent对View的重绘请求进行传递。这里的parent有可能是ViewGroup，也有可能是ViewRoot，我们先来看看ViewGroup#invalidateChildInParent方法<br>
 ```Java
 public ViewParent invalidateChildInParent(final int[] location, final Rect dirty) {
     if ((mPrivateFlags & PFLAG_DRAWN) == PFLAG_DRAWN ||
