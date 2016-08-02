@@ -1,4 +1,4 @@
-# 自定义View——invalidate传递与draw流程分析
+# 自定义View——invalidate传递与绘制流程分析
 
 **上一篇文章[自定义View——View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)中，我们对View的滑动进行了实战以及简单分析。但在文章的最后，仍然遗留了两个问题,第一个是invalidate与postInvalidate有什么区别呢？第二个是invalidate是如何调用computeScroll()方法的呢？这两个问题将在这一篇文章中进行分析。**
 
@@ -431,7 +431,7 @@ private boolean drawSoftware(Surface surface, AttachInfo attachInfo, int xoff, i
 ```
 上述代码中，首先对canvas进行一些属性设置，包括色块、平移等。之后调用mView.draw(canvas)方法，开始对View进行绘制。mView就是window中的顶级视图DecorView(这个坑会在之后的文章中说明，这里当做一个顶级的ViewGroup即可)。
 
-### 2、draw过程
+### 2、绘制流程
 
 DecorView继承自FrameLayout，而ViewGroup的draw方法继承自View，so，所以我们直接看View#draw即可。
 ```Java
