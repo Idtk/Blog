@@ -427,7 +427,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
 上述方法并不难，写的如此有规律，它主要是根据View的MeasureSpec与子View的LayoutParams参数来确定子View的MeasureSpec。接下来，我们为getChildMeasureSpec方法的逻辑建立一个表格。<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getChildMeasureSpec.png" alt="getChildMeasureSpec" title="getChildMeasureSpec" width="800"/><br>
-*上图来自[任玉刚 View系统解析(下)](http://blog.csdn.net/singwhatiwanna/article/details/38426471)*<br>
+<br>
 
 现在我们回到measureChildWithMargins方法，测量完成之后，就是对子View的测量，DecorView的子View就是我们平时*setContentView*中的布局，这里以LinearLayout为例。自然也是和之前一样LinearLayout的measure调用onMeasure，直接来看看LinearLayout#onMeasure<br>
 ```Java
