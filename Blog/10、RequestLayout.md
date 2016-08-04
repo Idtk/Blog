@@ -201,8 +201,8 @@ private static int getRootMeasureSpec(int windowSize, int rootDimension) {
 | LayoutParams   | Mode         | size  |
 | -------------- |:------------:|-------|
 | MATCH_PARENT   | EXACTLY      |  windowSize    |
-| WRAP_CONTENT   | WRAP_CONTENT |  windowSize    |
-| 固定大小        | EXACTLY      |  rootDimension |
+| WRAP_CONTENT   | AT_MOST      |  windowSize    |
+| 固定大小       | EXACTLY      |  rootSize      |
 
 <br>
 
