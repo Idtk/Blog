@@ -429,7 +429,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getChildMeasureSpec.png" alt="getChildMeasureSpec" title="getChildMeasureSpec" width="800"/><br>
 <br>
 
-现在我们回到measureChildWithMargins方法，测量完成之后，就是对子View的测量，DecorView的子View就是我们平时*setContentView*中的布局，这里以LinearLayout为例。自然也是和之前一样LinearLayout的measure调用onMeasure，直接来看看LinearLayout#onMeasure<br>
+现在我们回到measureChildWithMargins方法，测量完成之后，就是对子View的测量，DecorView的子View就是我们平时setContentView中的布局，这里以LinearLayout为例。自然也是和之前一样LinearLayout的measure调用onMeasure，直接来看看LinearLayout#onMeasure<br>
 ```Java
 protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     if (mOrientation == VERTICAL) {
