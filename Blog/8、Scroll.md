@@ -41,8 +41,8 @@ public void scrollBy(int x, int y) {
 ```
 从源码中可以看出scrollBy实际上是调用了scrollTo函数来实现它的功能。scrollBy实现的是输入参数的相对滑动，而scrollTo是绝对滑动。需要说明的是mScrollX、mScrollY这两个View的属性，这两个属性可以通过getScrollX、getScrollY获得。<br>
 
-* mScrollX : View的左边缘与View内容的左边缘在水平方向上的距离，即从右向左滑动时，为正值，反之为负值。
-* mScrollY : View的上边缘与View内容的上边缘在竖直方向上的距离，即从下向上滑动时，为正值，反之为负值。
+* mScrollX : View的左边缘在View内容的左边缘的右边时，为正值，反之为负值。
+* mScrollY : View的上边缘在View内容的上边缘的下边时，为正值，反之为负值。
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/mScrollXY.png" alt="mScrollXY" title="mScrollXY" width="500" />
 <br>
