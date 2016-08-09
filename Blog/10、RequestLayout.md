@@ -1,10 +1,10 @@
-# 自定义View——requestLayout流程分析
+# 自定义View——requestLayout传递与测量、布局流程分析
 
-**在之前的一篇文章中我们对invalidate的流程进行了详细分析，现在来继续分析下requestLayout的流程吧**
+**在之前的[invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)文章中我们对invalidate的流程进行了详细分析，现在来继续分析下requestLayout的流程吧**
 
 ## 一、requestLayout的请求传递
 
-我们来看下View#requestLayout方法的源码
+我们从View#requestLayout方法的源码开始
 
 ```Java
 public void requestLayout() {
@@ -169,12 +169,12 @@ private void performTraversals() {
 }
 ```
 
-上面截取了performTraversals的主要相关代码，在其中一般情况下蒋会执行performMeasure、performLayout、performDraw三个方法。调用**performMeasure**方法之前，会先进行一个判断，触摸的焦点是否变化，测量的宽高是否变化，View的内容是否变化，如果变化则会执行performMeasure。接着会检查窗口属性是否包含weight，如果包含蒋会再执行一次performMeasure方法，在之后会设置layoutRequested = true，表示需要重新布局。在执行**performLayout**方法之前，会对didLayout参数进行检查，判断是否请求重新布局，窗口是否停止，是否需要再次绘制，而layoutRequested参数再performMeasure后设置为true，mStopped默认为false，所以将执行performMeasure方法。**performDraw**方法就像在[自定义View——invalidate流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)中分析的一样，蒋会执行，但是在ViewRootImpl#draw中进行dirty判断时，会发现dirty为空，所以不会继续执行绘制过程。那么一般情况下的requestLayout布局改变后，view的重新绘制在什么地方呢？这将会在稍后的layout过程中看到答案。
+上面截取了performTraversals的主要相关代码，在其中一般情况下蒋会执行performMeasure、performLayout、performDraw三个方法。调用**performMeasure**方法之前，会先分别对焦点、测量的宽高、View内容的变化情况进行判断，如果变化则会执行performMeasure。接着会检查窗口属性是否包含weight，如果包含蒋会再执行一次performMeasure方法，在之后会设置layoutRequested = true，表示需要重新布局。在执行**performLayout**方法之前，会对didLayout参数进行检查，判断是否请求重新布局，窗口是否停止，是否需要再次绘制，而layoutRequested参数再performMeasure后设置为true，mStopped默认为false，所以将执行performMeasure方法。**performDraw**方法就像在[自定义View——invalidate流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)中分析的一样，蒋会执行，但是在ViewRootImpl#draw中进行dirty判断时，会发现dirty为空，所以不会继续执行绘制过程。那么一般情况下的进行requestLayout请求后，view的重新绘制在什么地方呢？这将会在稍后的layout过程中看到答案。
 
 
-## 二、Measure流程
+## 二、测量流程
 
-在查看performMeasure的源码之前，我们先看看传入performMeasure的两个参数childWidthMeasureSpec, childHeightMeasureSpec是怎么获得的，这里是通过调用getRootMeasureSpec方法来获得，现在来看下getRootMeasureSpec源码
+在查看performMeasure的源码之前，我们先看看传入performMeasure的两个参数childWidthMeasureSpec, childHeightMeasureSpec的获取，代码中可以看出参数是通过调用getRootMeasureSpec方法来获得，现在来看下getRootMeasureSpec的源码
 
 ```Java
 private static int getRootMeasureSpec(int windowSize, int rootDimension) {
@@ -202,7 +202,7 @@ private static int getRootMeasureSpec(int windowSize, int rootDimension) {
 | -------------- |:------------:|-------|
 | MATCH_PARENT   | EXACTLY      |  windowSize    |
 | WRAP_CONTENT   | AT_MOST      |  windowSize    |
-| 固定大小       | EXACTLY      |  rootSize      |
+| 固定大小        | EXACTLY      |  rootSize      |
 
 <br>
 
@@ -256,7 +256,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 	...
 }
 ```
-上述代码中，蒋会分别检查宽高测量模式，这里以宽度测量属性为例，首先检查测量模式是否为AT_MOST，如果是，则获取视图的宽度，然后与宽度测量属性的大小取小，接着与测量模式EXACTLY，调用MeasureSpec.makeMeasureSpec一起生产新的宽度测量属性。之后会把新产生的测量属性传递给DecorView的父类，也就是FrameLayout的onMeasure方法继续处理。我们来看看它是怎么做的。
+上述代码中，将会分别检查宽高测量模式，这里以宽度测量属性为例，首先检查测量模式是否为AT_MOST，如果是，则获取视图的宽度，然后与宽度测量属性的大小取小，接着与测量模式EXACTLY，作为MeasureSpec.makeMeasureSpec方法的参数一起生成新的宽度测量属性。之后会把新生成的测量属性传递给DecorView的父类，也就是FrameLayout的onMeasure方法继续处理。我们来看看它是怎么做的。
 ```Java
 protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int count = getChildCount();
@@ -342,7 +342,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     }
 }
 ```
-FrameLayout的测量过程中，首先遍历子View，调用measureChildWithMargins方法，之后获取子view中的最大宽度or高度，这是因为FrameLayout的布局，如果在wrap_content的情况下，其宽度就等于所以子View中的最大宽度，高度就等于所以子View中最大的高度。之后对子View的宽or高为MATCH_PARENT的进行存储。之后处理一些属性，保存测量结果。resolveSizeAndState方法，我已经在之前的[自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)中进行过分析。最后就是对之前保存的子view进行处理了。从measureChildWithMargins方法的参数可以看出，测量值与view的测量值以及子view相关，现在我们来看下它的测量过程
+FrameLayout的测量过程中，首先遍历子View，调用measureChildWithMargins方法，之后获取子view中的最大宽度or高度，这是因为FrameLayout的布局，如果在wrap_content的情况下，其宽度就等于所以子View中的最大宽度，高度就等于所以子View中最大的高度。然后对子View的宽or高为MATCH_PARENT的View进行存储。之后处理一些属性，保存测量结果。resolveSizeAndState方法，我已经在之前的[自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)中进行过分析。最后就是对之前保存的子view进行处理了。从measureChildWithMargins方法的参数可以看出，测量值与view的测量值以及子view相关，现在我们来看下它的测量过程
 ```Java
 protected void measureChildWithMargins(View child,
         int parentWidthMeasureSpec, int widthUsed,
@@ -424,7 +424,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
     return MeasureSpec.makeMeasureSpec(resultSize, resultMode);
 }
 ```
-上述方法并不难，写的如此有规律，它主要是根据View的MeasureSpec与子View的LayoutParams参数来确定子View的MeasureSpec。接下来，我们为getChildMeasureSpec方法的逻辑建立一个表格。<br>
+上述方法并不难，写的如此有规律，它主要是根据View的MeasureSpec与子View的LayoutParams参数来确定子View的MeasureSpec属性。接下来，我们为getChildMeasureSpec方法的逻辑建立一个表格。<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/getChildMeasureSpec.png" alt="getChildMeasureSpec" title="getChildMeasureSpec" width="800"/><br>
 <br>
@@ -439,7 +439,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     }
 }
 ```
-上述代码可以看书，是根据属性来选择一种布局模式的，我们选择LinearLayout的水平布局的测量过程，即measureHorizontal，这里简单的挑选其中的主要部分说明一下
+上述代码可以看出，LinearLayout将根据属性来选择一种测量方式，我们选择LinearLayout的水平布局的测量方式，即measureHorizontal，这里简单的挑选其中的主要部分说明一下
 ```Java
 void measureHorizontal(int widthMeasureSpec, int heightMeasureSpec) {
 	...
@@ -565,7 +565,7 @@ void measureHorizontal(int widthMeasureSpec, int heightMeasureSpec) {
 	}
 }
 ```
-上述代码，在关键部分增加了一些注释，这里再简单说一下，遍历子View，计算下当前的比重，之后调用measureChildBeforeLayout方法，这个方法将会调用我们之前说的measureChildWithMargins()方法，来完成对子View的测量。接下来用view当前宽度与背景宽度和mMinWidth的运算结果比较，取最大值；再使用resolveSizeAndState([自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md))方法获取测量属性，之后与MEASURED_SIZE_MASK按位与获取view的宽度值。最后再按照weight的属性，对view的剩余宽度进行分配，之后调用getChildMeasureSpec方法进行测量。最后依旧使用child.measure方法，继续测量子View<br>
+上述代码，在关键部分增加了一些注释，这里再简单说一下，遍历子View，计算下当前的比重，之后调用measureChildBeforeLayout方法，这个方法将会调用我们之前说的measureChildWithMargins()方法，来完成对子View的测量。接下来用view当前宽度与背景宽度和mMinWidth的运算结果比较，取最大值；再使用resolveSizeAndState([自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md))方法获取测量属性，之后与MEASURED_SIZE_MASK按位与获取view的宽度值。然后再按照weight的属性，对view的剩余宽度进行分配，之后调用getChildMeasureSpec方法进行测量值获取。最后依旧使用child.measure方法，继续对子View进行测量。<br>
 
 现在测量流程到了LinearLayout的子View，我们这里假设是一个View。自然也是调用View的measure方法，之后调用onMeasure方法
 ```Java
@@ -574,11 +574,11 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
 }
 ```
-上述代码就是默认的View测量方法，其中setMeasuredDimension将会设置View的测量值，这里需要关注的是getDefaultSize方法，这在我之前的文章[自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)，已经进行了分析。但是getDefaultSize方法一般是无法满足我们对LayoutParams = wrap_content情况下的测量要求的。<br>
+上述代码就是默认的View测量方法，其中setMeasuredDimension将会设置View的测量值，这里需要关注的是getDefaultSize方法，这在我之前的文章[自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)，已经进行了分析。但是getDefaultSize方法一般是无法满足我们对LayoutParams = wrap_content情况下的测量要求的，需要我们自己进行一定的修改。<br>
 
-现在已经完成了整个View的测量过程，在整个测量的过程中，我们主要根据View的MeasureSpec、padding，子View的size、LayoutParams、margin以及View的自身特性(比如weight)来不断迭代的进行测量view，这也是我们自己在自定义View时，处理measure主要根据。
+现在已经完成了整个View的测量过程，在整个测量的过程中，我们不断的通过child.measure对子View进行测量，而测量值的获取主要根据View的MeasureSpec、padding，子View的size、LayoutParams、margin以及View的自身特性(比如weight)等属性来完成，这也是我们自己在自定义View时，编写onMeaure方法的主要方式。
 
-## 三、layout流程
+## 三、布局流程
 
 接着第一节的结尾，Layout流程的分析从ViewRootImpl的performLayout开始
 ```Java
@@ -599,7 +599,7 @@ private void performLayout(WindowManager.LayoutParams lp, int desiredWindowWidth
 	mInLayout = false;
 }
 ```
-上述代码，调用了DecorView的layout方法(即View的layout方法)，并传入了参数。left、top传入0，rigth传入host.getMeasuredWidth()，bottom传入host.getMeasuredHeight()。接着来看看layout方法
+布局流程中View的组成和测量流程中一样(DecorView→LinearLayout→View)，上述代码，调用了DecorView的layout方法(即View的layout方法)，并传入了参数。left、top传入0，rigth传入host.getMeasuredWidth()，bottom传入host.getMeasuredHeight()。接着来看看layout方法
 ```Java
 public void layout(int l, int t, int r, int b) {
     if ((mPrivateFlags3 & PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT) != 0) {
@@ -655,8 +655,8 @@ protected boolean setFrame(int left, int top, int right, int bottom) {
     return changed;
 }
 ```
-从上述代码可以看出，在setFrame中我们将会判断新旧的位置参数，如果有一个不相等，则会发起invalidate请求，进行View重绘。<br>
-继续追踪到DecorView的onLayout方法，它会对超出的View会进行平移，这个只是提一下，主要关注的是在其中使用了FrameLayout的onLayout方法
+从上述代码可以看出，在setFrame中我们将会判断新旧的位置参数，如果有一个不相等，则会发起invalidate请求，进行View重绘。看到这里也就明白，为什么在requestLayout之后一般都会进行View重绘了。<br>
+现在继续来看上面的DecorView#layout方法，在判断是否需要invalidate之后，将会进行PFLAG_LAYOUT_REQUIRED标记的验证，之后运行DecorView的onLayout方法，它会对超出的View会进行平移，这个只是提一下，主要关注的是其继承的FrameLayout的onLayout方法
 ```Java
 protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 	layoutChildren(left, top, right, bottom, false /* no force left gravity */);
@@ -737,7 +737,7 @@ protected void onLayout(boolean changed, int l, int t, int r, int b) {
     }
 }
 ```
-LinearLayout的onLyaout方法和onMeasure的逻辑一样，我们也和上次一样选取layoutHorizontal方法看看，截取了其中的主要代码
+LinearLayout的onLyaout方法和onMeasure的逻辑一样，根据LinearLayout属性来选择布局方法，我们也和上次一样选取layoutHorizontal方法看看，这里截取了其中的主要代码
 ```Java
 void layoutHorizontal(int left, int top, int right, int bottom) {
 	...
@@ -831,7 +831,7 @@ protected void onLayout(boolean changed, int left, int top, int right, int botto
 <img src="https://github.com/Idtk/Blog/blob/master/Image/requestLayout.png" alt="requestLayout" title="requestLayout" width="800"/><br>
 
 ## 四、总结
-本文分析了View的requestLayout流程，并以DecorView和LinearLayout为例，对View的measure流程、layout流程进行了分析。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文分析了View的requestLayout流程，并以DecorView和LinearLayout为例，对View的测量流程、布局流程进行了分析。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
