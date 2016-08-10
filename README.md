@@ -10,4 +10,4 @@
 [自定义View——雷达图(蜘蛛网图)](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)<br>
 [自定义View——弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)<br>
 [自定义View——invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)<br>
-[自定义View——requestLayout流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)<br>
+[自定义View——requestLayout传递与测量、布局流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)<br>
