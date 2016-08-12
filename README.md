@@ -24,8 +24,8 @@
 
 ## About
 
-**博客:www.idtkm.com**<br>
-**GitHub:https://github.com/Idtk**<br>
-**微博:http://weibo.com/Idtk**<br>
-**邮箱:IdtkMa@gmail.com**<br>
+博客:www.idtkm.com<br>
+GitHub:https://github.com/Idtk<br>
+微博:http://weibo.com/Idtk<br>
+邮箱:IdtkMa@gmail.com<br>
 
