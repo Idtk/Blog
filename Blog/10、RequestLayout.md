@@ -1,4 +1,4 @@
-# 自定义View——requestLayout传递与测量、布局流程分析
+# View的requestLayout传递与测量、布局流程分析
 
 **在之前的[invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)文章中我们对invalidate的流程进行了详细分析，现在来继续分析下requestLayout的流程吧**
 

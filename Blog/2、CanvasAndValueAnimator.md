@@ -1,4 +1,4 @@
-#自定义View——Canvas与ValueAnimator<br>
+#Canvas与ValueAnimator<br>
 
 ## 涉及知识<br>
 **绘制过程**<br>

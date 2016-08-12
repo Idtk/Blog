@@ -1,4 +1,4 @@
-#自定义View——雷达图(蜘蛛网图)<br>
+# 雷达图(蜘蛛网图)的实现<br>
 效果图:<br>
 <img src="https://github.com/Idtk/SmallChart/blob/master/image/radar.png" alt="radar" title="radar" width="300"/><br>
 

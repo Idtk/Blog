@@ -1,4 +1,4 @@
-# 自定义View——invalidate传递与绘制流程分析
+# View的invalidate传递与绘制流程分析
 
 **上一篇文章[自定义View——View的弹性滑动](http://www.idtkm.com/customview/customview8/)中，我们对View的滑动进行了实战以及简单分析。但在文章的最后，仍然遗留了两个问题,第一个是invalidate与postInvalidate有什么区别呢？第二个是invalidate是如何调用computeScroll()方法的呢？这两个问题将在这一篇文章中进行分析。**
 

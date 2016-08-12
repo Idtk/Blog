@@ -1,4 +1,4 @@
-# 自定义View——PieChart
+# PieChart扇形图的实现
 
 <img src="https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif" alt="PieChat" title="PieChat" width="300" /><br>
 
