@@ -30,7 +30,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 <br>
 
 根据打印出的log来绘制一张事件传递的流程图<br>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrue.png" alt="onTouchTrueXmind.png" title="onTouchTrueXmind" />
+<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrueXmind.png" alt="onTouchTrueXmind" title="onTouchTrueXmind" />
 <br>
 
 现在来理一下事件序列的流程:
@@ -50,11 +50,12 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 ## 三、在View中不消费事件
 
 我们现在修改示例中的xml部分，`android:clickable="true"`全部修改为`android:clickable="false"`，这时再点击一下，查看新打印出的日志<br>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrue.png" alt="onTouchFalse" title="onTouchFalse" />
+<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchFalse.png" alt="onTouchFalse" title="onTouchFalse" />
 <br>
 
 现在根据log中显示的逻辑，分别绘制ACTION_DOWN事件与ACTION_UP事件传递的流程图<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchFalseXmind.png" alt="onTouchFalseXmind" title="onTouchFalseXmind" width="400"/>
+<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchFalseXmind2.png" alt="onTouchFalseXmind" title="onTouchFalseXmind" width="400"/>
 <br>
 
@@ -84,8 +85,9 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 <br>
 
 我们现在来看下拦截情况下的事件流程图<br>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrueXmind.png" alt="onTouchTrueXmind" title="onTouchTrueXmind" width="400"/>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrueXmind2.png" alt="onTouchTrueXmind" title="onTouchTrueXmind" width="400"/>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/interceptTrue onTouchTrueXmind.png" alt="interceptTrue onTouchTrueXmind" title="interceptTrue onTouchTrueXmind" width="400"/>
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/interceptTrue onTouchTrueXmind2.png" alt="interceptTrue onTouchTrueXmind" title="interceptTrue onTouchTrueXmind" width="400"/>
 <br>
 
 这里大部分和之前的例子相同，主要的区别是在于ViewGroup#onInterceptTouchEvent方法中，对传递的事件进行了拦截，返回true，ACTION_DOWN事件就传递到了ViewGroup#onTouchEvent中进行处理，ACTION_DOWN事件之后的传递就与之前的例子相同了。另一点重要的区别是，在ViewGroup拦截下事件之后，此事件序列的其余事件，在进入ViewGroup#dispatchTouchEvent方法之后，不在需要进行是否拦截事件的判断，而是直接进入了onTouchEvent方法之中。<br>
