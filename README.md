@@ -1,5 +1,6 @@
 # Blog-BackUp  
  [博客](http://www.idtkm.com)备份<br>
+<<<<<<< HEAD
 
 ******
 
@@ -18,3 +19,4 @@
 	* [View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)
 	* [View的invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)
 	* [View的requestLayout流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
+
