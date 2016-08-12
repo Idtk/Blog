@@ -123,6 +123,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 * 如果某个ViewGroup的onInterceptTouchEvent返回为true，那么这个事件序列中的后续事件，不会在进行onInterceptTouchEvent的判断，而是由它的dispatchTouchEvent方法直接传递给onTouchEvent方法进行处理
 * 如果某个View接收了ACTION_DOWN之后，这个序列的后续事件中，在某一刻被父View拦截了，则这个字View会收到一个ACTION_CANCEL事件，并且也不会再收到这个事件序列中的后续事件
 
+<br>
 
 | 事件相关方法 | 方法功能 | Activity | ViewGroup | View |
 | :--------------: |:-----------:|-------|-------|-------|
@@ -130,8 +131,8 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 | public boolean onInterceptTouchEvent | 事件拦截 | No | Yes | No |
 | public boolean onTouchEvent | 事件消费 | Yes | Yes | Yes |
 
+<br>
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
-
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **微博:http://weibo.com/Idtk**<br>
