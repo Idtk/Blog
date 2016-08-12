@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.idtk.customscroll.ParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.idtk.customscroll.MainActivity"
+    >
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/zhiqinchun"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hanzhan"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shengui"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dayu"
+        android:clickable="true"/>
+
+</com.idtk.customscroll.ParentView>
