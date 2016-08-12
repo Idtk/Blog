@@ -1,5 +1,13 @@
-# Blog-BackUp  
- [博客](http://www.idtkm.com)备份<br>
+# [Blog-BackUp]
+ 
+[博客](http://www.idtkm.com)主要更新Android相关的内容，但因为博客日常被墙，所以有了这个备份。
+
+## About
+
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
 
 ******
 
