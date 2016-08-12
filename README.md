@@ -1,6 +1,6 @@
-# [Blog-BackUp]
+# Blog-BackUp
  
-[博客](http://www.idtkm.com)主要更新Android相关的内容，但因为博客日常被墙，所以有了这个备份。
+[博客](http://www.idtkm.com)主要更新Android相关的内容，但因为日常被墙，所以有了这个备份。
 
 ******
 
