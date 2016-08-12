@@ -2,13 +2,6 @@
  
 [博客](http://www.idtkm.com)主要更新Android相关的内容，但因为博客日常被墙，所以有了这个备份。
 
-## About
-
-**博客:www.idtkm.com**<br>
-**GitHub:https://github.com/Idtk**<br>
-**微博:http://weibo.com/Idtk**<br>
-**邮箱:IdtkMa@gmail.com**<br>
-
 ******
 
 ## 自定义View系列
@@ -26,4 +19,13 @@
 	* [View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)
 	* [View的invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)
 	* [View的requestLayout流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
+
+******
+
+## About
+
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
 
