@@ -15,9 +15,11 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 | public boolean onInterceptTouchEvent | 事件拦截 | No | Yes | No |
 | public boolean onTouchEvent | 事件消费 | Yes | Yes | Yes |
 
-分发: dispatchTouchEvent如果返回true，则表示在当前View或者其子View(子子...View)中，需找到了处理事件的View；反之，则表示没有寻找到。<br>
-拦截: onInterceptTouchEvent如果返回true，则表示这个事件由当前View进行处理，不管处理结果如何，都不会再向子View传递这个事件；反之，则表示当前View不主动处理这个事件，除非他的子View返回的事件分发结果为false。<br>
-消费: onTouchEvent如果返回true，则表示当前View就是事件传递的终点；反之，则表示当前View不是事件传递的终点。<br>
+* 分发: dispatchTouchEvent如果返回true，则表示在当前View或者其子View(子子...View)中，需找到了处理事件的View；反之，则表示没有寻找到
+* 拦截: onInterceptTouchEvent如果返回true，则表示这个事件由当前View进行处理，不管处理结果如何，都不会再向子View传递这个事件；反之，则表示当前View不主动处理这个事件，除非他的子View返回的事件分发结果为false
+* 消费: onTouchEvent如果返回true，则表示当前View就是事件传递的终点；反之，则表示当前View不是事件传递的终点
+
+
 <br>
 
 ### 2、相关事件
