@@ -15,6 +15,9 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 | public boolean onInterceptTouchEvent | 事件拦截 | No | Yes | No |
 | public boolean onTouchEvent | 事件消费 | Yes | Yes | Yes |
 
+分发: dispatchTouchEvent如果返回true，则表示在当前View或者其子View(子子...View)中，需找到了处理事件的View；反之，则表示没有寻找到。<br>
+拦截: onInterceptTouchEvent如果返回true，则表示这个事件由当前View进行处理，不管处理结果如何，都不会再向子View传递这个事件；反之，则表示当前View不主动处理这个事件，除非他的子View返回的事件分发结果为false。<br>
+消费: onTouchEvent如果返回true，则表示当前View就是事件传递的终点；反之，则表示当前View不是事件传递的终点。<br>
 <br>
 
 ### 2、相关事件
@@ -36,16 +39,16 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 现在来理一下事件序列的流程:
 * ACTION_DOWN事件从Activity#dispatchTouchEvent方法开始
-* ACTION_DOWN事件传递至ViewGroup#dispatchTouchEvent方法，ViewGroup#onInterceptTouchEvent返回false，不拦截ACTION_DOWN
-* ACTION_DOWN事件传递到View#dispatchTouchEvent方法，在View#onTouchEvent进行执行，返回true，事件已经被消费
+* ACTION_DOWN事件传递至ViewGroup#dispatchTouchEvent方法，ViewGroup#onInterceptTouchEvent返回false，表示不拦截ACTION_DOWN
+* ACTION_DOWN事件传递到View#dispatchTouchEvent方法，在View#onTouchEvent进行执行，返回true，表示事件已经被消费
 * 返回的结果true，被回传到View#dispatchTouchEvent，之后回传到ACTION_DOWN事件的起点Activity#dispatchTouchEvent方法
 * ACTION_UP事件的传递过程与ACTION_DOWN相同，这里不再复述
 
 ******
 通过上面的传递过程，我们可以得出一些结论:
 * 事件总是由父元素分发给子元素
-* 某个ViewGroup如果onInterceptTouchEvent返回为false，则ViewGroup不拦截事件，而是将其传递给View#dispatchTouchEvent方法
-* 某个View如果onTouchEvent返回true，消费事件，则其结果将直接通过dispatchTouchEvent方法传递回Activity
+* 某个ViewGroup如果onInterceptTouchEvent返回为false，则表示ViewGroup不拦截事件，而是将其传递给View#dispatchTouchEvent方法
+* 某个View如果onTouchEvent返回true，表示事件被消费，则其结果将直接通过dispatchTouchEvent方法传递回Activity
 * 如果某个View消费了ACTION_DOWN事件，那么这个事件序列中的后续事件也将交由其进行处理(有一些特殊情况除外，比如在序列中的之后事件进行拦截）
 
 ## 三、在View中不消费事件
@@ -70,7 +73,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 ******
 
 通过结合上面两个例子，可以得出一些结论:
-* 某个View如果onTouchEvent返回false，不消费事件，则事件将传递给其父View的onTouchEvent进行处理
+* 某个View如果onTouchEvent返回false，表示事件没有被消费，则事件将传递给其父View的onTouchEvent进行处理
 * 某个View如果它不消耗ACTION_DOWN事件，那么这个序列的后续事件也不会再交由它来处理
 * 如果事件没有View对其进行处理，那么最后将有Activity进行处理
 * View默认的onTouchEvent在View可点击的情况下，将会消耗事件，返回true；不可点击的情况下，则不消耗事件，返回false(longClickable的情况，读者可以自行测试，结果与clickable相同)
