@@ -160,7 +160,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 ******
 这里使用工作中的情况来模拟：依旧是老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
 <br>
-从老板交任务给项目经理，项目经理交任务给工程师，这一段流程和之前的例子相同。不同之处是软件工程师没有完成这个任务(View#onTouchEvent返回false)，告诉项目经理我没有完成，然后项目经理自己进行了尝试，同样没有完成(ViewGroup#onTouchEvent返回false)，项目经理告诉了老板，我没有完成，然后老板自己试了下也没有完成这个任务(Activity#onTouchEvent返回false),但之后的也有项目的二期、三期，不过老板知道你们完成不了，所以都是他自己进行尝试，不过很惨都没完成。(这段有点与正常情况不同，不过只是打个比方)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;从老板交任务给项目经理，项目经理交任务给工程师，这一段流程和之前的例子相同。不同之处是软件工程师没有完成这个任务(View#onTouchEvent返回false)，告诉项目经理我没有完成，然后项目经理自己进行了尝试，同样没有完成(ViewGroup#onTouchEvent返回false)，项目经理告诉了老板，我没有完成，然后老板自己试了下也没有完成这个任务(Activity#onTouchEvent返回false),但之后的也有项目的二期、三期，不过老板知道你们完成不了，所以都是他自己进行尝试，不过很惨都没完成。(这段有点与正常情况不同，不过只是打个比方)<br>
 
 ******
 
@@ -236,7 +236,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 使用工作中的情况来模拟：老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
 <br>
-老板吧任务交给项目经理，项目经理认为这个项目比较难，所以决定自己处理(ViewGroup#onInterceptTouchEvent,return true)，项目经理比较厉害他把任务完成了(ViewGroup#onTouchEvent,return true)，然后他告诉老板他完成了(return true,ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)。之后老板依旧会把任务交给项目经理，项目经理知道这个任务难度，所以不假思索(也就是这个事件序列中的其余事件没有经过ViewGroup#onInterceptTouchEvent)的自己来做。
+&nbsp;&nbsp;&nbsp;&nbsp;老板吧任务交给项目经理，项目经理认为这个项目比较难，所以决定自己处理(ViewGroup#onInterceptTouchEvent,return true)，项目经理比较厉害他把任务完成了(ViewGroup#onTouchEvent,return true)，然后他告诉老板他完成了(return true,ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)。之后老板依旧会把任务交给项目经理，项目经理知道这个任务难度，所以不假思索(也就是这个事件序列中的其余事件没有经过ViewGroup#onInterceptTouchEvent)的自己来做。
 
 ******
 通过上面的例子，可以得出一些结论:
@@ -300,7 +300,8 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 ******
 使用工作中的情况来模拟：老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
-这里的情况就是，一期的任务和第一个例子一样的情况一样，由软件工程师完成，不过忽然项目经理觉得二期的任务有点难，然后决定自己完成。这时就给工程师说，这个项目的后续任务，不要你来完成了(ACTION_CANCEL)。
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;这里的情况就是，一期的任务和第一个例子一样的情况一样，由软件工程师完成，不过忽然项目经理觉得二期的任务有点难，然后决定自己完成。这时就给工程师说，这个项目的后续任务，不要你来完成了(ACTION_CANCEL)。
 
 ******
 从这里也可以得出一个结论:
