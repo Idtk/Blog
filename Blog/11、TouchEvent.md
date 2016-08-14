@@ -88,9 +88,9 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 ******
 
 这里使用工作中的情况来模拟一下吧：老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
-老板分配一个任务给项目经理(Activity#dispatchTouchEvent→ViewGroup#dispatchTouchEvent)，项目经理选择自己不做这个任务(ViewGroup#dispatchTouchEvent返回false)，交由软件工程师处理这个任务(View#dispatchTouchEvent)(我们忽略总监与组长的情况),软件工程师完成了这个任务(View#onTouchEvent返回true)<br>
-把结果告诉项目经理(返回结果true，View#dispatchTouchEvent→ViewGroup#dispatchTouchEvent)，项目经理把结果告诉老板(返回结果true，ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)。<br>
-项目经理完成的不错，老板决定把这个项目的二期、三期等都交给项目经理，同样项目经理也觉得这个软件工程师完成的不错，所以也把二期、三期等都交给这个工程师来做。<br>
+* 老板分配一个任务给项目经理(Activity#dispatchTouchEvent→ViewGroup#dispatchTouchEvent)，项目经理选择自己不做这个任务(ViewGroup#dispatchTouchEvent返回false)，交由软件工程师处理这个任务(View#dispatchTouchEvent)(我们忽略总监与组长的情况),软件工程师完成了这个任务(View#onTouchEvent返回true)
+* 把结果告诉项目经理(返回结果true，View#dispatchTouchEvent→ViewGroup#dispatchTouchEvent)，项目经理把结果告诉老板(返回结果true，ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)
+* 项目经理完成的不错，老板决定把这个项目的二期、三期等都交给项目经理，同样项目经理也觉得这个软件工程师完成的不错，所以也把二期、三期等都交给这个工程师来做
 
 ******
 通过上面的传递过程，我们可以得出一些结论:
@@ -159,6 +159,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 ******
 这里使用工作中的情况来模拟：依旧是老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
+<br>
 从老板交任务给项目经理，项目经理交任务给工程师，这一段流程和之前的例子相同。不同之处是软件工程师没有完成这个任务(View#onTouchEvent返回false)，告诉项目经理我没有完成，然后项目经理自己进行了尝试，同样没有完成(ViewGroup#onTouchEvent返回false)，项目经理告诉了老板，我没有完成，然后老板自己试了下也没有完成这个任务(Activity#onTouchEvent返回false),但之后的也有项目的二期、三期，不过老板知道你们完成不了，所以都是他自己进行尝试，不过很惨都没完成。(这段有点与正常情况不同，不过只是打个比方)<br>
 
 ******
@@ -232,7 +233,9 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 这里大部分和之前的例子相同，主要的区别是在于ViewGroup#onInterceptTouchEvent方法中，对传递的事件进行了拦截，返回true，ACTION_DOWN事件就传递到了ViewGroup#onTouchEvent中进行处理，ACTION_DOWN事件之后的传递就与之前的例子相同了。另一点重要的区别是，在ViewGroup拦截下事件之后，此事件序列的其余事件，在进入ViewGroup#dispatchTouchEvent方法之后，不在需要进行是否拦截事件的判断，而是直接进入了onTouchEvent方法之中。<br>
 
 ******
+
 使用工作中的情况来模拟：老板(Activity)、项目经理(ViewGroup)、软件工程师(View)<br>
+<br>
 老板吧任务交给项目经理，项目经理认为这个项目比较难，所以决定自己处理(ViewGroup#onInterceptTouchEvent,return true)，项目经理比较厉害他把任务完成了(ViewGroup#onTouchEvent,return true)，然后他告诉老板他完成了(return true,ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)。之后老板依旧会把任务交给项目经理，项目经理知道这个任务难度，所以不假思索(也就是这个事件序列中的其余事件没有经过ViewGroup#onInterceptTouchEvent)的自己来做。
 
 ******
@@ -292,6 +295,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 <br>
 <br>
 这里分成两张图片，是因为中间有很多ACTION_MOVE，为了方便观察，所以只截取了Log的首尾部分。<br>
+<br>
 这里的关键部分，就是红框中的ACTION_CANCEL,可以看到ACTION_DOWN事件的传递时onInterceptTouchEvent并没有拦截，返回false，在其后的事件ACTION_MOVE再次进入onInterceptTouchEvent时，ViewGroup对事件进行了拦截，这样将会对View传递一个ACTION_CANCEL事件，之后的ACTION_MOVE事件就不再传递给View了。<br>
 
 ******
