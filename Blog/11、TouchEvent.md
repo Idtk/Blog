@@ -15,10 +15,9 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 | public boolean onInterceptTouchEvent | 事件拦截 | No | Yes | No |
 | public boolean onTouchEvent | 事件消费 | Yes | Yes | Yes |
 
-* 分发: dispatchTouchEvent如果返回true，则表示在当前View或者其子View(子子...View)中，需找到了处理事件的View；反之，则表示没有寻找到
+* 分发: dispatchTouchEvent如果返回true，则表示在当前View或者其子View(子子...View)中，找到了处理事件的View；反之，则表示没有寻找到
 * 拦截: onInterceptTouchEvent如果返回true，则表示这个事件由当前View进行处理，不管处理结果如何，都不会再向子View传递这个事件；反之，则表示当前View不主动处理这个事件，除非他的子View返回的事件分发结果为false
 * 消费: onTouchEvent如果返回true，则表示当前View就是事件传递的终点；反之，则表示当前View不是事件传递的终点
-
 
 <br>
 
@@ -26,11 +25,51 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 这篇文章中我们只考虑4种触摸事件: ACTION_DOWN、ACTION_UP、ACTION_MOVE、ACTION_CANAL。<br>
 事件序列:一个事件序列是指从手指触摸屏幕开始，到手指离开屏幕结束，这个过程中产生的一系列事件。一个事件序列以ACTION_DOWN事件开始，中间可能经过若干个MOVE，以ACTION_UP事件结束。<br>
-接下来我们将使用之前的文章[自定义View——弹性滑动](http://www.idtkm.com/customview/customview8/)中例子来作为本文的示例，简单增加一些代码即可，修改之后的代码，请参见本文最后的[附录](https://github.com/Idtk/Blog/tree/master/Code/11)部分。<br>
+接下来我们将使用之前的文章[自定义View——弹性滑动](http://www.idtkm.com/customview/customview8/)中例子来作为本文的示例，简单增加一些代码即可，修改之后的[代码](https://github.com/Idtk/Blog/tree/master/Code/11)部分。<br>
 
 ## 二、示例的默认情况
 
-我们可以从xml中看出，图片都是可点击的，那么我们现在来点击一下，查看下打印出的日志。<br>
+我们可以从[示例代码的xml](https://github.com/Idtk/Blog/blob/master/Code/11/activity_main.xml)中看出，图片都是可点击的。<br>
+
+```Java
+<?xml version="1.0" encoding="utf-8"?>
+<com.idtk.customscroll.ParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.idtk.customscroll.MainActivity"
+    >
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/zhiqinchun"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hanzhan"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shengui"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dayu"
+        android:clickable="true"/>
+
+</com.idtk.customscroll.ParentView>
+```
+
+我们现在来点击一下，查看下打印出的日志。<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchTrue.png" alt="onTouchTrue" title="onTouchTrue" />
 <br>
@@ -55,7 +94,46 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 ## 三、在View中不消费事件
 
-我们现在修改示例中的xml部分，`android:clickable="true"`全部修改为`android:clickable="false"`，这时再点击一下，查看新打印出的日志<br>
+我们现在修改示例代码的xml部分，`android:clickable="true"`全部修改为`android:clickable="false"`<br>
+```Java
+<?xml version="1.0" encoding="utf-8"?>
+<com.idtk.customscroll.ParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.idtk.customscroll.MainActivity"
+    >
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/zhiqinchun"
+        android:clickable="false"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hanzhan"
+        android:clickable="false"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shengui"
+        android:clickable="false"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dayu"
+        android:clickable="false"/>
+
+</com.idtk.customscroll.ParentView>
+```
+
+这时再点击一下，查看新打印出的日志<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/onTouchFalse.png" alt="onTouchFalse" title="onTouchFalse" />
 <br>
@@ -87,6 +165,48 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 ### 1、在事件开始时拦截
 
 为了达到在ViewGroup中，一开始就拦截触摸事件的效果，我们需要进行修改，在ParentView#onInterceptTouchEvent方法的最后部分，我注释掉的`intercept=true;`进行恢复，然后为activity_main.xml中的ParentView增加`android:clickable="true"`属性。<br>
+```Java
+<?xml version="1.0" encoding="utf-8"?>
+<com.idtk.customscroll.ParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.idtk.customscroll.MainActivity"
+    >
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/zhiqinchun"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hanzhan"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shengui"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dayu"
+        android:clickable="true"/>
+
+</com.idtk.customscroll.ParentView>
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/intercept1.png" alt="intercept" title="intercept"/>
+<br>
+
 修改完成后，在此运行点击，查看打印出的log<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/interceptTrue onTouchTrue.png" alt="interceptTrue onTouchTrue" title="interceptTrue onTouchTrue"/>
@@ -107,13 +227,56 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 ### 2、在事件序列中拦截
 
-这里把使用的示例恢复到初始状态，然后把我在ParentView#onInterceptTouchEvent方法，switch内的两个注释掉的`intercept = true;`代码进行恢复。重新运行之后，滑动一个图片，来看看Log<br>
+这里把使用的示例恢复到初始状态，然后把我在ParentView#onInterceptTouchEvent方法，switch内的两个注释掉的`intercept = true;`代码进行恢复，最后部分`intercept = true;`再次注释掉。<br>
+```Java
+<?xml version="1.0" encoding="utf-8"?>
+<com.idtk.customscroll.ParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.idtk.customscroll.MainActivity"
+    >
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/zhiqinchun"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hanzhan"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shengui"
+        android:clickable="true"/>
+
+    <com.idtk.customscroll.ChildView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dayu"
+        android:clickable="true"/>
+
+</com.idtk.customscroll.ParentView>
+```
+<br>
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/intercept2.png" alt="intercept" title="intercept"/>
+<br>
+<br>
+重新运行之后，滑动一个图片，来看看Log<br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/cancel1.png" alt="cancel" title="cancel" width="400"/>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/cancel2.png" alt="cancel" title="cancel" width="400"/>
 <br>
 <br>
-这里分成两张图片，是因为中间有很多ACTION_MOVE，这里为了方便观察，所以只截取了Log的首尾部分。<br>
+这里分成两张图片，是因为中间有很多ACTION_MOVE，为了方便观察，所以只截取了Log的首尾部分。<br>
 这里的关键部分，就是红框中的ACTION_CANCEL,可以看到ACTION_DOWN事件的传递时onInterceptTouchEvent并没有拦截，返回false，在其后的事件ACTION_MOVE再次进入onInterceptTouchEvent时，ViewGroup对事件进行了拦截，这样将会对View传递一个ACTION_CANCEL事件，之后的ACTION_MOVE事件就不再传递给View了。
 
 ******
