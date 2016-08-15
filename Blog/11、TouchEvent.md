@@ -93,7 +93,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 * 项目经理完成的不错，老板决定把这个项目的二期、三期等都交给项目经理，同样项目经理也觉得这个软件工程师完成的不错，所以也把二期、三期等都交给这个工程师来做
 
 ******
-通过上面的传递过程，我们可以得出一些结论:
+通过上面的传递过程，我们可以得出一些结论 ：
 * 事件总是由父元素分发给子元素
 * 某个ViewGroup如果onInterceptTouchEvent返回为false，则表示ViewGroup不拦截事件，而是将其传递给View#dispatchTouchEvent方法
 * 某个View如果onTouchEvent返回true，表示事件被消费，则其结果将直接通过dispatchTouchEvent方法传递回Activity
@@ -164,7 +164,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 ******
 
-通过结合上面两个例子，可以得出一些结论:
+通过结合上面两个例子，可以得出一些结论 ：
 * 某个View如果onTouchEvent返回false，表示事件没有被消费，则事件将传递给其父View的onTouchEvent进行处理
 * 某个View如果它不消耗ACTION_DOWN事件，那么这个序列的后续事件也不会再交由它来处理
 * 如果事件没有View对其进行处理，那么最后将有Activity进行处理
@@ -239,7 +239,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 &nbsp;&nbsp;&nbsp;&nbsp;老板吧任务交给项目经理，项目经理认为这个项目比较难，所以决定自己处理(ViewGroup#onInterceptTouchEvent,return true)，项目经理比较厉害他把任务完成了(ViewGroup#onTouchEvent,return true)，然后他告诉老板他完成了(return true,ViewGroup#dispatchTouchEvent→Activity#dispatchTouchEvent)。之后老板依旧会把任务交给项目经理，项目经理知道这个任务难度，所以不假思索(也就是这个事件序列中的其余事件没有经过ViewGroup#onInterceptTouchEvent)的自己来做。
 
 ******
-通过上面的例子，可以得出一些结论:
+通过上面的例子，可以得出一些结论 ：
 * 某个ViewGroup如果onInterceptTouchEvent返回为true，则ViewGroup拦截事件，将事件传递给其onTouchEvent方法进行处理
 * 某个ViewGroup如果它的onInterceptTouchEvent返回为true，那么这个事件序列中的后续事件，不会在进行onInterceptTouchEvent的判断，而是由它的dispatchTouchEvent方法直接传递给onTouchEvent方法进行处理
 
@@ -304,11 +304,11 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 &nbsp;&nbsp;&nbsp;&nbsp;这里的情况就是，一期的任务和第一个例子一样的情况一样，由软件工程师完成，不过忽然项目经理觉得二期的任务有点难，然后决定自己完成。这时就给工程师说，这个项目的后续任务，不要你来完成了(ACTION_CANCEL)。
 
 ******
-从这里也可以得出一个结论:
+从这里也可以得出一个结论 ：
 * 某个View接收了ACTION_DOWN之后，这个序列的后续事件中，如果在某一刻被父View拦截了，则这个字View会收到一个ACTION_CANCEL事件，并且也不会再收到这个事件序列中的后续事件。
 
 ## 五、小结
-本文通过示例打印出的各种Log对Android的事件分发机制进行，得出如下结论：<br>
+本文通过示例打印出的各种Log对Android的事件分发机制进行，得出如下结论 ：<br>
 
 * 一个事件序列是指从手指触摸屏幕开始，到手指离开屏幕结束，这个过程中产生的一系列事件。一个事件序列以ACTION_DOWN事件开始，中间可能经过若干个MOVE，以ACTION_UP事件结束。
 * 事件的传递过程是由外向内的，即事件总是由父元素分发给子元素
