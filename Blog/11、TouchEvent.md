@@ -153,7 +153,7 @@ Android中与事件分发相关的方法主要包括dispatchTouchEvent、onInter
 
 我们来整理下这个事件序列的流程：
 * ACTION_DOWN事件的传递与之前相同，不同的地方在于，返回值的传递
-* 因为不可点击onTouchEvent的返回值为false，将其传递给自己的dispatchTouchEvent方法，之后传递到ViewGroup#dispatchTouchEvent方法，再传递到ViewGroup#onTouchEvent方法
+* 因为不可点击，View#onTouchEvent返回值为false，将其传递给自己的dispatchTouchEvent方法，之后传递到ViewGroup#dispatchTouchEvent方法，再传递到ViewGroup#onTouchEvent方法
 * ViewGroup返回false之后，ACTION_DOWN事件交由Activity#onTouchEvent方法进行处理，然而依旧返回false，最后ACTION_DOWN事件的返回结果即为false
 * ACTION_UP事件在发现View、ViewGroup并不处理ACTION_DOWN事件后，直接将其传递给了Activity#onTouch方法处理，处理返回false，ACTION_UP事件的返回结果即为false
 
