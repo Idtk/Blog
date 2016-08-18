@@ -1,6 +1,6 @@
 # PieChart扇形图的实现
 
-<img src="https://github.com/Idtk/CustomView/blob/master/gif/PieChart.gif" alt="PieChat" title="PieChat" width="300" /><br>
+<img src="https://github.com/Idtk/PieChart/blob/master/gif/PieChart.gif" alt="PieChat" title="PieChat" width="300" /><br>
 
 (**PS: 经过之前[4篇博客](http://www.idtkm.com/category/customview/)的基础知识学习，终于可以开始编写PieChart了 ~\(≧▽≦)/~啦啦啦**)
 
