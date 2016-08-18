@@ -320,4 +320,4 @@ public boolean onTouchEvent(MotionEvent event) {
 **微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
-[PieChart源码](https://github.com/Idtk/CustomView)请点击
+[PieChart源码](https://github.com/Idtk/PieChart)请点击
