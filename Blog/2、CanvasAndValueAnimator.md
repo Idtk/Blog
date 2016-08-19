@@ -126,7 +126,8 @@ canvas.drawLines(new float[]{
 <br>
 如果觉得不舒服，一定要箭头向上的话，可以在绘制Y轴箭头之前翻转坐标系
 ```Java
-canvas.scale(1,-1);//翻转Y轴
+canvas.scale(1,-1);//翻转Y轴 
+//并不能
 ```
 ### 3、画布变换
 绘制矩形
