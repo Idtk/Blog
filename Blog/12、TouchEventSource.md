@@ -327,7 +327,7 @@ public boolean onTouchEvent(MotionEvent event) {
 ```
 上述代码，主要是检查View是否可以点击，如果可点击，则会返回true，同时也会执行可点击的事件。
 
-四、小结
+## 四、小结
 通过本文的源码解析，我们可以更深入的理解Android的事件分发。可以简单的推出一个流程 : Activity→PhoneWindow→DecorView→ViewGroup→View。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
