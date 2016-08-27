@@ -2,6 +2,31 @@
 
 事件分发是Android中非常重要的机制，是用户与界面交互的基础。这篇文章将通过示例打印出的Log，绘制出事件分发的流程图，让大家更容易的去理解Android的事件分发机制。<br>
 
+******
+
+## 自定义View系列
+
+* View篇
+
+	* [Android坐标系与View绘制流程](https://github.com/Idtk/Blog/blob/master/Blog/1%E3%80%81CoordinateAndProcess.md)
+	* [Canvas与ValueAnimator](https://github.com/Idtk/Blog/blob/master/Blog/2%E3%80%81CanvasAndValueAnimator.md)
+	* [View多行文本居中](https://github.com/Idtk/Blog/blob/master/Blog/3%E3%80%81Multi-lineTextCenter.md)
+	* [Path图形与逻辑运算](https://github.com/Idtk/Blog/blob/master/Blog/4%E3%80%81PathFigureAndLogical.md)
+	* [PieChart扇形图的实现](https://github.com/Idtk/Blog/blob/master/Blog/5%E3%80%81PieChart.md)
+	* [Path中的贝塞尔曲线](https://github.com/Idtk/Blog/blob/master/Blog/6%E3%80%81Bezier.md)
+	* [雷达图(蜘蛛网图)的实现](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)
+
+* ViewGroup篇
+
+	* [View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)
+	* [View的invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)
+	* [View的requestLayout传递与测量、布局流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
+	* 更简单的学习Android事件分发
+	* [Android事件分发机制源码解析](https://github.com/Idtk/Blog/blob/master/Blog/12%E3%80%81TouchEventSource.md)
+
+
+******
+
 
 ## 一、必要的基础知识
 

@@ -4,6 +4,31 @@
 
 阅读本文前需了解View的绘制流程，画布操作，以及Path的常用方法，如果不熟悉，请先查看我之前的文章[Android坐标系与View绘制流程](http://www.idtkm.com/customview/customview1/)、[Canvas与ValueAnimator](http://www.idtkm.com/customview/customview2/)、[Path图形与逻辑运算](http://www.idtkm.com/customview/customview4/)<br>
 
+******
+
+## 自定义View系列
+
+* View篇
+
+	* [Android坐标系与View绘制流程](https://github.com/Idtk/Blog/blob/master/Blog/1%E3%80%81CoordinateAndProcess.md)
+	* [Canvas与ValueAnimator](https://github.com/Idtk/Blog/blob/master/Blog/2%E3%80%81CanvasAndValueAnimator.md)
+	* [View多行文本居中](https://github.com/Idtk/Blog/blob/master/Blog/3%E3%80%81Multi-lineTextCenter.md)
+	* [Path图形与逻辑运算](https://github.com/Idtk/Blog/blob/master/Blog/4%E3%80%81PathFigureAndLogical.md)
+	* [PieChart扇形图的实现](https://github.com/Idtk/Blog/blob/master/Blog/5%E3%80%81PieChart.md)
+	* [Path中的贝塞尔曲线](https://github.com/Idtk/Blog/blob/master/Blog/6%E3%80%81Bezier.md)
+	* 雷达图(蜘蛛网图)的实现
+
+* ViewGroup篇
+
+	* [View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)
+	* [View的invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)
+	* [View的requestLayout传递与测量、布局流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
+	* [更简单的学习Android事件分发](https://github.com/Idtk/Blog/blob/master/Blog/11%E3%80%81TouchEvent.md)
+	* [Android事件分发机制源码解析](https://github.com/Idtk/Blog/blob/master/Blog/12%E3%80%81TouchEventSource.md)
+
+
+******
+
 ## 一、获取View宽高以及cos、sin
 在onSizeChanged函数中，可以获取当前View的宽高以及根据padding值计算出的实际绘制区域的宽高，同时计算出雷达图的半径设置并通过PathMeasure类的**getPosTan**方法获得此任意正多边形各角坐标的余弦值、正弦值。<br>
 

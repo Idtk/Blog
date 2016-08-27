@@ -4,6 +4,31 @@
 
 (**PS: 经过之前[4篇博客](http://www.idtkm.com/category/customview/)的基础知识学习，终于可以开始编写PieChart了 ~\(≧▽≦)/~啦啦啦**)
 
+******
+
+## 自定义View系列
+
+* View篇
+
+	* [Android坐标系与View绘制流程](https://github.com/Idtk/Blog/blob/master/Blog/1%E3%80%81CoordinateAndProcess.md)
+	* [Canvas与ValueAnimator](https://github.com/Idtk/Blog/blob/master/Blog/2%E3%80%81CanvasAndValueAnimator.md)
+	* [View多行文本居中](https://github.com/Idtk/Blog/blob/master/Blog/3%E3%80%81Multi-lineTextCenter.md)
+	* [Path图形与逻辑运算](https://github.com/Idtk/Blog/blob/master/Blog/4%E3%80%81PathFigureAndLogical.md)
+	* PieChart扇形图的实现
+	* [Path中的贝塞尔曲线](https://github.com/Idtk/Blog/blob/master/Blog/6%E3%80%81Bezier.md)
+	* [雷达图(蜘蛛网图)的实现](https://github.com/Idtk/Blog/blob/master/Blog/7%E3%80%81RadarChart.md)
+
+* ViewGroup篇
+
+	* [View的弹性滑动](https://github.com/Idtk/Blog/blob/master/Blog/8%E3%80%81Scroll.md)
+	* [View的invalidate传递与绘制流程分析](https://github.com/Idtk/Blog/blob/master/Blog/9%E3%80%81Invalidate.md)
+	* [View的requestLayout传递与测量、布局流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
+	* [更简单的学习Android事件分发](https://github.com/Idtk/Blog/blob/master/Blog/11%E3%80%81TouchEvent.md)
+	* [Android事件分发机制源码解析](https://github.com/Idtk/Blog/blob/master/Blog/12%E3%80%81TouchEventSource.md)
+
+
+******
+
 ## 一、数据需求
 来分析下，用户需要提供怎样的数据，首先要有数据的值，然后还需要对应的数据名称，以及颜色。绘制PieChart需要什么呢，由图可以看出，需要百分比值，扇形角度，色块颜色。所以总共属性有:
 ```Java
