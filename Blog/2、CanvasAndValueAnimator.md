@@ -1,6 +1,6 @@
-#Canvas与ValueAnimator<br>
+#Canvas与ValueAnimator
 
-<br>
+******
 
 ## 自定义View系列
 

@@ -1,6 +1,6 @@
-#Android坐标系与View绘制流程<br>
+#Android坐标系与View绘制流程
 
-<br>
+******
 
 ## 自定义View系列
 
