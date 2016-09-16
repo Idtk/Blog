@@ -25,8 +25,6 @@
 <img src="https://github.com/Idtk/Blog/blob/master/Image/颜色矩阵计算.png" alt="颜色矩阵计算" title="颜色矩阵计算" />
 <br>
 
-<img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large x= $ \begin{Bmatrix} a & b & c & d & e \\ f & g & h & i & j \\ k & l & m & n & o \\ p & q & r & s & t \\ \end{Bmatrix} $ " style="border:none;">
-
 从上述的公式可以看出,颜色矩阵的功能划分如下<br>
 
 * `a, b, c, d, e` 表示三原色中的红色
@@ -34,6 +32,45 @@
 * `k, l, m, n, o` 表示三原色中的蓝色
 * `p, q, r, s, t` 表示颜色的透明度
 * 第五列用于表示颜色的偏移量
+
+### 使用示例
+
+首先我们在不改变初始矩阵的情况下，来看一下图片的效果
+```Java
+private ColorMatrix mColorMatrix;
+private Paint mPaint;
+private Bitmap oldBitmap;
+
+mColorMatrix = new ColorMatrix();
+mPaint = new Paint();
+// 设置画笔的颜色过滤器
+mPaint.setColorFilter(new ColorMatrixColorFilter(mColorMatrix));
+Log.d("TAG", Arrays.toString(mColorMatrix.getArray()));
+// 创建Bitmap
+oldBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.header);
+
+// 在画布上显示图片
+canvas.drawBitmap(oldBitmap,0,0,mPaint);
+
+// Log
+TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/初始矩阵.png" alt="初始矩阵" title="初始矩阵" />
+<br>
+
+现在我们新建一个矩阵，使用set方法来使用这个矩阵，改变图片的颜色
+```Java
+mColorMatrix.set(new float[]{
+        1,0.5f,0,0,0
+        ,0,1,0,0,0
+        ,0,0,1,0,0
+        ,0,0,0,1,0});
+```
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/0.5红矩阵.png" alt="红矩阵" title="红矩阵" />
+<br>
 
 ## 二、常用方法
 ### 1、旋转
