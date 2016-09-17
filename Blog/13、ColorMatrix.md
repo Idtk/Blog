@@ -93,14 +93,14 @@ public void setRotate(int axis, float degrees)
 <br>
 
 #### a、围绕红色轴旋转
-我们可以根据三原色来建立一个三维向量坐标系，当围绕红色旋转时，我们将红色虚化为一个点，绿色为横坐标，蓝色为纵坐标，旋转θ°。<br>
+我们可以根据三原色来建立一个三维**向量**坐标系，当围绕红色旋转时，我们将红色虚化为一个点，绿色为横坐标，蓝色为纵坐标，旋转θ°。<br>
 
 坐标系示例
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/红色坐标系.png" alt="红色坐标系" title="红色坐标系" />
 <br>
 
-R、G、B、A各值计算结果:
+根据平行四边形法则R、G、B、A各值计算结果:
 
 ![](http://latex.codecogs.com/png.latex?$$ R = R' $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ G = G'cosθ + B'sinθ $$)<br>
@@ -145,7 +145,7 @@ $$)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/绿色坐标系.png" alt="绿色坐标系" title="绿色坐标系" />
 <br>
 
-R、G、B、A各值计算结果:
+根据平行四边形法则R、G、B、A各值计算结果:
 
 ![](http://latex.codecogs.com/png.latex?$$ R = R'cosθ-B'sinθ $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ G = G' $$)<br>
@@ -191,7 +191,7 @@ $$)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/蓝色坐标系.png" alt="蓝色坐标系" title="蓝色坐标系" />
 <br>
 
-R、G、B、A各值计算结果:
+根据平行四边形法则R、G、B、A各值计算结果:
 
 ![](http://latex.codecogs.com/png.latex?$$ R = R'cosθ+G'sinθ $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ G = -R'sinθ+G'cos $$)<br>
