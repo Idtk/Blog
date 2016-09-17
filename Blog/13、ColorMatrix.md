@@ -1,5 +1,7 @@
 # ColorMatrix原理
 
+[自定义View系列目录](https://github.com/Idtk/Blog)
+
 **涉及方法**<br>
 
 | 类别        | API           |描述  |
