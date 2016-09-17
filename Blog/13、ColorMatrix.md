@@ -74,9 +74,75 @@ mColorMatrix.set(new float[]{
 
 ## 二、常用方法
 ### 1、旋转
+API如下：
+
+```
+/**
+* 用于色调的旋转运算
+* axis=0 表示色调围绕红色进行旋转
+* axis=1 表示色调围绕绿色进行旋转
+* axis=2 表示色调围绕蓝色进行旋转
+*/
+
+public void setRotate(int axis, float degrees)
+```
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/三原色坐标系.png" alt="三原色坐标系" title="三原色坐标系" />
+<br>
+
+#### a、围绕红色轴旋转
+我们可以根据三原色来建立一个三维向量坐标系，当围绕红色旋转时，我们将红色虚化为一个点，绿色为横坐标，蓝色为纵坐标，旋转θ°。<br>
+
+坐标系变化示例
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/红色坐标系.png" alt="红色坐标系" title="红色坐标系" />
+<br>
+
+R、G、B、A各值计算结果:
+
+![](http://latex.codecogs.com/png.latex?$$ R = R' $$)
+![](http://latex.codecogs.com/png.latex?$$ B = G'cosθ + B'sinθ $$)
+![](http://latex.codecogs.com/png.latex?$$ G = G'-sinθ + B'cosθ $$)
+![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
+
+矩阵表示:
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+R\\\\
+G\\\\
+B\\\\
+A
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix}  
+ 1   &  0   &  0  &  0  &  0 \\\\
+ 0   &  cosθ   &  sinθ  &  0  &  0 \\\\
+ 0   &  -sinθ   &  cosθ  &  0  &  0 \\\\
+ 0   &  0   &  0  &  1  &  0
+\\end{1} 
+\\right ] 
+\\left [ 
+\\begin{matrix} 
+R'\\\\
+G'\\\\
+B'\\\\
+A
+\\end{1} 
+\\right ]
+$$)
+
+
+
+
 ### 2、饱和度
 ### 3、缩放
 ### 三、矩阵运算
 ## 四、总结
 ## 五、参考
-[ColorMatrix](https://developer.android.com/reference/android/graphics/ColorMatrix.html)
+[ColorMatrix](https://developer.android.com/reference/android/graphics/ColorMatrix.html)<br>
+[Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
