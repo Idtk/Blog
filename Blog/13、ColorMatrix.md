@@ -93,16 +93,16 @@ public void setRotate(int axis, float degrees)
 #### a、围绕红色轴旋转
 我们可以根据三原色来建立一个三维向量坐标系，当围绕红色旋转时，我们将红色虚化为一个点，绿色为横坐标，蓝色为纵坐标，旋转θ°。<br>
 
-坐标系变化示例
+坐标系示例
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/红色坐标系.png" alt="红色坐标系" title="红色坐标系" />
 <br>
 
 R、G、B、A各值计算结果:
 
-![](http://latex.codecogs.com/png.latex?$$ R = R' $$)
-![](http://latex.codecogs.com/png.latex?$$ B = G'cosθ + B'sinθ $$)
-![](http://latex.codecogs.com/png.latex?$$ G = G'-sinθ + B'cosθ $$)
+![](http://latex.codecogs.com/png.latex?$$ R = R' $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = G'cosθ + B'sinθ $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = -G'sinθ + B'cosθ $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
 
 矩阵表示:
@@ -136,13 +136,100 @@ A
 \\right ]
 $$)
 
+#### b、围绕绿色轴旋转
+绿色虚化为一个点，蓝色为横坐标轴，红色为纵坐标轴，旋转θ°。<br>
+坐标系示例
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/绿色坐标系.png" alt="绿色坐标系" title="绿色坐标系" />
+<br>
 
+R、G、B、A各值计算结果:
 
+![](http://latex.codecogs.com/png.latex?$$ R = R'cosθ-B'sinθ $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = G' $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = R'sinθ + B'cosθ $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
+
+矩阵表示:
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+R\\\\
+G\\\\
+B\\\\
+A
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix}  
+ cosθ   &  0   &  -sinθ  &  0  &  0 \\\\
+ 0   &  1   &  0  &  0  &  0 \\\\
+ sinθ   &  0   &  cosθ  &  0  &  0 \\\\
+ 0   &  0   &  0  &  1  &  0
+\\end{1} 
+\\right ] 
+\\left [ 
+\\begin{matrix} 
+R'\\\\
+G'\\\\
+B'\\\\
+A
+\\end{1} 
+\\right ]
+$$)
+
+#### c、围绕蓝色轴旋转
+蓝色虚化为一个点，红色为横坐标轴，绿色为纵坐标轴，旋转θ°。<br>
+坐标系示例
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/蓝色坐标系.png" alt="蓝色坐标系" title="蓝色坐标系" />
+<br>
+
+R、G、B、A各值计算结果:
+
+![](http://latex.codecogs.com/png.latex?$$ R = R'cosθ+G'sinθ $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = -R'sinθ+G'cos $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = B' $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
+
+矩阵表示:
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+R\\\\
+G\\\\
+B\\\\
+A
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix}  
+ cosθ   &  sinθ   &  0  &  0  &  0 \\\\
+ -sinθ   &  cosθ   &  0  &  0  &  0 \\\\
+ 0   &  0   &  1  &  0  &  0 \\\\
+ 0   &  0   &  0  &  1  &  0
+\\end{1} 
+\\right ] 
+\\left [ 
+\\begin{matrix} 
+R'\\\\
+G'\\\\
+B'\\\\
+A
+\\end{1} 
+\\right ]
+$$)
 
 ### 2、饱和度
 ### 3、缩放
-### 三、矩阵运算
-## 四、总结
-## 五、参考
+## 三、总结
+## 四、参考
 [ColorMatrix](https://developer.android.com/reference/android/graphics/ColorMatrix.html)<br>
 [Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
