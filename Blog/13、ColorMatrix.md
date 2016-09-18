@@ -389,6 +389,14 @@ public void setConcat(ColorMatrix matA, ColorMatrix matB)
 $$
 \\left [ 
 \\begin{matrix} 
+ & &\\\\
+ & Result ColorMatrix &\\\\
+ & &
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix} 
  a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
  a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
  a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
@@ -402,33 +410,6 @@ $$
  b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
  b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
  b_15   &  b_16   &  b_17  &  b_18  &  b_19
-\\end{1} 
-\\right ]
- = 
-\\left [ 
-\\begin{matrix} 
- a_0   &  a_1   &  a_2  &  a_3 \\\\
- a_5   &  a_6   &  a_7  &  a_8 \\\\
- a_10   &  a_11   &  a_12  &  a_13 \\\\
- a_15   &  a_16   &  a_17  &  a_18
-\\end{1} 
-\\right ]
- X 
-\\left [ 
-\\begin{matrix}  
- b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
- b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
- b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
- b_15   &  b_16   &  b_17  &  b_18  &  b_19
-\\end{1} 
-\\right ]
- \\+ 
-\\left [ 
-\\begin{matrix}  
- 0   &  0   &  0  &  0  &  a_4 \\\\
- 0   &  0   &  0  &  0  &  a_9 \\\\
- 0   &  0   &  0  &  0  &  a_14 \\\\
- 0   &  0   &  0  &  0  &  a_19
 \\end{1} 
 \\right ]
 $$)
