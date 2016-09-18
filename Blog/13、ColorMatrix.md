@@ -237,7 +237,8 @@ $$)
 mColorMatrix.setRotate(0,90);
 
 // Log
-D/TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, -4.371139E-8, 1.0, 0.0, 0.0, 0.0, -1.0, -4.371139E-8, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+D/TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, -4.371139E-8, 1.0, 0.0, 0.0, 0.0, -1.0, -4.371139E-8, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 0.0]
 ```
 
 从Log中我们可以看出，其结果也验证了我们的上述理论，图片效果如下:
@@ -359,9 +360,10 @@ public void setSaturation(float sat)
 mColorMatrix.setSaturation(0f);
 
 // Log
-D/TAG: [0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+D/TAG: [0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 
+        0.0, 0.0, 0.0, 1.0, 0.0]
 ```
-
+<br>
 打印出的Log也验证了上述对于图片灰度的说明，当然源码中还有对于饱和度从0%——100%的计算，感兴趣的同学可以查看以下源码。灰度图片效果如下:
 
 <br>
@@ -379,4 +381,5 @@ D/TAG: [0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.7
 
 ## 四、参考
 [ColorMatrix](https://developer.android.com/reference/android/graphics/ColorMatrix.html)<br>
-[Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
+[Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)<br>
+[Android Matrix矩阵详解](http://blog.csdn.net/maplejaw_/article/details/51728818)
