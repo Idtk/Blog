@@ -1,4 +1,4 @@
-# ColorMatrix原理
+# ColorMatrix详解
 
 [自定义View系列目录](https://github.com/Idtk/Blog)
 
@@ -38,7 +38,7 @@
 ### 使用示例
 
 首先我们在不改变初始矩阵的情况下，来看一下图片的效果
-```java
+```Java
 private ColorMatrix mColorMatrix;
 private Paint mPaint;
 private Bitmap oldBitmap;
@@ -63,7 +63,7 @@ TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
 <br>
 
 现在我们新建一个矩阵，使用set方法来使用这个矩阵，改变图片的颜色
-```java
+```Java
 mColorMatrix.set(new float[]{
         1,0.5f,0,0,0
         ,0,1,0,0,0
@@ -78,7 +78,7 @@ mColorMatrix.set(new float[]{
 ### 1、旋转
 API如下：
 
-```java
+```Java
 /**
 * 用于色调的旋转运算
 * axis=0 表示色调围绕红色进行旋转
@@ -232,7 +232,7 @@ $$)
 #### 使用示例
 
 这里设置色调围绕红色轴旋转90°
-```java
+```Java
 // 旋转绿色、蓝色
 mColorMatrix.setRotate(0,90);
 
@@ -251,7 +251,7 @@ D/TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, -4.371139E-8, 1.0, 0.0, 0.0, 0.0, -1.0, -4
 
 API如下：
 
-```java
+```Java
 /**
 * rScale 表示红色的数值的缩放比例
 * gScale 表示绿色的数值的缩放比例
@@ -303,7 +303,7 @@ $$)
 
 #### 使用示例
 这里设置，所有的缩放比例为1.1
-```java
+```Java
 // 设置缩放比例
 mColorMatrix.setScale(1.1f,1.1f,1.1f,1.1f);
 
@@ -318,7 +318,7 @@ D/TAG: [1.1, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1, 0.0, 0.
 <br>
 
 我们还可以制作一个颜色通道，比如红色 :
-```java
+```Java
 // 红色通道
 mColorMatrix.setScale(1,0,0,1);
 
@@ -334,7 +334,7 @@ D/TAG: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.
 
 API如下：
 
-```java
+```Java
 /**
 * 设置矩阵颜色的饱和度
 * 
@@ -355,7 +355,7 @@ public void setSaturation(float sat)
 ### 使用示例
 
 这里设置饱和度为0，测试下灰度效果
-```java
+```Java
 // 灰度
 mColorMatrix.setSaturation(0f);
 
@@ -370,16 +370,228 @@ D/TAG: [0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.715, 0.072, 0.0, 0.0, 0.213, 0.7
 <img src="https://github.com/Idtk/Blog/blob/master/Image/饱和度矩阵.png" alt="饱和度矩阵" title="饱和度矩阵" />
 <br>
 
-## 三、总结
+## 三、ColorMatrix相乘
 
-本文我们学习了ColorMatrix的原理，并分析了其`setRotate、setScale、setSaturation`3个方法。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+### 1、设置
+
+设置新的矩阵覆盖之前的内容，可以设置一个单独的矩阵，也可以设置两个矩阵的相乘。API如下:
+
+```Java
+public void set(ColorMatrix src)
+public void set(float[] src)
+
+public void setConcat(ColorMatrix matA, ColorMatrix matB)
+```
+
+这里主要说一下`setConcat`方法，此方法表示两个ColorMatrix相乘![](http://latex.codecogs.com/png.latex?$$ M =  MA \\cdot MB $$)，矩阵表示为:<br>
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+ a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
+ a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
+ a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
+ a_15   &  a_16   &  a_17  &  a_18  &  a_19
+\\end{1} 
+\\right ] 
+ X 
+\\left [ 
+\\begin{matrix}  
+ b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
+ b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
+ b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
+ b_15   &  b_16   &  b_17  &  b_18  &  b_19
+\\end{1} 
+\\right ]
+ = 
+\\left [ 
+\\begin{matrix} 
+ a_0   &  a_1   &  a_2  &  a_3 \\\\
+ a_5   &  a_6   &  a_7  &  a_8 \\\\
+ a_10   &  a_11   &  a_12  &  a_13 \\\\
+ a_15   &  a_16   &  a_17  &  a_18
+\\end{1} 
+\\right ]
+ X 
+\\left [ 
+\\begin{matrix}  
+ b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
+ b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
+ b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
+ b_15   &  b_16   &  b_17  &  b_18  &  b_19
+\\end{1} 
+\\right ]
+ \\+ 
+\\left [ 
+\\begin{matrix}  
+ 0   &  0   &  0  &  0  &  a_4 \\\\
+ 0   &  0   &  0  &  0  &  a_9 \\\\
+ 0   &  0   &  0  &  0  &  a_14 \\\\
+ 0   &  0   &  0  &  0  &  a_19
+\\end{1} 
+\\right ]
+$$)
+
+#### 使用示例
+```Java
+
+mColorMatrixA = new ColorMatrix(new float[]{
+        1,0.3f,0,0,0
+        ,0,1,0.3f,0,0.1f
+        ,0,0.6f,1,0,0
+        ,0,0,0,1,1
+});
+mColorMatrixB = new ColorMatrix(new float[]{
+        1,0,0,0,1
+        ,0,1,0,0,0.5f
+        ,0.1f,0.9f,0.8f,0,0
+        ,0,0,0,1,0.8f
+});
+mColorMatrix = new ColorMatrix(new float[]{
+        0,0,0,0,0
+        ,0,0,0,0,0
+        ,0,0,0,0,0
+        ,0,0,0,0,0
+});
+
+mColorMatrix.setConcat(mColorMatrixA,mColorMatrixB);
+
+Log.d("TAGA", Arrays.toString(mColorMatrixA.getArray()));
+Log.d("TAGB", Arrays.toString(mColorMatrixB.getArray()));
+Log.d("TAGAB", Arrays.toString(mColorMatrix.getArray()));
+
+// Log
+D/TAGA: [1.0, 0.3, 0.0, 0.0, 0.0, 0.0, 1.0, 0.3, 0.0, 0.1, 0.0, 0.6, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+D/TAGB: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.5, 0.1, 0.9, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.8]
+D/TAGAB: [1.0, 0.3, 0.0, 0.0, 1.15, 0.030000001, 1.27, 0.24000001, 0.0, 0.6, 0.1, 1.5, 0.8, 0.0, 0.3, 0.0, 0.0, 0.0, 1.0, 1.8]
+```
+
+### 2、前乘
+
+前乘相当于，当前矩阵乘以输入的矩阵![](http://latex.codecogs.com/png.latex?$$ M' =  M \\cdot S $$)，这里看一下源码，可以更容易的理解:
+```Java
+// 逻辑上相当于调用setConcat(this, prematrix)
+public void preConcat(ColorMatrix prematrix) {
+    setConcat(this, prematrix);
+}
+```
+从源码上可以明显的看出前乘的规则，preConcat(prematrix)方法相当于调用setConcat(this, prematrix)方法
+
+#### 使用示例
+
+```Java
+mColorMatrix.reset();
+mColorMatrix.preConcat(mColorMatrixA);
+mColorMatrix.preConcat(mColorMatrixB);
+```
+
+上例多次调用preConcat，则相当于<br>
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Result ColorMatrix &\\\\
+ & &
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Initialization ColorMatrix &\\\\
+ & &
+\\end{1} 
+\\right ] 
+ X 
+\\left [ 
+\\begin{matrix}  
+ a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
+ a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
+ a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
+ a_15   &  a_16   &  a_17  &  a_18  &  a_19
+\\end{1} 
+\\right ]
+ X 
+\\left [ 
+\\begin{matrix} 
+ b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
+ b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
+ b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
+ b_15   &  b_16   &  b_17  &  b_18  &  b_19
+\\end{1} 
+\\right ]
+
+### 3、后乘
+
+后乘相当于，输入的矩阵乘以当前矩阵![](http://latex.codecogs.com/png.latex?$$ M' =  S \\cdot M $$)，这里看一下源码，可以更容易的理解:
+```Java
+// 逻辑上相当于调用setConcat(postmatrix, this)
+public void postConcat(ColorMatrix postmatrix) {
+    setConcat(postmatrix, this);
+}
+```
+
+从源码上可以明显的看出前乘的规则,postConcat(prematrix)方法相当于调用setConcat(postmatrix, this)
+
+# 使用示例
+
+```Java
+mColorMatrix.reset();
+mColorMatrix.postConcat(mColorMatrixA);
+mColorMatrix.postConcat(mColorMatrixB);
+```
+
+上例多次调用postConcat，因为矩阵满足交换律，则相当于<br>
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Result ColorMatrix &\\\\
+ & &
+\\end{1} 
+\\right ] 
+ = 
+\\left [ 
+\\begin{matrix} 
+ b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
+ b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
+ b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
+ b_15   &  b_16   &  b_17  &  b_18  &  b_19
+\\end{1} 
+\\right ] 
+ X 
+\\left [ 
+\\begin{matrix}  
+ a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
+ a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
+ a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
+ a_15   &  a_16   &  a_17  &  a_18  &  a_19
+\\end{1} 
+\\right ]
+ X 
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Initialization ColorMatrix &\\\\
+ & &
+\\end{1} 
+\\right ]
+
+## 四、总结
+
+本文我们学习了ColorMatrix的原理，并分析了其`setRotate、setScale、setSaturation`方法以及矩阵的乘法(前乘、后乘)。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **微博:http://weibo.com/Idtk**<br>
 **邮箱:IdtkMa@gmail.com**<br>
 <br>
 
-## 四、参考
+## 五、参考
 [ColorMatrix](https://developer.android.com/reference/android/graphics/ColorMatrix.html)<br>
 [Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)<br>
 [Android Matrix矩阵详解](http://blog.csdn.net/maplejaw_/article/details/51728818)
