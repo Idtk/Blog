@@ -18,7 +18,7 @@
 * [10、View的requestLayout传递与测量、布局流程分析](https://github.com/Idtk/Blog/blob/master/Blog/10%E3%80%81RequestLayout.md)
 * [11、更简单的学习Android事件分发](https://github.com/Idtk/Blog/blob/master/Blog/11%E3%80%81TouchEvent.md)
 * [12、Android事件分发机制源码解析](https://github.com/Idtk/Blog/blob/master/Blog/12%E3%80%81TouchEventSource.md)
-* [13、ColorMatrix原理](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)
+* [13、ColorMatrix详解](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)
 
 
 ******
