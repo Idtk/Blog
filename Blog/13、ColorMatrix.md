@@ -383,7 +383,7 @@ public void set(float[] src)
 public void setConcat(ColorMatrix matA, ColorMatrix matB)
 ```
 
-这里主要说一下`setConcat`方法，此方法表示两个ColorMatrix相乘![](http://latex.codecogs.com/png.latex?$$ M =  MA \\cdot MB $$)，矩阵表示为:<br>
+这里主要说一下`setConcat`方法，此方法表示两个ColorMatrix相乘![](http://latex.codecogs.com/png.latex?$$ M =  M_A \\cdot M_B $$)，矩阵表示为:<br>
 
 ![](http://latex.codecogs.com/png.latex?
 $$
@@ -399,16 +399,16 @@ $$
 \\begin{matrix} 
  a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
  a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
- a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
- a_15   &  a_16   &  a_17  &  a_18  &  a_19
+ a_1_0   &  a_1_1   &  a_1_2  &  a_1_3  &  a_1_4 \\\\
+ a_1_5   &  a_1_6   &  a_1_7  &  a_1_8  &  a_1_9
 \\end{1} 
 \\right ]  
 \\left [ 
 \\begin{matrix}  
  b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
  b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
- b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
- b_15   &  b_16   &  b_17  &  b_18  &  b_19
+ b_1_0   &  b_1_1   &  b_1_2  &  b_1_3  &  b_1_4 \\\\
+ b_1_5   &  b_1_6   &  b_1_7  &  b_1_8  &  b_1_9
 \\end{1} 
 \\right ]
 $$)
@@ -491,16 +491,16 @@ $$
 \\begin{matrix} 
  a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
  a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
- a_10   &  a_11   &  a_12  &  a_13  &  a_14 \\\\
- a_15   &  a_16   &  a_17  &  a_18  &  a_19
+ a_1_0   &  a_1_1   &  a_1_2  &  a_1_3  &  a_1_4 \\\\
+ a_1_5   &  a_1_6   &  a_1_7  &  a_1_8  &  a_1_9
 \\end{1} 
 \\right ]  
 \\left [ 
 \\begin{matrix}  
  b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
  b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
- b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
- b_15   &  b_16   &  b_17  &  b_18  &  b_19
+ b_1_0   &  b_1_1   &  b_1_2  &  b_1_3  &  b_1_4 \\\\
+ b_1_5   &  b_1_6   &  b_1_7  &  b_1_8  &  b_1_9
 \\end{1} 
 \\right ]
 $$)
@@ -542,16 +542,16 @@ $$
 \\begin{matrix} 
  b_0   &  b_1   &  b_2  &  b_3  &  b_4 \\\\
  b_5   &  b_6   &  b_7  &  b_8  &  b_9 \\\\
- b_10   &  b_11   &  b_12  &  b_13  &  b_14 \\\\
- b_15   &  b_16   &  b_17  &  b_18  &  b_19
+ b_1_0   &  b_1_1   &  b_1_2  &  b_1_3  &  b_1_4 \\\\
+ b_1_5   &  b_1_6   &  b_1_7  &  b_1_8  &  b_1_9
 \\end{1} 
 \\right ] 
 \\left [ 
 \\begin{matrix} 
  a_0   &  a_1   &  a_2  &  a_3  &  a_4 \\\\
  a_5   &  a_6   &  a_7  &  a_8  &  a_9 \\\\
- a_1_0   &  a_(11)   &  a_12  &  a_13  &  a_14 \\\\
- a_15   &  a_16   &  a_17  &  a_18  &  a_19
+ a_1_0   &  a_1_1   &  a_1_2  &  a_1_3  &  a_1_4 \\\\
+ a_1_5   &  a_1_6   &  a_1_7  &  a_1_8  &  a_1_9
 \\end{1} 
 \\right ]  
 \\left [ 
