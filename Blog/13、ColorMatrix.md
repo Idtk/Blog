@@ -475,7 +475,6 @@ $$
  & &\\\\
  & Result Matrix &\\\\
  & &
- & &
 \\end{1} 
 \\right ]  
  = 
@@ -483,7 +482,6 @@ $$
 \\begin{matrix} 
  & &\\\\
  & Initial Matrix &\\\\
- & &
  & &
 \\end{1} 
 \\right ] 
@@ -534,7 +532,6 @@ $$
  & &\\\\
  & Result Matrix &\\\\
  & &
- & &
 \\end{1} 
 \\right ]  
  = 
@@ -558,7 +555,6 @@ $$
 \\begin{matrix}  
  & &\\\\
  & Initial Matrix &\\\\
- & &
  & &
 \\end{1} 
 \\right ]
