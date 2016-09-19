@@ -4,7 +4,7 @@
 
 [自定义View系列目录](https://github.com/Idtk/Blog)
 
-## 一、一切从Activity开始
+## 一、从Activity开始
 
 Android的触摸事件，是由windowManagerService进行采集，之后传递到Activiy进行处理。我们这里从Activity#dispatchTouchEvent方法开始解析
 ```Java
