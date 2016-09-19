@@ -103,8 +103,8 @@ public void setRotate(int axis, float degrees)
 根据平行四边形法则R、G、B、A各值计算结果:
 
 ![](http://latex.codecogs.com/png.latex?$$ R = R' $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ G = G'\cdot\cos\theta + B'\cdot\sin\theta $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ B = -G'\cdot\sin\theta + B'\cdot\cos\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = G'\\cdot\\cos\\theta + B'\\cdot\\sin\\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = -G'\\cdot\\sin\\theta + B'\\cdot\\cos\\theta $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
 
 矩阵表示:
@@ -123,8 +123,8 @@ A
 \\left [ 
 \\begin{matrix}  
  1   &  0   &  0  &  0  &  0 \\\\
- 0   &  cos\theta   &  sin\theta  &  0  &  0 \\\\
- 0   &  -sin\theta   &  cos\theta  &  0  &  0 \\\\
+ 0   &  cos\\theta   &  sin\\theta  &  0  &  0 \\\\
+ 0   &  -sin\\theta   &  cos\\theta  &  0  &  0 \\\\
  0   &  0   &  0  &  1  &  0
 \\end{1} 
 \\right ] 
@@ -147,9 +147,9 @@ $$)
 
 根据平行四边形法则R、G、B、A各值计算结果:
 
-![](http://latex.codecogs.com/png.latex?$$ R = R'\cdot\cos\theta-B'\cdot\sin\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ R = R'\\cdot\\cos\\theta-B'\\cdot\\sin\\theta $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ G = G' $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ B = R'\cdot\sin\theta + B'\cdot\cos\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = R'\\cdot\\sin\\theta + B'\\cdot\\cos\\theta $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
 
 矩阵表示:
@@ -167,9 +167,9 @@ A
  = 
 \\left [ 
 \\begin{matrix}  
- cos\theta   &  0   &  -sin\theta  &  0  &  0 \\\\
+ cos\\theta   &  0   &  -sin\\theta  &  0  &  0 \\\\
  0   &  1   &  0  &  0  &  0 \\\\
- sin\theta   &  0   &  cos\theta  &  0  &  0 \\\\
+ sin\\theta   &  0   &  cos\\theta  &  0  &  0 \\\\
  0   &  0   &  0  &  1  &  0
 \\end{1} 
 \\right ] 
@@ -193,8 +193,8 @@ $$)
 
 根据平行四边形法则R、G、B、A各值计算结果:
 
-![](http://latex.codecogs.com/png.latex?$$ R = R'\cdot\cos\theta+G'\cdot\sin\theta $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ G = -R'\cdot\sin\theta+G'\cdot\cos\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ R = R'\\cdot\\cos\\theta+G'\\cdot\\sin\\theta $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = -R'\\cdot\\sin\\theta+G'\\cdot\\cos\\theta $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ B = B' $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ A = A' $$)
 
@@ -213,8 +213,8 @@ A
  = 
 \\left [ 
 \\begin{matrix}  
- cos\theta   &  sin\theta   &  0  &  0  &  0 \\\\
- -sin\theta   &  cos\theta   &  0  &  0  &  0 \\\\
+ cos\\theta   &  sin\\theta   &  0  &  0  &  0 \\\\
+ -sin\\theta   &  cos\\theta   &  0  &  0  &  0 \\\\
  0   &  0   &  1  &  0  &  0 \\\\
  0   &  0   &  0  &  1  &  0
 \\end{1} 
@@ -265,10 +265,10 @@ ColorMatrix的缩放方法，其实就是根据矩阵的运算规则，对`R、G
 
 R、G、B、A各值计算结果:
 
-![](http://latex.codecogs.com/png.latex?$$ R = R'\cdot%20rScale $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ G = G'\cdot%20gScale $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ B = B'\cdot%20bScale $$)<br>
-![](http://latex.codecogs.com/png.latex?$$ A = A'\cdot%20aScale $$)
+![](http://latex.codecogs.com/png.latex?$$ R = R'\\cdot%20rScale $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ G = G'\\cdot%20gScale $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ B = B'\\cdot%20bScale $$)<br>
+![](http://latex.codecogs.com/png.latex?$$ A = A'\\cdot%20aScale $$)
 
 矩阵表示:
 
