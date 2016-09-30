@@ -29,4 +29,6 @@
 &nbsp;&nbsp;GitHub: https://github.com/Idtk<br>
 &nbsp;&nbsp;微博: http://weibo.com/Idtk<br>
 &nbsp;&nbsp;邮箱: IdtkMa@gmail.com<br>
+&nbsp;&nbsp;稀土掘金: http://gold.xitu.io/user/56ff44087db2a20059ff7913<br>
+&nbsp;&nbsp;开发者头条: https://toutiao.io/subjects/89638<br>
 
