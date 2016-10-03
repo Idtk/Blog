@@ -266,7 +266,7 @@ $$)
 
 ## 三、Matrix前乘与后乘
 
-Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解]()中**ColorMatrix相乘**章节所描述的基本相同。<br>
+Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)中**ColorMatrix相乘**章节所描述的基本相同。<br>
 
 ### 前乘
 
