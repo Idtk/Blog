@@ -262,7 +262,7 @@ $$)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视3.png" alt="透视" title="透视" />
 <br>
 
-根据这个规则，所以我们会看到在修改`MPERSP_2`参数时，图像会发生类似缩放的效果，其实就是透视变换的效果。<br>
+根据这个规则，也就解释了我们在使用过程中修改`MPERSP_2`参数时，图像会发生的类似缩放的效果，其实就是透视变换的效果。<br>
 
 ## 三、Matrix前乘与后乘
 
