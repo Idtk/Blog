@@ -247,8 +247,7 @@ $$)
 
 ### 5、透视变换
 
-我们在之前的变换中，一直没有说到最后一行的三个参数`MPERSP_0、MPERSP_1、MPERSP_2`，这里我们来稍微聊聊这三个参数所表示的透视。<br>
-我们一般在图像中的一个点将使用如下方式进行表示(x, y, w),而Android中的二维矩阵计算是基于齐次坐标的，齐次坐标要求w的值为1，所以这个点的表示方法就变化为(x/w, y/w, 1)。<br>
+我们在之前的变换中，一直没有说到最后一行的三个参数`MPERSP_0、MPERSP_1、MPERSP_2`，这里我们来稍微聊聊这三个参数所表示的透视。我们一般在图像中的一个点将使用如下方式进行表示(x, y, w),而Android中的二维矩阵计算是基于齐次坐标的，齐次坐标要求w的值为1，所以这个点的表示方法就变化为(x/w, y/w, 1)。<br>
 透视变换的效果其实类似于投影机的方式，我们看下w=1时，(5,7,1)的效果 : <br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视2.png" alt="透视" title="透视" />
@@ -259,18 +258,119 @@ $$)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视1.png" alt="透视" title="透视" />
 <br>
 
-![](http://latex.codecogs.com/png.latex?
-$$\\left （ \\begin{matrix} \\frac{15}{3},\\frac{21}{3},\\frac{3}{3},\\end{1} \\right ） 
- = \\left （ \\begin{matrix}  5,7,1,\\end{1} \\right ） $$)
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视3.png" alt="透视" title="透视" />
+<br>
 
 根据这个规则，所以我们会看到在修改`MPERSP_2`参数时，图像会发生类似缩放的效果，其实就是透视变换的效果。<br>
 
-## 三、Matrix前乘后乘
+## 三、Matrix前乘与后乘
+
+Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解]()中**ColorMatrix相乘**章节所描述的基本相同。<br>
+
+### 前乘
+
+前乘相当于，当前矩阵乘以输入的矩阵![](http://latex.codecogs.com/png.latex?$$ M' =  M \\cdot S $$)<br>
+
+示例如下:
+
+```Java
+mMatrix.reset();
+mMatrix.preScale(sx,sy);
+mMatrix.preTranslate(dx,dy);
+```
+
+用矩阵表示为 : 
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Result & Matrix &\\\\
+ & &
+\\end{1} 
+\\right ]  
+ = 
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Initial & Matrix &\\\\
+ & &
+\\end{1} 
+\\right ] 
+\\left [ 
+\\begin{matrix} 
+ sx  &  0  &  0 \\\\
+ 0  &  sy  &  0 \\\\
+ 0  &  0  &  1
+\\end{1} 
+\\right ]  
+\\left [ 
+\\begin{matrix}  
+ 1  &  0  &  tx \\\\
+ 0  &  1  &  ty \\\\
+ 0  &  0  &  1
+\\end{1} 
+\\right ]
+$$)
+
+### 后乘
+
+后乘相当于，输入的矩阵乘以当前矩阵![](http://latex.codecogs.com/png.latex?$$ M' =  S \\cdot M $$)<br>
+
+```Java
+mMatrix.reset();
+mMatrix.postScale(sx,sy);
+mMatrix.postTranslate(dx,dy);
+```
+
+![](http://latex.codecogs.com/png.latex?
+$$
+\\left [ 
+\\begin{matrix} 
+ & &\\\\
+ & Result & Matrix &\\\\
+ & &
+\\end{1} 
+\\right ]  
+ = 
+\\left [ 
+\\begin{matrix} 
+ 1  &  0  &  tx \\\\
+ 0  &  1  &  ty \\\\
+ 0  &  0  &  1
+\\end{1} 
+\\right ] 
+\\left [ 
+\\begin{matrix} 
+ sx  &  0  &  0 \\\\
+ 0  &  sy  &  0 \\\\
+ 0  &  0  &  1
+\\end{1} 
+\\right ]  
+\\left [ 
+\\begin{matrix}  
+ & &\\\\
+ & Initial & Matrix &\\\\
+ & &
+\\end{1} 
+\\right ]
+$$)
+
 ## 四、总结
+
+本文深入分析了Matrix的原理，并讲解了其常用方法和前后乘的方法。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
+<br>
+
 ## 参考
-[Matrix](https://developer.android.com/reference/android/graphics/Matrix.html)
-[Android Matrix](http://www.cnblogs.com/qiengo/archive/2012/06/30/2570874.html#code)
-[Android中关于矩阵（Matrix）前乘后乘的一些认识](http://blog.csdn.net/linmiansheng/article/details/18820599)
-[齐次坐标系入门级思考](https://oncemore2020.github.io/blog/homogeneous/)
+[Matrix](https://developer.android.com/reference/android/graphics/Matrix.html)<br>
+[Android Matrix](http://www.cnblogs.com/qiengo/archive/2012/06/30/2570874.html#code)<br>
+[Android中关于矩阵（Matrix）前乘后乘的一些认识](http://blog.csdn.net/linmiansheng/article/details/18820599)<br>
+[齐次坐标系入门级思考](https://oncemore2020.github.io/blog/homogeneous/)<br>
 [次坐标和投影](http://www.jianshu.com/p/7e701d7bfd79)
-[变换矩阵](https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5)
+[变换矩阵](https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5)<br>
