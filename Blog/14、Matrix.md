@@ -253,29 +253,15 @@ $$)
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视2.png" alt="透视" title="透视" />
 <br>
+<br>
 现在看下w=3时,(15,21,3)的效果 : <br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视1.png" alt="透视" title="透视" />
 <br>
 
 ![](http://latex.codecogs.com/png.latex?
-$$
-\\left （ 
-\\begin{matrix} 
-\\frac{15}{3},
-\\frac{21}{3},
-\\frac{3}{3},
-\\end{1} 
-\\right ） 
- = 
-\\left （ 
-\\begin{matrix}  
-5,
-7,
-1,
-\\end{1} 
-\\right ） 
-$$)
+$$\\left （ \\begin{matrix} \\frac{15}{3},\\frac{21}{3},\\frac{3}{3},\\end{1} \\right ） 
+ = \\left （ \\begin{matrix}  5,7,1,\\end{1} \\right ） $$)
 
 根据这个规则，所以我们会看到在修改`MPERSP_2`参数时，图像会发生类似缩放的效果，其实就是透视变换的效果。<br>
 
