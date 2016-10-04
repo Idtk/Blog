@@ -10,9 +10,11 @@
 $$
 \\left [ 
 \\begin{matrix} 
- MSCALE_\\X  &  MSKEW_\\X  &  MTRANS_\\X \\\\
- MSKEW_\\Y   &  MSCALE_\\Y &  MTRANS_\\Y \\\\
- MPERSP_\\0  &  MPERSP_\\1 &  MPERSP_\\2
+MSCALE\\_X & MSKEW\\_X & MTRANS\\_X \\\\
+\\\\
+MSKEW\\_Y & MSCALE\\_Y & MTRANS\\_Y \\\\
+\\\\
+MPERSP\\_0 & MPERSP\\_1 & MPERSP\\_2 
 \\end{1} 
 \\right ] 
 $$)
