@@ -10,9 +10,9 @@
 $$
 \\left [ 
 \\begin{matrix} 
- MSCALE_X  &  MSKEW_X  &  MTRANS_X \\\\
- MSKEW_Y   &  MSCALE_Y &  MTRANS_Y \\\\
- MPERSP_0  &  MPERSP_1 &  MPERSP_2
+ MSCALE_\\X  &  MSKEW_\\X  &  MTRANS_\\X \\\\
+ MSKEW_\\Y   &  MSCALE_\\Y &  MTRANS_\\Y \\\\
+ MPERSP_\\0  &  MPERSP_\\1 &  MPERSP_\\2
 \\end{1} 
 \\right ] 
 $$)
@@ -266,7 +266,7 @@ $$)
 
 ## 三、Matrix前乘与后乘
 
-Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)中**ColorMatrix相乘**章节所描述的基本相同。<br>
+Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解](http://www.idtkm.com/customview/cutomview13/)中**ColorMatrix相乘**章节所描述的基本相同。<br>
 
 ### 前乘
 
