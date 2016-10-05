@@ -374,5 +374,5 @@ $$)
 [Android Matrix](http://www.cnblogs.com/qiengo/archive/2012/06/30/2570874.html#code)<br>
 [Android中关于矩阵（Matrix）前乘后乘的一些认识](http://blog.csdn.net/linmiansheng/article/details/18820599)<br>
 [齐次坐标系入门级思考](https://oncemore2020.github.io/blog/homogeneous/)<br>
-[次坐标和投影](http://www.jianshu.com/p/7e701d7bfd79)
+[次坐标和投影](http://www.jianshu.com/p/7e701d7bfd79)<br>
 [变换矩阵](https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5)<br>
