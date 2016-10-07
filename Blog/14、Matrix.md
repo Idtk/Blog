@@ -260,7 +260,7 @@ $$)
 <br>
 
 <br>
-现在看下w=1时,(5,7,1)的效果 : <br>
+现在看下(15,21,3)计算出的齐次坐标系坐标(5,7,1)的效果 : <br>
 
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/透视2.png" alt="透视" title="透视" />
