@@ -26,7 +26,41 @@ $$)
 * MTRANS_X、MTRANS_Y 分别表示X、Y的平移
 * MPERSP_0、MPERSP_1 分别表示X、Y方向上的透视
 
-**注：透视的原理将会在本文稍后的位置进行说明**
+### 使用示例
+
+在Android的很多地方其实都使用到了Matrix的方法，比如图片、Canvas、动画等，我们这里以图片为例，像在[Canvas与ValueAnimator](https://github.com/Idtk/Blog/blob/master/Blog/2%E3%80%81CanvasAndValueAnimator.md)章节中一样，在`onDraw`函数中我们先绘制一个坐标系，然后来绘制一个矩形。
+
+```Java
+// 平移画布
+canvas.translate(mWidth/2,mHeight/2);
+mPaint.setStrokeWidth(1);// 恢复画笔默认宽度
+// 绘制X轴
+canvas.drawLine(-mWidth/2*0.8f,0,mWidth/2*0.8f,0,mPaint);
+// 绘制Y轴
+canvas.drawLine(0,-mHeight/2*0.8f,0,mHeight/2*0.8f,mPaint);
+mPaint.setStrokeWidth(3);
+// 绘制X轴箭头
+canvas.drawLines(new float[]{
+        mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,-mWidth/2*0.8f*0.05f,
+        mWidth/2*0.8f,0,mWidth/2*0.8f*0.95f,mWidth/2*0.8f*0.05f
+},mPaint);
+// 绘制Y轴箭头
+canvas.drawLines(new float[]{
+        0,mHeight/2*0.8f,mWidth/2*0.8f*0.05f,mHeight/2*0.8f-mWidth/2*0.8f*0.05f,
+        0,mHeight/2*0.8f,-mWidth/2*0.8f*0.05f,mHeight/2*0.8f-mWidth/2*0.8f*0.05f,
+},mPaint);
+// 创建矩阵
+mMatrix = new Matrix();
+/**
+ *  测试的Matrix操作
+ */
+
+// 绘制图片
+canvas.drawBitmap(mBitmap,mMatrix,null);
+```
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix0.png" alt="Matix" title="Matix" />
+<br>
 
 ## 二、Matrix原理
 ### 1、缩放变换
@@ -67,6 +101,25 @@ $$)
 效果如图所示 : <br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/缩放.png" alt="缩放矩阵" title="缩放矩阵" />
+<br>
+
+### 使用示例
+
+现在我们使用`Matrix`自带的`setScale`方法 : 
+```Java
+/**
+ *  测试的Matrix操作
+ */
+mMatrix.setScale(0.5f,0.5f);
+
+Log.d("TAG",mMatrix.toString());
+
+// Log
+D/TAG: Matrix{[0.5, 0.0, 0.0][0.0, 0.5, 0.0][0.0, 0.0, 1.0]}
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix1.png" alt="Matix" title="Matix" />
 <br>
 
 ### 2、错切变换
@@ -155,6 +208,24 @@ $$)
 
 当然你也可以同时进行水平错切和垂直错切的变换。
 
+### 使用示例
+
+现在我们使用`Matrix`自带的`setSkew`方法 : 
+```Java
+/**
+ *  测试的Matrix操作
+ */
+mMatrix.setSkew(0f,0.5f);
+Log.d("TAG",mMatrix.toString());
+
+// Log
+D/TAG: Matrix{[1.0, 0.0, 0.0][0.5, 1.0, 0.0][0.0, 0.0, 1.0]}
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix2.png" alt="Matix" title="Matix" />
+<br>
+
 ### 3、平移变换
 
 假设有坐标为[](http://latex.codecogs.com/png.latex?$$ x_0、y_0 $$)，将其点进行平移，移动到点[](http://latex.codecogs.com/png.latex?$$ x、y $$)，其x、y计算结果为 : <br>
@@ -193,6 +264,24 @@ $$)
 效果如图所示 : <br>
 <br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/平移.png" alt="平移" title="平移" />
+<br>
+
+### 使用示例
+
+现在我们使用`Matrix`自带的`setTranslate`方法 : 
+```Java
+/**
+ *  测试的Matrix操作
+ */
+mMatrix.setTranslate(-200,-200);
+Log.d("TAG",mMatrix.toString());
+
+// Log
+D/TAG: Matrix{[1.0, 0.0, -200.0][0.0, 1.0, -200.0][0.0, 0.0, 1.0]}
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix3.png" alt="Matix" title="Matix" />
 <br>
 
 ### 4、旋转变换
@@ -247,6 +336,24 @@ $$)
 <img src="https://github.com/Idtk/Blog/blob/master/Image/14/旋转.png" alt="旋转" title="旋转" />
 <br>
 
+### 使用示例
+
+现在我们使用`Matrix`自带的`setRotate`方法 : 
+```Java
+/**
+ *  测试的Matrix操作
+ */
+mMatrix.setRotate(180);
+Log.d("TAG",mMatrix.toString());
+
+// Log
+D/TAG: Matrix{[-1.0, -0.0, 0.0][0.0, -1.0, 0.0][0.0, 0.0, 1.0]}
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix4.png" alt="Matix" title="Matix" />
+<br>
+
 ### 5、透视变换
 
 我们在之前的变换中，一直没有说到最后一行的三个参数`MPERSP_0、MPERSP_1、MPERSP_2`，这里我们来稍微聊聊这三个参数所表示的透视。我们一般在图像中的一个点将使用如下方式进行表示(x, y, w),而Android中的二维矩阵计算是基于齐次坐标的，齐次坐标要求w的值为1，所以这个点的表示方法就变化为(x/w, y/w, 1)。<br>
@@ -267,6 +374,24 @@ $$)
 <br>
 
 根据这个规则，也就解释了我们在使用过程中修改`MPERSP_2`参数时，图像会发生的类似缩放的效果，其实就是透视变换的效果。<br>
+
+### 使用示例
+
+现在我们使用`Matrix`自带的`setValues`方法 : 
+```Java
+/**
+ *  测试的Matrix操作
+ */
+mMatrix.setValues(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1.5f});
+Log.d("TAG",mMatrix.toString());
+
+// Log
+D/TAG: Matrix{[1.0, 0.0, 0.0][0.0, 1.0, 0.0][0.0, 0.0, 1.5]}
+```
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/14/Matix5.png" alt="Matix" title="Matix" />
+<br>
 
 ## 三、Matrix前乘与后乘
 
