@@ -31,7 +31,7 @@ $$)
 ## 二、Matrix原理
 ### 1、缩放变换
 
-将点的X轴和y轴方向分别缩放![](http://latex.codecogs.com/png.latex?$$ k_0 $$)和![](http://latex.codecogs.com/png.latex?$$ k_1 $$)倍。x、y的计算结果为 : 
+将点的X轴和y轴方向分别缩放![](http://latex.codecogs.com/png.latex?$$  k_0  $$)和![](http://latex.codecogs.com/png.latex?$$  k_1  $$)倍。x、y的计算结果为 : 
 
 ![](http://latex.codecogs.com/png.latex?$$ x = k_0\\cdot x_0 $$)<br>
 ![](http://latex.codecogs.com/png.latex?$$ y = k_1\\cdot y_0 $$)<br>
