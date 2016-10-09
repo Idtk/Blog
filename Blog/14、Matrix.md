@@ -292,13 +292,13 @@ D/TAG: Matrix{[1.0, 0.0, -200.0][0.0, 1.0, -200.0][0.0, 0.0, 1.0]}
 ![](http://latex.codecogs.com/png.latex?$$ y_0 = r\\cdot\\sin \\alpha $$)<br>
 ![](http://latex.codecogs.com/png.latex?
 $$ x 
-= r \\cdot \\cos （\\alpha + \\theta）
+= r \\cdot \\cos \\left (\\alpha + \\theta\\right) 
 = r \\cdot\\cos\\alpha\\cos\\theta - r \\cdot\\sin\\alpha\\sin\\theta 
 = x_0\\cos\\theta - y_0\\sin\\theta
 $$)<br>
 ![](http://latex.codecogs.com/png.latex?
 $$ y 
-= r \\cdot \\sin （\\alpha + \\theta）
+= r \\cdot \\sin \\left (\\alpha + \\theta\\right) 
 = r \\cdot\\sin\\alpha\\cos\\theta + r \\cdot\\cos\\alpha\\sin\\theta 
 = y_0\\cos\\theta + x_0\\sin\\theta
 $$)<br>
