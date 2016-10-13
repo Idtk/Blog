@@ -406,7 +406,7 @@ Matrix前乘与后乘的情况跟我在之前的文章[ColorMatrix详解](http:/
 ```Java
 mMatrix.reset();
 mMatrix.preScale(sx,sy);
-mMatrix.preTranslate(dx,dy);
+mMatrix.preTranslate(tx,ty);
 ```
 
 用矩阵表示为 : 
@@ -451,7 +451,7 @@ $$)
 ```Java
 mMatrix.reset();
 mMatrix.postScale(sx,sy);
-mMatrix.postTranslate(dx,dy);
+mMatrix.postTranslate(tx,ty);
 ```
 
 ![](http://latex.codecogs.com/png.latex?
