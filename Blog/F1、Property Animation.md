@@ -26,6 +26,7 @@ private void initAnimator(long duration) {
 ```
 其输出值animatedValue是一个随时间变化的连续数值，就像这样 :
 <br>
+<br>
 <img src="https://github.com/Idtk/Blog/blob/master/Image/Animator/Log.png" alt="Log" title="Log" />
 <br>
 
@@ -33,7 +34,10 @@ private void initAnimator(long duration) {
 
 ## 那么它是如何产生这样一组连续变化的数值呢？
 
-从`ValueAnimator.start`方法开始
+从`animator.start()`方法开始
+
+##### `ValueAnimator.start`
+
 ```Java
 public void start() {
     start(false);
@@ -74,7 +78,7 @@ private void start(boolean playBackwards) {
 
 ### 加入回调
 
-##### `animationHandler.addAnimationFrameCallback`
+##### `AnimationHandler.addAnimationFrameCallback`
 
 ```Java
 public void addAnimationFrameCallback(final AnimationFrameCallback callback, long delay) {
@@ -154,7 +158,7 @@ private void postCallbackDelayedInternal(int callbackType,
 
 ### Vsync的注册
 
-##### Choreographer.scheduleFrameLocked`
+##### Choreographer.scheduleFrameLocked
 
 ```java
 private void scheduleFrameLocked(long now) {
@@ -547,7 +551,7 @@ void animateValue(float fraction) {
 }
 ```
 
-### 循环
+### 循环产生连续的值
 
 我们现在再来回头看看mFrameCallback
 
@@ -580,7 +584,7 @@ boolean animateBasedOnTime(long currentTime) {
   // mRunning要到执行startAnimation才会为true
     if (mRunning) {
         final long scaledDuration = getScaledDuration();
-      // 当执行时间大于或等于设置的时间时，fraction >= 1
+      // 当执行时间 >= (设置的时间*执行次数)时，fraction >= 1
         final float fraction = scaledDuration > 0 ?
                 (float)(currentTime - mStartTime) / scaledDuration : 1f;
         final float lastFraction = mOverallFraction;
@@ -688,3 +692,26 @@ private void cleanUpList() {
 ```
 
 设置为null的回调被移除后，动画也就自然而然的停止了。
+
+
+
+## 总结
+
+最后整理下流程 : 
+
+<br>
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Animator/Animator.png" alt="Animator" title="Animator" />
+<br>
+
+如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+**博客:www.idtkm.com**<br>
+**GitHub:https://github.com/Idtk**<br>
+**微博:http://weibo.com/Idtk**<br>
+**邮箱:IdtkMa@gmail.com**<br>
+<br>
+
+## Thanks
+
+[D_clock爱吃葱花](http://www.jianshu.com/users/ec95b5891948/latest_articles)
+
+[姚嫁衣](http://blog.desmondyao.com/)
