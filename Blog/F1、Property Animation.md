@@ -700,7 +700,7 @@ private void cleanUpList() {
 最后整理下流程 : 
 
 <br>
-<img src="http://ww3.sinaimg.cn/mw690/9e727a53gw1f9llc9cnb3j20k41lg472.jpg" alt="Animator" title="Animator" />
+<img src="http://ww1.sinaimg.cn/mw1024/9e727a53gw1f9llfp98u7j20k41lg472.jpg" alt="Animator" title="Animator" />
 <br>
 
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
