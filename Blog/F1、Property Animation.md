@@ -700,7 +700,7 @@ private void cleanUpList() {
 最后整理下流程 : 
 
 <br>
-<img src="https://github.com/Idtk/Blog/blob/master/Image/Animator/Animator.png" alt="Animator" title="Animator" />
+<img src="http://ww3.sinaimg.cn/mw690/9e727a53gw1f9llc9cnb3j20k41lg472.jpg" alt="Animator" title="Animator" />
 <br>
 
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
@@ -714,4 +714,4 @@ private void cleanUpList() {
 
 [D_clock爱吃葱花](http://www.jianshu.com/users/ec95b5891948/latest_articles)
 
-[姚嫁衣](http://blog.desmondyao.com/)
+[姚家艺](http://blog.desmondyao.com/)
