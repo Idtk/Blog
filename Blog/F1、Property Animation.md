@@ -588,7 +588,7 @@ boolean animateBasedOnTime(long currentTime) {
   // mRunning要到执行startAnimation才会为true
     if (mRunning) {
         final long scaledDuration = getScaledDuration();
-      // 当执行时间 >= (设置的时间*执行次数)时，fraction >= 1
+      // 当执行时间 >= (设置的时间*执行次数)时，fraction >= (执行次数+1)
         final float fraction = scaledDuration > 0 ?
                 (float)(currentTime - mStartTime) / scaledDuration : 1f;
         final float lastFraction = mOverallFraction;
@@ -704,7 +704,7 @@ private void cleanUpList() {
 最后整理下流程 : 
 
 <br>
-<img src="http://ww1.sinaimg.cn/mw1024/9e727a53gw1f9llfp98u7j20k41lg472.jpg" alt="Animator" title="Animator" />
+<img src="https://github.com/Idtk/Blog/blob/master/Image/Animator/Animator.png" alt="Log" title="Log" />
 <br>
 
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
