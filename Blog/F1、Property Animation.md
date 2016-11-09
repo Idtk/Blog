@@ -3,6 +3,10 @@
 
 大家在开发过程中，经常会使用到属性动画，这里以ValueAnimator为例，它可以通过addUpdateListener来监听输出的数值，就像这样 :
 ```Java
+private ValueAnimator animator;
+private float animatedValue;
+private TimeInterpolator timeInterpolator = new DecelerateInterpolator();
+
 private void initAnimator(long duration) {
     if (animator != null && animator.isRunning()) {
         animator.cancel();
