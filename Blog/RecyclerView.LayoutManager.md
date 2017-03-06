@@ -246,11 +246,8 @@ public void onDraw(Canvas c) {
 
 本文通过View的基本方法对RecyclerView的绘制进行了简单的分析。RecyclerView通过LayoutManager类将测量、布局、绘制等从自身中分离了出来，减少了代码的耦合，使其更加灵活、更易扩展。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。
 
-**博客:www.idtkm.com**
-
-**GitHub:https://github.com/Idtk**
-
-**微博:http://weibo.com/Idtk**
-
-**邮箱:IdtkMa@gmail.com**
+&nbsp;&nbsp;**博客: www.idtkm.com**<br>
+&nbsp;&nbsp;**GitHub: https://github.com/Idtk**<br>
+&nbsp;&nbsp;**微博: http://weibo.com/Idtk**<br>
+&nbsp;&nbsp;**邮箱: IdtkMa@gmail.com**<br>
 
