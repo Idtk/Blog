@@ -1,10 +1,8 @@
 # RecyclerView绘制流程的简单分析
 
-本文将简单分析下RecyclerView的绘制流程。
+&nbsp;&nbsp;&nbsp;&nbsp;本文将简单分析下RecyclerView的绘制流程。既然是一个View，就从`onMeasure`开始。
 
 ## onMeasure
-
-既然是一个View布局，就从`onMeasure`开始。
 
 ```Java
 protected void onMeasure(int widthSpec, int heightSpec) {
@@ -244,7 +242,7 @@ public void onDraw(Canvas c) {
 
 ##  最后
 
-本文通过View的基本方法对RecyclerView的绘制进行了简单的分析。RecyclerView通过LayoutManager类将测量、布局、绘制等从自身中分离了出来，减少了代码的耦合，使其更加灵活、更易扩展。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。
+&nbsp;&nbsp;&nbsp;&nbsp;本文通过View的基本方法对RecyclerView的绘制进行了简单的分析。RecyclerView通过LayoutManager类将测量、布局、绘制等从自身中分离了出来，减少了代码的耦合，使其更加灵活、更易扩展。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。
 
 &nbsp;&nbsp;**博客: www.idtkm.com**<br>
 &nbsp;&nbsp;**GitHub: https://github.com/Idtk**<br>
