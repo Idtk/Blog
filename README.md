@@ -21,11 +21,11 @@
 * [13、ColorMatrix详解](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)
 * [14、Matrix原理](https://github.com/Idtk/Blog/blob/master/Blog/14%E3%80%81Matrix.md)
 
-
 ******
 ## RecyclerView简单分析
 
 * [RecyclerView绘制流程的简单分析](https://github.com/Idtk/Blog/blob/master/Blog/RecyclerView.LayoutManager.md)
+
 ******
 
 ## About
