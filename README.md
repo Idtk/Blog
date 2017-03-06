@@ -23,6 +23,9 @@
 
 
 ******
+## RecyclerView简单分析
+[RecyclerView绘制流程的简单分析](https://github.com/Idtk/Blog/blob/master/Blog/RecyclerView.LayoutManager.md
+******
 
 ## About
 
