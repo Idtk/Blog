@@ -10,7 +10,7 @@ public final class Recycler {
 		// mAttachedScrap的不可变视图
         private final List<ViewHolder>
                 mUnmodifiableAttachedScrap = Collections.unmodifiableList(mAttachedScrap);
-		// 应保留的缓存数
+		// 预缓存数，设置后会相应更新mViewCacheMax的值
         private int mRequestedCacheMax = DEFAULT_CACHE_SIZE;
 		// 最大缓存数
         int mViewCacheMax = DEFAULT_CACHE_SIZE;
