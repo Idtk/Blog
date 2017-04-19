@@ -222,6 +222,7 @@ ViewHolder tryGetViewHolderForPositionByDeadline(int position,
 
 为了方便理解代码逻辑，画了个流程图如下所示：<br>
 
+<img src="http://ompb0h8qq.bkt.clouddn.com/recycler/recycler%E8%8E%B7%E5%8F%96.png" title="缓存获取" width="300"/><br>
 
 
 
