@@ -1,4 +1,4 @@
-# RecyclerView绘制流程的简单分析
+# RecyclerView绘制流程分析
 
 &nbsp;&nbsp;&nbsp;&nbsp;本文将简单分析下RecyclerView的绘制流程。既然是一个View，就从`onMeasure`开始。
 

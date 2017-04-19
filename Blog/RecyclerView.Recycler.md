@@ -1,4 +1,4 @@
-# RecyclerView缓存简单分析
+# RecyclerView缓存分析
 
 本文采用recyclerview-v7-25的源码
 
@@ -58,7 +58,7 @@ RecyclerView拥有三级缓存(算上mAdapter.createViewHolder的话其实就有
 
 # 获取缓存
 
-RecyclerView拥有这么多级缓存，在获取ViewHolder的时候是如何处理的呢？这里来看下`tryGetViewHolderForPositionByDeadline`方法
+对于多级缓存的使用我们来看下`tryGetViewHolderForPositionByDeadline`方法
 
 ```Java
 ViewHolder tryGetViewHolderForPositionByDeadline(int position,
@@ -220,13 +220,15 @@ ViewHolder tryGetViewHolderForPositionByDeadline(int position,
 }
 ```
 
-简单的逻辑流程图如下所示：<br>
+为了方便理解代码逻辑，画了个流程图如下所示：<br>
 
-<img src="http://ompb0h8qq.bkt.clouddn.com/recycler/recycler.png" title="缓存获取" width="300"/><br>
+<img src="http://ompb0h8qq.bkt.clouddn.com/recycler/recyclerView.png" title="缓存获取" width="300"/><br>
 
 
 
 # 缓存池
+
+现在来看看RecycledViewPool的实现。
 
 ```Java
 public static class RecycledViewPool {
@@ -283,11 +285,12 @@ public static class RecycledViewPool {
 
 }
 ```
-RecycledViewPool中的一种viewType缓存池是一个默认大小为5的ArrayList实现的，之后把这些对象通过SparseArray组合成一个缓存池。
+
+RecycledViewPool是由SparseArray实现，其中包含了多个viewType对应的ArrayList集合。获取时通过viewType得到对应的ArrayList集合，之后返回一个ViewHolder，并在集合中删除这个ViewHolder。添加操作也是类似，只不过在发现没有viewType对应的ArrayList集合时，将进行创建，并且在比较大小不超过默认大小5时，添加进入ArrayList。
 
 # 总结
 
-RecyclerView通过多级缓存的方式实现了，ViewHolder的重用，减少了创建的时间。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文分析了RecyclerView的缓存实现，其通过多级缓存的方式实现了ViewHolder的重用，减少了ViewHolder创建，提升了效率。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
