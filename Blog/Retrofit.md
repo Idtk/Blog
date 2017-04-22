@@ -44,6 +44,7 @@ public static final class Builder {
 		converterFactories.add(new BuiltInConverters());
 	}
 	public Builder() {
+		// Platform.get()方法可以用于判断当前的环境
 		this(Platform.get());
 	}
 	public Builder baseUrl(String baseUrl) {
@@ -82,3 +83,45 @@ public static final class Builder {
     }
 }
 ```
+
+这里除了builder模式以外，还有两个地方需要关注下，一个是`Platform.get()`方法。它通过`Class.forName`获取类名的方式，来判断当前的环境是否在Android中，这在之后获取默认的`CallAdapterFactory`时候将会用到。另一个是在`build()`中创建了`OkHttpClient`。
+
+# retrofit.create
+
+好玩的地方开始了，我们先来看看这个方法。
+
+```Java
+public <T> T create(final Class<T> service) {
+  Utils.validateServiceInterface(service);
+  if (validateEagerly) {
+    eagerlyValidateMethods(service);
+  }
+  // 动态代理，啦啦啦
+  return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[] { service },
+      new InvocationHandler() {
+        // platform 可以分辨出你是在android，还是java8里面玩耍，又或者别的
+        private final Platform platform = Platform.get();
+        @Override public Object invoke(Object proxy, Method method, Object[] args)
+            throws Throwable {
+          // If the method is a method from Object then defer to normal invocation.
+          // 这里是个搞事情的invoke，Object方法都走这里，比如equals、toString、hashCode什么的
+          if (method.getDeclaringClass() == Object.class) {
+            return method.invoke(this, args);
+          }
+          // 有时候java8会来玩玩，他会从这里跑掉
+          if (platform.isDefaultMethod(method)) {
+            return platform.invokeDefaultMethod(method, service, proxy, args);
+          }
+          // 解析注解的，这个是正事
+          ServiceMethod<Object, Object> serviceMethod =
+              (ServiceMethod<Object, Object>) loadServiceMethod(method);
+          OkHttpCall<Object> okHttpCall = new OkHttpCall<>(serviceMethod, args);
+          return serviceMethod.callAdapter.adapt(okHttpCall);
+        }
+      });
+}
+```
+可以看出创建API使用了动态代理，根据接口动态生成的代理类，将接口的都转发给了负责连接代理类和委托类的`InvocationHandler`实例，接口方法也都通过其`invoke`方法来处理。
+在`invoke`方法中，首先会通过`Platform.get()`方法判断出当前代码的执行环境，之后会先把`Object`和Java8的默认方法进行一个处理，也是在进行后续处理之前进行去噪。
+
+### 注解的解析
