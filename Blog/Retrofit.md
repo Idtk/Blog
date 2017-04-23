@@ -187,7 +187,8 @@ public ServiceMethod build() {
     if (parameterAnnotations == null) {
       throw parameterError(p, "No Retrofit annotation found.");
     }
-    parameterHandlers[p] = parseParameter(p, parameterType, parameterAnnotations);// 生成了对应的参数注解Param
+	// 生成了对应的参数注解ParameterHandler实例
+    parameterHandlers[p] = parseParameter(p, parameterType, parameterAnnotations);
   }
   // 对方法的一些检测
   ...
@@ -197,4 +198,75 @@ public ServiceMethod build() {
 ```
 
 ## 注解的解析
+`CallAdapter`和`Converter`等到后面再分析，这里先看看`parseMethodAnnotation(annotation)`，功能和其名字一样，其对方法注解进行了解析。
+```Java
+/**
+ * 解析方法注解，呜啦啦
+ * 通过判断注解类型来解析
+ * @param annotation
+ */
+private void parseMethodAnnotation(Annotation annotation) {
+  if (annotation instanceof DELETE) {
+    parseHttpMethodAndPath("DELETE", ((DELETE) annotation).value(), false);
+  } else if (annotation instanceof GET) {
+    parseHttpMethodAndPath("GET", ((GET) annotation).value(), false);
+  } 
+  // 其他的一些方法注解的解析
+  ...
+}
 
+private void parseHttpMethodAndPath(String httpMethod, String value, boolean hasBody) {
+  if (this.httpMethod != null) {// 已经赋值过了
+    throw methodError("Only one HTTP method is allowed. Found: %s and %s.",
+        this.httpMethod, httpMethod);
+  }
+  this.httpMethod = httpMethod;
+  this.hasBody = hasBody;
+  // value为设置注解方法时候，设置的值，官方例子中的users/{user}/repos or user
+  if (value.isEmpty()) {
+    return;
+  }
+  // 查询条件的一些判断
+    ...
+  this.relativeUrl = value;
+  this.relativeUrlParamNames = parsePathParameters(value);
+}
+````
+
+在解析注解时，先通过`instanceof`判断出注解的类型，之后调用`parseHttpMethodAndPath`方法解析注解参数值，并设置`httpMethod、relativeUrl、relativeUrlParamNames`等属性。<br>
+
+上面说了API中方法注解的解析，现在来看看方法参数注解的解析，这是通过调用`parseParameterAnnotation`方法生成ParameterHandler实例来实现的，代码比较多，这里挑选@Query来看看。
+
+```Java
+else if (annotation instanceof Query) {
+Query query = (Query) annotation;
+String name = query.value();
+boolean encoded = query.encoded();
+
+Class<?> rawParameterType = Utils.getRawType(type);// 返回基础的类
+gotQuery = true;
+// 可以迭代，Collection
+if (Iterable.class.isAssignableFrom(rawParameterType)) {
+  if (!(type instanceof ParameterizedType)) {
+	throw parameterError(p, rawParameterType.getSimpleName()
+		+ " must include generic type (e.g., "
+		+ rawParameterType.getSimpleName()
+		+ "<String>)");
+  }
+  ParameterizedType parameterizedType = (ParameterizedType) type;
+  Type iterableType = Utils.getParameterUpperBound(0, parameterizedType);// 返回基本类型
+  Converter<?, String> converter =
+	  retrofit.stringConverter(iterableType, annotations);
+  return new ParameterHandler.Query<>(name, converter, encoded).iterable();
+} else if (rawParameterType.isArray()) {// Array
+  Class<?> arrayComponentType = boxIfPrimitive(rawParameterType.getComponentType());// 如果是基本类型，自动装箱
+  Converter<?, String> converter =
+	  retrofit.stringConverter(arrayComponentType, annotations);
+  return new ParameterHandler.Query<>(name, converter, encoded).array();
+} else {// Other
+  Converter<?, String> converter =
+	  retrofit.stringConverter(type, annotations);
+  return new ParameterHandler.Query<>(name, converter, encoded);
+}
+```
+在@Query中，将分成Collection、array、other三种情况处理参数，之后根据这些参数，调用ParameterHandler中的Query静态类，创建出一个ParameterHandler实例。这样循环直到解析了所有的参数注解，组合成为全局变量`parameterHandlers`，之后构建请求时会用到。
