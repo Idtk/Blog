@@ -440,7 +440,9 @@ ExecutorCallbackCall(Executor callbackExecutor, Call<T> delegate) {
 }
 ```
 
-这里的参数`callback`才是用户输入的回调对象，而其中的`delegate`就是之前的`okhttpCall`。所以`delegate.enqueue`就是调用了`OkhttpCall.enqueue`，而其中的`callbackExecutor`就是刚刚的主线程。我们常用的`RxJavaCallAdapterFactory`其实也是经历了相似的过程，get生成`RxJavaCallAdapter`对象，在其中调用`adapter`方法创建`observable`。
+这里的参数`callback`才是用户输入的回调对象，而其中的`delegate`就是之前的`okhttpCall`。所以`delegate.enqueue`就是调用了`OkhttpCall.enqueue`，而其中的`callbackExecutor`就是刚刚的主线程。
+
+~~RxJava这段，等晚上再梳理下~~
 
 ### Converter
 
