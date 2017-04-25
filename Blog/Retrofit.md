@@ -648,9 +648,8 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
 本文分析了Retrofit的执行流程，其实包含了Retrofit、ServiceMethod、OkHttpCall、CallAdapter、Converter等方面，希望阅读本文后可以让我们在使用Retrofit的同时，也能了解其内部的执行过程。<br>
 
-[如果想看retrofit中其他一些代码的注释，请点击这里，如果其中发现不合适的描述，欢迎指出](https://github.com/Idtk/CodeDaily/tree/master/retrofit)
+[如果想看retrofit中其他一些代码的注释，请点击这里，如果其中发现不合适的描述，欢迎指出](https://github.com/Idtk/CodeDaily/tree/master/retrofit)<br>
 
-<br>
 如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
