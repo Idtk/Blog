@@ -31,7 +31,7 @@ Call<List<Repo>> repos = service.listRepos("octocat");
 
 ## Retrofit的创建
 
-retrofit实例的创建，使用了<span id='retrofit__build'>`builder`</span>模式，从下面的源码中可以看出。
+retrofit实例的创建，使用了[`builder`](#retrofit__build)模式，从下面的源码中可以看出。
 
 ```Java
 public static final class Builder {
@@ -108,7 +108,7 @@ public <T> T create(final Class<T> service) {
           if (platform.isDefaultMethod(method)) {
             return platform.invokeDefaultMethod(method, service, proxy, args);
           }
-          // 解析注解的，这个是正事
+          // 这里是核心代码了
           ServiceMethod<Object, Object> serviceMethod =
               (ServiceMethod<Object, Object>) loadServiceMethod(method);
           OkHttpCall<Object> okHttpCall = new OkHttpCall<>(serviceMethod, args);
@@ -267,7 +267,7 @@ if (Iterable.class.isAssignableFrom(rawParameterType)) {
   return new ParameterHandler.Query<>(name, converter, encoded);
 }
 ```
-在@Query中，将分成Collection、array、other三种情况处理参数，之后根据这些参数，调用ParameterHandler中的Query静态类，创建出一个ParameterHandler实例。这样循环直到解析了所有的参数注解，组合成为全局变量<span id='parameterHandlers'>`parameterHandlers`<span>，之后构建请求时会用到。
+在@Query中，将分成Collection、array、other三种情况处理参数，之后根据这些参数，调用ParameterHandler中的Query静态类，创建出一个ParameterHandler实例。这样循环直到解析了所有的参数注解，组合成为全局变量[`parameterHandlers`](#parameterHandlers)，之后构建请求时会用到。
 
 ### OkHttpCall
 
@@ -407,7 +407,7 @@ public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit
   };
 }
 ```
-接下来再继续看看其调用`adapter`方法生成的`ExecutorCallbackCall`对象。
+`responseType`方法返回的对象之后会在`Converter`中用到，不过接下来先继续看看其调用`adapter`方法生成的`ExecutorCallbackCall`对象。
 ```Java
 ExecutorCallbackCall(Executor callbackExecutor, Call<T> delegate) {
   this.callbackExecutor = callbackExecutor;
@@ -441,12 +441,152 @@ ExecutorCallbackCall(Executor callbackExecutor, Call<T> delegate) {
 ```
 
 这里的参数`callback`才是用户输入的回调对象，而其中的`delegate`就是之前的`okhttpCall`。所以`delegate.enqueue`就是调用了`OkhttpCall.enqueue`，而其中的`callbackExecutor`就是刚刚的主线程。
+<br>
 
-~~RxJava这段，等晚上再梳理下~~
+顺便再来看看常用的RxJava2CallAdapter，这里直接从`RxJava2CallAdapter.adapter`方法开始
+```Java
+@Override public Object adapt(Call<R> call) {
+  Observable<Response<R>> responseObservable = isAsync
+      ? new CallEnqueueObservable<>(call)
+      : new CallExecuteObservable<>(call);
+  Observable<?> observable;
+  if (isResult) {
+    observable = new ResultObservable<>(responseObservable);
+  } else if (isBody) {
+    observable = new BodyObservable<>(responseObservable);
+  } else {
+    observable = responseObservable;
+  }
+  if (scheduler != null) {
+    observable = observable.subscribeOn(scheduler);
+  }
+  ...
+  return observable;
+}
+```
+adapter最终创建了Observable，主我们这里分析其中开头的两步来：
+* 分异步和同步请求创建responseObservable
+* 根据返回的类型创建observable
+
+这里以异步为例，看看`CallEnqueueObservable`类
+```Java
+final class CallEnqueueObservable<T> extends Observable<Response<T>> {
+  private final Call<T> originalCall;
+
+  CallEnqueueObservable(Call<T> originalCall) {
+    this.originalCall = originalCall;
+  }
+
+  @Override protected void subscribeActual(Observer<? super Response<T>> observer) {
+    // Since Call is a one-shot type, clone it for each new observer.
+    Call<T> call = originalCall.clone();
+    CallCallback<T> callback = new CallCallback<>(call, observer);
+    observer.onSubscribe(callback);
+    call.enqueue(callback);// 这里执行了enqueue
+  }
+
+  private static final class CallCallback<T> implements Disposable, Callback<T> {
+    private final Call<?> call;
+    private final Observer<? super Response<T>> observer;
+    boolean terminated = false;
+
+    CallCallback(Call<?> call, Observer<? super Response<T>> observer) {
+      this.call = call;
+      this.observer = observer;
+    }
+
+    @Override public void onResponse(Call<T> call, Response<T> response) {
+      if (call.isCanceled()) return;
+
+      try {
+        observer.onNext(response);
+
+        if (!call.isCanceled()) {
+          terminated = true;
+          observer.onComplete();
+        }
+      } catch (Throwable t) {
+        ...
+      }
+    }
+
+    @Override public void onFailure(Call<T> call, Throwable t) {
+      if (call.isCanceled()) return;
+
+      try {
+        observer.onError(t);
+      } catch (Throwable inner) {
+        Exceptions.throwIfFatal(inner);
+        RxJavaPlugins.onError(new CompositeException(t, inner));
+      }
+    }
+
+    ...
+  }
+}
+```
+在`subscribeActual`方法内，主要做了三件事情：
+* clone了原有的call，因为OkHttp.Call只能使用一次
+* 设置了onSubscribe，可用于解除订阅
+* 执行了enqueue请求
+
+<br>
+再看看第二步，这里以`BodyObservable`为例子：
+```Java
+final class BodyObservable<T> extends Observable<T> {
+  private final Observable<Response<T>> upstream;
+
+  BodyObservable(Observable<Response<T>> upstream) {
+    this.upstream = upstream;
+  }
+
+  @Override protected void subscribeActual(Observer<? super T> observer) {
+    upstream.subscribe(new BodyObserver<T>(observer));
+  }
+
+  private static class BodyObserver<R> implements Observer<Response<R>> {
+    private final Observer<? super R> observer;
+    private boolean terminated;
+
+    BodyObserver(Observer<? super R> observer) {
+      this.observer = observer;
+    }
+
+    @Override public void onSubscribe(Disposable disposable) {
+      observer.onSubscribe(disposable);
+    }
+
+    @Override public void onNext(Response<R> response) {
+      if (response.isSuccessful()) {
+        observer.onNext(response.body());
+      } else {
+		...
+          observer.onError(t);
+        ...
+      }
+    }
+
+    @Override public void onComplete() {
+      if (!terminated) {
+        observer.onComplete();
+      }
+    }
+
+    @Override public void onError(Throwable throwable) {
+      if (!terminated) {
+        observer.onError(throwable);
+      } 
+	  ...
+    }
+  }
+}
+```
+
+`subscribeActual`方法在`subscribe`之后执行，自然responseObservable就订阅了BodyObserver，所以上面CallEnqueueObservable中的onResponse内，调用`observer.onNext`也就是`BodyObserver.onNext`,最后刚开始的观察着就收到了`response.body()`。
 
 ### Converter
 
-在OkhttpCall.enqueue方法中还有一句重要的代码没有看，那就是`response = parseResponse(rawResponse);`,我们来看看这其中做了什么。
+现在回到khttpCall.enqueue方法中，在其中还有一句重要的代码没有看，那就是`response = parseResponse(rawResponse);`,我们来看看这其中做了什么。
 
 ```Java
 Response<T> parseResponse(okhttp3.Response rawResponse) throws IOException
@@ -475,7 +615,24 @@ R toResponse(ResponseBody body) throws IOException {
 ```
 可以看出parseResponse最终调用了`Converter.convert`方法。这里以常用的GsonConverterFactory为例。
 ```Java
-@Override public T convert(ResponseBody value) throws IOException {
+
+# GsonConverterFactory
+@Override
+public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
+    Retrofit retrofit) {
+  TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
+  return new GsonResponseBodyConverter<>(gson, adapter);
+}
+
+# GsonResponseBodyConverter
+final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
+  private final Gson gson;
+  private final TypeAdapter<T> adapter;
+  GsonResponseBodyConverter(Gson gson, TypeAdapter<T> adapter) {
+    this.gson = gson;
+    this.adapter = adapter;
+  }
+  @Override public T convert(ResponseBody value) throws IOException {
     JsonReader jsonReader = gson.newJsonReader(value.charStream());
     try {
       return adapter.read(jsonReader);
@@ -485,11 +642,16 @@ R toResponse(ResponseBody body) throws IOException {
   }
 }
 ```
-OkHttpCall在这之后的代码就比较简单了，通过回调将转换后得响应数据发送出去即可。
+`responseBodyConverter`方法中用到的type参数就是之前我在CallAdapter中提到的`responseType`方法的返回值。生成adapter方法，用于`convert`方法使用。OkHttpCall在这之后的代码就比较简单了，通过回调将转换后得响应数据发送出去即可。
 
 ## 总结
 
-本文分析了Retrofit的执行流程，其实包含了Retrofit、ServiceMethod、OkHttpCall、CallAdapter、Converter等方面，希望阅读本文后可以让我们在使用Retrofit的同时，也能了解其内部的执行过程。如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
+本文分析了Retrofit的执行流程，其实包含了Retrofit、ServiceMethod、OkHttpCall、CallAdapter、Converter等方面，希望阅读本文后可以让我们在使用Retrofit的同时，也能了解其内部的执行过程。<br>
+
+[如果想看retrofit中其他一些代码的注释，请点击这里，如果其中发现不合适的描述，欢迎指出](https://github.com/Idtk/CodeDaily/tree/master/retrofit)
+
+<br>
+如果在阅读过程中，有任何疑问与问题，欢迎与我联系。<br>
 **博客:www.idtkm.com**<br>
 **GitHub:https://github.com/Idtk**<br>
 **微博:http://weibo.com/Idtk**<br>
