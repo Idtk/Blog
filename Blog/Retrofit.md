@@ -31,7 +31,7 @@ Call<List<Repo>> repos = service.listRepos("octocat");
 
 ## Retrofit的创建
 
-retrofit实例的创建，使用了[`builder`](#retrofit__build)模式，从下面的源码中可以看出。
+retrofit实例的创建，使用了<span id="retrofit__build">builder</span>模式，从下面的源码中可以看出。
 
 ```Java
 public static final class Builder {
@@ -267,7 +267,7 @@ if (Iterable.class.isAssignableFrom(rawParameterType)) {
   return new ParameterHandler.Query<>(name, converter, encoded);
 }
 ```
-在@Query中，将分成Collection、array、other三种情况处理参数，之后根据这些参数，调用ParameterHandler中的Query静态类，创建出一个ParameterHandler实例。这样循环直到解析了所有的参数注解，组合成为全局变量[`parameterHandlers`](#parameterHandlers)，之后构建请求时会用到。
+在@Query中，将分成Collection、array、other三种情况处理参数，之后根据这些参数，调用ParameterHandler中的Query静态类，创建出一个ParameterHandler实例。这样循环直到解析了所有的参数注解，组合成为全局变量<span id="parameterHandlers">parameterHandlers</span>，之后构建请求时会用到。
 
 ### OkHttpCall
 
