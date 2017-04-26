@@ -532,7 +532,9 @@ final class CallEnqueueObservable<T> extends Observable<Response<T>> {
 
 <br>
 再看看第二步，这里以`BodyObservable`为例子：
+
 ```Java
+
 final class BodyObservable<T> extends Observable<T> {
   private final Observable<Response<T>> upstream;
 
@@ -580,9 +582,10 @@ final class BodyObservable<T> extends Observable<T> {
     }
   }
 }
+
 ```
 
-`subscribeActual`方法在`subscribe`之后执行，自然responseObservable就订阅了BodyObserver，所以上面CallEnqueueObservable中的onResponse内，调用`observer.onNext`也就是`BodyObserver.onNext`,最后刚开始的观察着就收到了`response.body()`。
+代码中的subscribeActual方法在subscribe之后执行，自然responseObservable就订阅了BodyObserver，所以上面CallEnqueueObservable中的onResponse内，调用`observer.onNext`也就是`BodyObserver.onNext`,最后刚开始的观察着就收到了response.body()。<br>
 
 ### Converter
 
