@@ -531,6 +531,7 @@ final class CallEnqueueObservable<T> extends Observable<Response<T>> {
 * 执行了enqueue请求
 
 <br>
+
 再看看第二步，这里以`BodyObservable`为例子：
 
 ```Java
@@ -585,7 +586,7 @@ final class BodyObservable<T> extends Observable<T> {
 
 ```
 
-代码中的subscribeActual方法在subscribe之后执行，自然responseObservable就订阅了BodyObserver，所以上面CallEnqueueObservable中的onResponse内，调用`observer.onNext`也就是`BodyObserver.onNext`,最后刚开始的观察着就收到了response.body()。<br>
+代码中的`subscribeActual`方法在`subscribe`之后执行，自然`responseObservable`就订阅了`BodyObserver`，所以上面`CallEnqueueObservable`中的`CallCallback.onResponse`内，调用`observer.onNext`也就是`BodyObserver.onNext`,最后刚开始的观察着就收到了`response.body()`。<br>
 
 ### Converter
 
