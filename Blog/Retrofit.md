@@ -95,16 +95,16 @@ public <T> T create(final Class<T> service) {
   // 动态代理，啦啦啦
   return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[] { service },
       new InvocationHandler() {
-        // platform 可以分辨出你是在android，还是java8里面玩耍，又或者别的
+        // platform 可以分辨出你是在android，还是java8，又或者别的
         private final Platform platform = Platform.get();
         @Override public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
           // If the method is a method from Object then defer to normal invocation.
-          // 这里是个搞事情的invoke，Object方法都走这里，比如equals、toString、hashCode什么的
+          // 这里的invoke，Object方法都走这里，比如equals、toString、hashCode什么的
           if (method.getDeclaringClass() == Object.class) {
             return method.invoke(this, args);
           }
-          // 有时候java8会来玩玩，他会从这里跑掉
+          // java8默认方法，1.8的新特性
           if (platform.isDefaultMethod(method)) {
             return platform.invokeDefaultMethod(method, service, proxy, args);
           }
@@ -650,7 +650,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
 ## 总结
 
-本文分析了Retrofit的执行流程，其实包含了Retrofit、ServiceMethod、OkHttpCall、CallAdapter、Converter等方面，希望阅读本文后可以让我们在使用Retrofit的同时，也能了解其内部的执行过程。<br>
+本文分析了Retrofit的执行流程，其实包含了Retrofit、ServiceMethod、OkHttpCall、CallAdapter、Converter等方面。Retrofit的代码相对是比较少，也比较容易理解的，不过却是很好的架构实例。<br>
 
 [如果想看retrofit中其他一些代码的注释，请点击这里，如果其中发现不合适的描述，欢迎指出](https://github.com/Idtk/CodeDaily/tree/master/retrofit)<br>
 
