@@ -590,7 +590,7 @@ final class BodyObservable<T> extends Observable<T> {
 
 ### Converter
 
-现在回到khttpCall.enqueue方法中，在其中还有一句重要的代码没有看，那就是`response = parseResponse(rawResponse);`,我们来看看这其中做了什么。
+现在回到OkhttpCall.enqueue方法中，在其中还有一句重要的代码没有看，那就是`response = parseResponse(rawResponse);`,我们来看看这其中做了什么。
 
 ```Java
 Response<T> parseResponse(okhttp3.Response rawResponse) throws IOException
