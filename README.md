@@ -36,6 +36,12 @@
 
 ******
 
+## 动画
+
+* [属性动画连续输出值分析](https://github.com/Idtk/Blog/blob/master/Blog/F1、Property Animation.md)
+
+******
+
 ## 自定义NinePhotoView
 
 * [IKNinePhotoView](https://github.com/Idtk/Blog/blob/master/Blog/NinePhotoView.md)
