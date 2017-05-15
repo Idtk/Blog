@@ -36,9 +36,9 @@
 
 ******
 
-## 动画
+## 属性动画
 
-* [属性动画连续输出值分析](https://github.com/Idtk/Blog/blob/master/Blog/F1、Property Animation.md)
+* [属性动画连续输出值分析](https://github.com/Idtk/Blog/blob/master/Blog/F1%E3%80%81Property%20Animation.md)
 
 ******
 
