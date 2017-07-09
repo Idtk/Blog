@@ -1,4 +1,3 @@
-# 因一些个人的事情博客将会暂停一段时间，小伙伴们请见谅，希望处理完事情之后，我还能回到这里。
 
 # Blog-BackUp
 
@@ -22,6 +21,12 @@
 * [12、Android事件分发机制源码解析](https://github.com/Idtk/Blog/blob/master/Blog/12%E3%80%81TouchEventSource.md)
 * [13、ColorMatrix详解](https://github.com/Idtk/Blog/blob/master/Blog/13%E3%80%81ColorMatrix.md)
 * [14、Matrix原理](https://github.com/Idtk/Blog/blob/master/Blog/14%E3%80%81Matrix.md)
+
+******
+
+## Kotlin
+
+* [令人惊喜的Kotlin特性](https://github.com/Idtk/Blog/blob/master/Blog/Surprise%20Kotlin.md)
 
 ******
 
