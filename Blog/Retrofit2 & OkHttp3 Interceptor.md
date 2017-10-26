@@ -1,6 +1,6 @@
 # Retrofit2 + OkHttp3 配置及Interceptor原理
 
-前段时间在给公司的新app做一些基础模块的封装，把其中的一些基础配置，比如设置链接超时、Http Log Interceptor、Access Token Interceptor、Status Code Interceptor，以及Json转换、RxJava适配等设置做一下分享，再简单说说其拦截器原理。
+前段时间在给公司的新app做一些基础模块的封装，把Http模块中的一些基础配置，比如设置链接超时、Http Log Interceptor、Access Token Interceptor、Status Code Interceptor，以及Json转换、RxJava适配等设置做一下分享，再简单说说其拦截器原理。
 
 ## 一、基本配置
 
