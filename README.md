@@ -25,7 +25,7 @@
 * [RecyclerView缓存分析](https://github.com/Idtk/Blog/blob/master/Blog/RecyclerView.Recycler.md)
 * [Retrofit源码分析](https://github.com/Idtk/Blog/blob/master/Blog/Retrofit.md)
 * [令人惊喜的Kotlin特性](https://github.com/Idtk/Blog/blob/master/Blog/Surprise%20Kotlin.md)
-* [Retrofit2 + OkHttp3 配置及拦截器原理](https://github.com/Idtk/Blog/blob/master/Blog/Retrofit2%20&%20OkHttp3%20Interceptor.md)
+* [Retrofit2 + OkHttp3 配置及Interceptor原理](https://github.com/Idtk/Blog/blob/master/Blog/Retrofit2%20&%20OkHttp3%20Interceptor.md)
 
 ******
 
